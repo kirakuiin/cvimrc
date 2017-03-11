@@ -227,7 +227,7 @@ command! LoadPlugCfg source $HOME/.vim/plugin/PluginConfig.vim
 filetype off                  " required
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin('$VIM/vimfiles/bundle')
+call vundle#begin('$HOME/vimfiles/bundle')
 "call vundle#begin('~/some/path/here')
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
