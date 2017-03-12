@@ -147,7 +147,11 @@ set fileencoding=gb2312
 set termencoding=utf-8
 
 "设置字体
-set guifont=Monaco:h18
+if has('mac')
+    set guifont=Monaco:h18
+elseif has('win32')
+    set guifont=consolas:h14
+endif
 
 "具有三行上下光标
 set scrolloff=3
@@ -249,6 +253,7 @@ filetype plugin indent on    " required
 "end_Vundle
 "*****************************************************************************
 "自动加载
+LoadPlugCfg
 
 "Vundle插件配置
 "end_individual_mapping
