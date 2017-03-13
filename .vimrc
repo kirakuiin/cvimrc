@@ -254,6 +254,7 @@ filetype plugin indent on    " required
 "*****************************************************************************
 "自动加载
 LoadPlugCfg
+LoadUtilMod
 
 "Vundle插件配置
 "end_individual_mapping
