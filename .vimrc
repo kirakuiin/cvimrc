@@ -42,6 +42,7 @@ set expandtab
 
 "设定tab长度
 set tabstop=4
+set softtabstop=4
 
 "覆盖文件不备份
 set nobackup
@@ -51,6 +52,12 @@ set noundofile
 
 "不生成swap文件
 set noswapfile
+
+"设置每行最大文本数量
+set textwidth=80
+
+"设置文件格式
+set fileformat=unix
 
 "自动切换目录为当前文件目录
 set autochdir
