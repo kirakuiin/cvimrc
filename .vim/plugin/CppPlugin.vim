@@ -35,7 +35,7 @@ inoreabbrev <buffer> /** /**<cr>purpose :<cr><cr>param :<cr><cr>return :<cr><cr>
 inoreabbrev <buffer> gcb class %fname:h%<cr>{<cr><bs>public:<cr>%fname:h%();<cr>virtual ~%fname:h%();<cr><cr>%fname:h%(const %fname:h%&);<cr><cr>%fname:h%& operator=(const %fname:h%&);<cr><cr>private:<cr>};
 
 "加载eisoo_make.vim命令
-command! LoadEisoo source $VIMRUNTIME\..\plugin\eisoo_make.vim
+command! LoadEisoo source $HOME\.vim\plugin\eisoo_make.vim
 
 "条件编译信息生成函数
 function! CppPlugin#GenerateDef()
