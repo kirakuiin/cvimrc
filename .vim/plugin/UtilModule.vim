@@ -48,7 +48,7 @@ function! UtilModule#SubstitudeFlag()
 	silent! execute '%s/%cpp_trace%/' . g:um_cpptrace . '/g'
 
 	"消除^M字符
-	execute '%s/\r//g'
+	silent! execute '%s/\r//g'
 endfunction
 
 "重新创建一个GVIM来打开此文件
