@@ -19,6 +19,12 @@ nnoremap <buffer><localleader># :call CppPlugin#GenerateDef()<cr>
 "添加头文件框架
 nnoremap <buffer><localleader>mf :call CppPlugin#MakeHeaderFrame()<cr>
 
+"使用gcc编译文件
+nnoremap <buffer><F7> :w<cr>:AsyncRun g++ -std=c++11 -g -Wall % -o %<<cr>
+
+"执行文件
+nnoremap <buffer><F5> :w<cr>:AsyncRun %<<cr>
+
 "生成头文件注释
 inoreabbrev <buffer> ghc /***************************************************************************************************<cr><backspace><backspace><backspace>%fname%:<cr><tab>Copyright (c) Eisoo Software, Inc.(2004 - 2016), All rights reserved.<cr>Purpose:<cr><cr>Author:<cr><tab>wang.zhuowei@eisoo.com<cr><cr><backspace><backspace>Creating Time:<cr><tab>%ctime%<cr><backspace><bs><bs><bs>***************************************************************************************************/
 
@@ -33,9 +39,6 @@ inoreabbrev <buffer> /** /**<cr>purpose :<cr><cr>param :<cr><cr>return :<cr><cr>
 
 "生成类文件
 inoreabbrev <buffer> gcb class %fname:h%<cr>{<cr><bs>public:<cr>%fname:h%();<cr>virtual ~%fname:h%();<cr><cr>%fname:h%(const %fname:h%&);<cr><cr>%fname:h%& operator=(const %fname:h%&);<cr><cr>private:<cr>};
-
-"加载eisoo_make.vim命令
-command! LoadEisoo source $HOME\.vim\plugin\eisoo_make.vim
 
 "条件编译信息生成函数
 function! CppPlugin#GenerateDef()
@@ -119,7 +122,7 @@ function! CppPlugin#GetFuncPrototype(funcdef)
 endfunction
 
 " 移除virtual和static关键字, 并给函数原型加上域操作符
-" 函数将转化为 return_type#class::func(argu)
+" 函数将转化为 return_type#class::func(argv)
 function! CppPlugin#ChangeFuncDef(funcdef)
 	let remove_list		= ['static ', 'virtual ', 'inline ', ' = 0']
 	let result 			= a:funcdef

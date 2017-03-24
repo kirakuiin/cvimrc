@@ -214,11 +214,20 @@ augroup wzws_autocmd
 "加载c++配置
 	autocmd FileType cpp source $HOME/.vim/plugin/CppPlugin.vim
 
+"加载python配置
+    autocmd Filetype python source $HOME/.vim/plugin/PythonPlugin.vim
+
 "加载scheme配置
 	autocmd FileType scheme source $HOME/.vim/plugin/SchemePlugin.vim
 
 "加载AsyncRun
 	source $HOME/.vim/plugin/asyncrun.vim
+
+"加载通用模块
+    source $HOME/.vim/plugin/UtilModule.vim
+
+"加载配置文件
+    source $HOME/.vim/plugin/PluginConfig.vim
 
 "组结束
 augroup END
@@ -229,8 +238,6 @@ augroup END
 "custom command
 "
 command! LoadCalcMod source $HOME/.vim/plugin/CalcModule.vim
-command! LoadUtilMod source $HOME/.vim/plugin/UtilModule.vim
-command! LoadPlugCfg source $HOME/.vim/plugin/PluginConfig.vim
 
 "end_custom-command
 "******************************************************************************
@@ -259,10 +266,3 @@ call vundle#end()            " required
 filetype plugin indent on    " required
 "end_Vundle
 "*****************************************************************************
-"自动加载
-LoadPlugCfg
-LoadUtilMod
-
-"Vundle插件配置
-"end_individual_mapping
-"******************************************************************************

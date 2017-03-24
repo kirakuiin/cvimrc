@@ -15,11 +15,20 @@ nnoremap <leader>w :<c-u>execute ":match Error " . '/\v +$/'<cr>
 "清除高亮空格
 nnoremap <leader>W :<c-u>execute ":match none"<cr>
 
+nnoremap <F3> :call asyncrun#quickfix_toggle(12)<cr>
+
 "映射cnext
 nnoremap <leader>> :cnext<cr>
 
 "映射cprevious
 nnoremap <leader>< :cprevious<cr>
+
+"映射grep操作
+nnoremap <leader>g :set operatorfunc=<SID>GrepOperator<cr>g@
+vnoremap <leader>g :<c-u>call <SID>GrepOperator(visualmode())<cr>
+
+"grep 搜索路径
+let g:findpath = "."
 
 "替换标志为相应实体
 function! UtilModule#SubstitudeFlag()
@@ -55,4 +64,35 @@ endfunction
 function! UtilModule#OpenNewBufferForCurrentFile()
 	let fnamestr = expand("%")
 	silent! execute '!start gvim ' . fnamestr
+endfunction
+
+"使用系统grep来查找指定字符串
+function! s:GrepOperator(type)
+	let saved_unnamed_register = @"
+
+    if has('win32')
+        let l:slash = "\\"
+    else
+        let l:slash = "\/"
+    endif
+
+	if a:type ==# 'v'
+		normal! `<v`>y
+	elseif a:type ==# 'char'
+		normal! `[v`]y
+	else
+		return
+	endif
+
+    let g:findpath = getcwd() . l:slash . g:findpath
+
+    if (has("win32"))
+        silent execute "grep! /S " . shellescape(@") . " " . g:findpath . l:slash . "*"
+    else
+        silent execute "grep! -R " . shellescape(@") . " " . g:findpath . l:slash . "*"
+    endif
+
+	copen
+
+	let @" = saved_unnamed_register
 endfunction
