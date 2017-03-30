@@ -41,7 +41,7 @@ set ruler
 set expandtab
 
 "设定tab长度
-set tabstop=4
+set tabstop=8
 set softtabstop=4
 
 "覆盖文件不备份
