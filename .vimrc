@@ -16,9 +16,6 @@
 "******************************************************************************
 "Initialization
 
-"加载grep插件
-"source $VIMRUNTIME\..\plugin\*.vim
-
 "关闭兼容模式
 set nocompatible
 
@@ -41,7 +38,7 @@ set ruler
 set expandtab
 
 "设定tab长度
-set tabstop=8
+set tabstop=4
 set softtabstop=4
 
 "覆盖文件不备份
@@ -126,15 +123,15 @@ set ignorecase
 set shiftwidth=4
 
 "设置状态栏
-set statusline=%f 	 " 文件路径
-set statusline+=%=	 " 切换到右侧模式 
-set statusline+=%B	 " 显示当前光标编码值
-set statusline+=%y   " 显示文件类型
-set statusline+=%c   " 显示列号
-set statusline+=%l	 " 当前行数
-set statusline+=/    " 分隔符
-set statusline+=%L   " 总行数
-set statusline+=%P   " 总百分比
+set statusline=%f       " 文件路径
+set statusline+=%=      " 切换到右侧模式 
+set statusline+=%B      " 显示当前光标编码值
+set statusline+=%y      " 显示文件类型
+set statusline+=%c      " 显示列号
+set statusline+=%l      " 当前行数
+set statusline+=/       " 分隔符
+set statusline+=%L      " 总行数
+set statusline+=%P      " 总百分比
 set statusline=%<%f%h%m%r%y%=%b\ 0x%B\ \ %l/%L,%c\ %P
 
 au BufWinEnter * let w:m2=matchadd('Underlined', '\%>' . 80 . 'v.\+', -1)
