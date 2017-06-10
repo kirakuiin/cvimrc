@@ -23,7 +23,11 @@ nnoremap <buffer><localleader>mf :call CppPlugin#MakeHeaderFrame()<cr>
 nnoremap <buffer><F7> :w<cr>:AsyncRun g++ -std=c++11 -g -Wall % -o %<<cr>
 
 "执行文件
-nnoremap <buffer><F5> :w<cr>:AsyncRun %<<cr>
+if (has('win32'))
+  nnoremap <buffer><F5> :w<cr>:AsyncRun %<<cr>
+else
+  nnoremap <buffer><F5> :w<cr>:AsyncRun ./%<<cr>
+endif
 
 "生成头文件注释
 inoreabbrev <buffer> ghc /***************************************************************************************************<cr><backspace><backspace><backspace>%fname%:<cr><tab>Copyright (c) Eisoo Software, Inc.(2004 - 2016), All rights reserved.<cr>Purpose:<cr><cr>Author:<cr><tab>wang.zhuowei@eisoo.com<cr><cr><backspace><backspace>Creating Time:<cr><tab>%ctime%<cr><backspace><bs><bs><bs>***************************************************************************************************/
