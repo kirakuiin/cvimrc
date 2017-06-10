@@ -1,5 +1,7 @@
 "while c++ file open. loading following map and func
 
+"引入python模块
+
 "自动补全各种符号
 inoremap ( ()<Left>
 inoremap " ""<Left>

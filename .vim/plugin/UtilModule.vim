@@ -84,12 +84,12 @@ function! s:GrepOperator(type)
 		return
 	endif
 
-    let g:findpath = getcwd() . l:slash . g:findpath
+    let findpath = getcwd() . l:slash . g:findpath
 
     if (has("win32"))
-        silent execute "grep! /S " . shellescape(@") . " " . g:findpath . l:slash . "*"
+        silent execute "grep! /S " . shellescape(@") . " " . findpath . l:slash . "*"
     else
-        silent execute "grep! -R " . shellescape(@") . " " . g:findpath . l:slash . "*"
+        silent execute "grep! -R " . shellescape(@") . " " . findpath . l:slash . "*"
     endif
 
 	copen
