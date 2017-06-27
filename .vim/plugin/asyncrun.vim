@@ -773,7 +773,7 @@ function! s:ScriptWrite(command, pause)
 	return l:tmp
 endfunc
 "}}}
-" asyncrun - run{{{
+" asyncrun - run{{{1
 function! asyncrun#run(bang, opts, args)
 	let l:macros = {}
 	let l:macros['VIM_FILEPATH'] = expand("%:p")
