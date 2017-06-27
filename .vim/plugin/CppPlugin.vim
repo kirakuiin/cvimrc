@@ -1,7 +1,5 @@
 "while c++ file open. loading following map and func
-
-"引入python模块
-
+"映射绑定{{{1
 "自动补全各种符号
 inoremap ( ()<Left>
 inoremap " ""<Left>
@@ -30,7 +28,8 @@ if (has('win32'))
 else
   nnoremap <buffer><F5> :w<cr>:AsyncRun ./%<<cr>
 endif
-
+"}}}
+"缩写设置{{{1
 "生成头文件注释
 inoreabbrev <buffer> ghc /***************************************************************************************************<cr><backspace><backspace><backspace>%fname%:<cr><tab>Copyright (c) Eisoo Software, Inc.(2004 - 2016), All rights reserved.<cr>Purpose:<cr><cr>Author:<cr><tab>wang.zhuowei@eisoo.com<cr><cr><backspace><backspace>Creating Time:<cr><tab>%ctime%<cr><bs>***************************************************************************************************/
 
@@ -45,8 +44,9 @@ inoreabbrev <buffer> /** /**<cr>purpose :<cr><cr>param :<cr><cr>return :<cr><cr>
 
 "生成类文件
 inoreabbrev <buffer> gcb class %fname:h%<cr>{<cr><bs>public:<cr>%fname:h%();<cr>virtual ~%fname:h%();<cr><cr>%fname:h%(const %fname:h%&);<cr><cr>%fname:h%& operator=(const %fname:h%&);<cr><cr>private:<cr>};
-
-"条件编译信息生成函数
+"}}}
+"函数定义{{{1
+"条件编译信息生成函数{{{2
 function! CppPlugin#GenerateDef()
 	let wordList = split(expand("%s"), '\v\.') 
 	let prefix = split(wordList[0], '\v[A-Z]\zs')
@@ -74,8 +74,8 @@ function! CppPlugin#GenerateDef()
 	execute 'set nohlsearch'
 
 endfunction
-
-" 在一个头文件里创建通用框架
+"}}}
+" 在一个头文件里创建通用框架{{{2
 function! CppPlugin#MakeHeaderFrame()
 	let filename = split(expand("%s"), '\v\.')
 
@@ -104,8 +104,8 @@ function! CppPlugin#MakeHeaderFrame()
 	endif
 
 endfunction
-
-" 去除字符串前后空格符
+"}}}
+" 去除字符串前后空格符{{{2
 function! CppPlugin#Trim(str)
 
 	let bindex = match(a:str, '\v\S.*$')
@@ -126,8 +126,8 @@ function! CppPlugin#GetFuncPrototype(funcdef)
 		return a:funcdef[index:-1]
 	endif
 endfunction
-
-" 移除virtual和static关键字, 并给函数原型加上域操作符
+"}}}
+" 移除virtual和static关键字, 并给函数原型加上域操作符{{{2
 " 函数将转化为 return_type#class::func(argv)
 function! CppPlugin#ChangeFuncDef(funcdef)
 	let remove_list		= ['static ', 'virtual ', 'inline ', ' = 0']
@@ -155,10 +155,8 @@ function! CppPlugin#ChangeFuncDef(funcdef)
 
 	return result
 endfunction
-
-
-" 将h文件里声明的函数在同名cpp文件中定义, 已经存在的定义不会被覆盖
-" 注意: 此函数必须要在头文件里使用
+"}}}
+" 将h文件里声明的函数在同名cpp文件中定义, 已经存在的定义不会被覆盖{{{2
 function! CppPlugin#WriteFuncDef()
 	let bufname 		= split(expand("%s"), '\v\.')[0] . ".cpp"
 	let file_content 	= getline(1, "$")
@@ -205,3 +203,5 @@ function! CppPlugin#WriteFuncDef()
 
 	call writefile(new_content, bufname, "a")
 endfunction
+"}}}
+"}}}

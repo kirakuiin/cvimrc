@@ -1,5 +1,5 @@
-"utilmod have some useful op
-
+"utilmod have some useful operation
+"映射绑定{{{1
 "替换字符常量为相应的值
 nnoremap <leader>s :call UtilModule#SubstitudeFlag()<cr>
 
@@ -26,11 +26,12 @@ nnoremap <leader>< :cprevious<cr>
 "映射grep操作
 nnoremap <leader>g :set operatorfunc=<SID>GrepOperator<cr>g@
 vnoremap <leader>g :<c-u>call <SID>GrepOperator(visualmode())<cr>
-
-"grep 搜索路径
-let g:findpath = "."
-
-"替换标志为相应实体
+"}}}
+"自定义命令{{{1
+command! -nargs=0 InstallVim :call UtilModule#InstallVim()
+"}}}
+"函数定义{{{1
+"替换标志为相应实体{{{2
 function! UtilModule#SubstitudeFlag()
 
 	" 全局配置
@@ -59,14 +60,14 @@ function! UtilModule#SubstitudeFlag()
 	"消除^M字符
 	silent! execute '%s/\r//g'
 endfunction
-
-"重新创建一个GVIM来打开此文件
+"}}}
+"重新创建一个GVIM来打开此文件{{{2
 function! UtilModule#OpenNewBufferForCurrentFile()
 	let fnamestr = expand("%")
 	silent! execute '!start gvim ' . fnamestr
 endfunction
-
-"使用系统grep来查找指定字符串
+"}}}
+"使用系统grep来查找指定字符串{{{2
 function! s:GrepOperator(type)
 	let saved_unnamed_register = @"
 
@@ -84,7 +85,7 @@ function! s:GrepOperator(type)
 		return
 	endif
 
-    let findpath = getcwd() . l:slash . g:findpath
+    let findpath = getcwd()
 
     if (has("win32"))
         silent execute "grep! /S " . shellescape(@") . " " . findpath . l:slash . "*"
@@ -96,3 +97,16 @@ function! s:GrepOperator(type)
 
 	let @" = saved_unnamed_register
 endfunction
+"}}}
+"第一次从github上下载之后，安装vim配置的函数{{{2
+function! UtilModule#InstallVim()
+    if has('win32')
+        silent! execute '!copy /Y ..\colors\molokai.vim ' . '"' . expand($VIMRUNTIME) . '\colors' . '"'
+    else
+        silent! execute '!cp -f ../colors/molokai.vim ' . expand($VIMRUNTIME) . '/colors'
+    endif
+
+    PluginInstall
+endfunction
+"}}}
+"}}}

@@ -1,4 +1,4 @@
-" asyncrun.vim - Run shell commands in background and output to quickfix
+" asyncrun.vim - Run shell commands in background and output to quickfix{{{1
 "
 " Maintainer: skywind3000 (at) gmail.com
 " Homepage: http://www.vim.org/scripts/script.php?script_id=5431
@@ -83,11 +83,8 @@
 "     see the outputs in realtime, you need open quickfix window at 
 "     first by using :copen (see :help copen/cclose). Or use
 "     ':call asyncrun#quickfix_toggle(8)' to open/close it rapidly.
-"
-
-"----------------------------------------------------------------------
-"- Global Settings & Variables
-"----------------------------------------------------------------------
+"}}}
+"- Global Settings & Variables{{{1
 if !exists('g:asyncrun_exit')
 	let g:asyncrun_exit = ''
 endif
@@ -151,12 +148,8 @@ endif
 if !exists('g:asyncrun_shellflag')
 	let g:asyncrun_shellflag = ''
 endif
-
-
-
-"----------------------------------------------------------------------
-"- Internal Functions
-"----------------------------------------------------------------------
+"}}}
+"- Internal Functions{{{1
 
 " error message
 function! s:ErrorMsg(msg)
@@ -199,11 +192,8 @@ elseif has('nvim')
 	let s:asyncrun_support = 1
 	let g:asyncrun_support = 1
 endif
-
-
-"----------------------------------------------------------------------
-"- build in background
-"----------------------------------------------------------------------
+"}}}
+"- build in background{{{1
 let s:async_nvim = has('nvim')? 1 : 0
 let s:async_info = { 'text':"", 'post':'', 'postsave':'' }
 let s:async_output = {}
@@ -516,11 +506,8 @@ function! s:AsyncRun_Job_NeoVim(job_id, data, event)
 		let s:async_state = or(s:async_state, 6)
 	endif
 endfunc
-
-
-"----------------------------------------------------------------------
-" AsyncRun Interface
-"----------------------------------------------------------------------
+"}}}
+" AsyncRun Interface{{{1
 
 " start background build
 function! s:AsyncRun_Job_Start(cmd)
@@ -711,12 +698,8 @@ function! s:AsyncRun_Job_Status()
 		return 'none'
 	endif
 endfunc
-
-
-
-"----------------------------------------------------------------------
-" Utilities
-"----------------------------------------------------------------------
+"}}}
+" Utilities{{{1
 
 " Replace string
 function! s:StringReplace(text, old, new)
@@ -789,11 +772,8 @@ function! s:ScriptWrite(command, pause)
 	endif
 	return l:tmp
 endfunc
-
-
-"----------------------------------------------------------------------
-" asyncrun - run
-"----------------------------------------------------------------------
+"}}}
+" asyncrun - run{{{
 function! asyncrun#run(bang, opts, args)
 	let l:macros = {}
 	let l:macros['VIM_FILEPATH'] = expand("%:p")
@@ -1015,11 +995,8 @@ function! asyncrun#run(bang, opts, args)
 
 	return l:retval
 endfunc
-
-
-"----------------------------------------------------------------------
-" asyncrun - stop
-"----------------------------------------------------------------------
+"}}}
+" asyncrun - stop{{{1
 function! asyncrun#stop(bang)
 	if a:bang == ''
 		return s:AsyncRun_Job_Stop('term')
@@ -1027,39 +1004,24 @@ function! asyncrun#stop(bang)
 		return s:AsyncRun_Job_Stop('kill')
 	endif
 endfunc
-
-
-
-"----------------------------------------------------------------------
-" asyncrun - status
-"----------------------------------------------------------------------
+"}}}
+" asyncrun - status{{{1
 function! asyncrun#status()
 	return s:AsyncRun_Job_Status()
 endfunc
-
-
-
-"----------------------------------------------------------------------
-" asyncrun -version
-"----------------------------------------------------------------------
+"}}}
+" asyncrun -version{{{1
 function! asyncrun#version()
 	return '1.3.0'
 endfunc
-
-
-"----------------------------------------------------------------------
-" Commands
-"----------------------------------------------------------------------
+"}}}
+" Commands{{{1
 command! -bang -nargs=+ -complete=file AsyncRun 
 	\ call asyncrun#run('<bang>', '', <q-args>)
 
 command! -bang -nargs=0 AsyncStop call asyncrun#stop('<bang>')
-
-
-
-"----------------------------------------------------------------------
-" Fast command to toggle quickfix
-"----------------------------------------------------------------------
+"}}}
+" Fast command to toggle quickfix{{{1
 function! asyncrun#quickfix_toggle(size, ...)
 	let l:mode = (a:0 == 0)? 2 : (a:1)
 	function! s:WindowCheck(mode)
@@ -1100,7 +1062,4 @@ function! asyncrun#quickfix_toggle(size, ...)
 	noautocmd windo call s:WindowCheck(1)
 	noautocmd silent! exec ''.l:winnr.'wincmd w'
 endfunc
-
-
-
-
+"}}}

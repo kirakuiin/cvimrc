@@ -1,5 +1,5 @@
 "while python file open. loading following map and func
-
+"映射绑定{{{
 "自动补全各种符号
 inoremap ( ()<Left>
 inoremap " ""<Left>
@@ -15,3 +15,4 @@ vnoremap <buffer><localleader>* <esc>`<i"""<esc>`>a"""<esc>
 
 "执行文件
 nnoremap <buffer><F5> :w<cr>:AsyncRun python %<cr>
+"}}}

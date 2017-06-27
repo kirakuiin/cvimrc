@@ -1,5 +1,5 @@
-"*****************************************************************************
-"NERD-Tree设置
+"NERD-Tree设置 {{{1
+"特性设置 {{{2
 "显示增强
 let NERDChristmasTree=1
 "自动调整焦点
@@ -22,25 +22,52 @@ let NERDTreeWinPos='left'
 let NERDTreeWinSize=38
 "不显示'Bookmarks' label 'Press ? for help'
 let NERDTreeMinimalUI=1
-"快捷键
-nnoremap <silent> <F2> :NERDTreeToggle<CR>
-"当打开vim且没有文件时自动打开NERDTree
-"autocmd vimenter * if !argc() | NERDTree | endif
-"只剩 NERDTree时自动关闭
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 "显示书签
 let NERDTreeShowBookmarks=1
 " 设置当文件被改动时自动载入
 set autoread
-"end_NERD-Tree
-"*****************************************************************************
-"Vundle_help
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
-"
-" see :h vundle for more details or wiki for FAQ
-" Put your non-Plugin stuff after this line
-" end_Vundle_help
-"*****************************************************************************
+"}}}
+"映射绑定 {{{2
+nnoremap <silent> <F2> :NERDTreeToggle<CR>
+"}}}
+"自动加载 {{{2
+"只剩 NERDTree时自动关闭
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+"}}}
+"}}}
+"miniBufExplore设置 {{{1
+"特性设置 {{{2
+let g:miniBufExplMapWindowNavVim = 1   
+let g:miniBufExplMapWindowNavArrows = 1   
+let g:miniBufExplMapCTabSwitchBufs = 1   
+let g:miniBufExplModSelTarget = 1  
+let g:miniBufExplMoreThanOne=0
+"}}}
+"映射绑定 {{{2
+map <PageUp> :MBEbp<CR>
+map <PageDown> :MBEbn<CR>
+" }}}
+"颜色设置{{{
+hi MBENormal               guifg=#808080 guibg=fg
+hi MBEChanged              guifg=#CD5907 guibg=fg
+hi MBEVisibleNormal        guifg=#5DC2D6 guibg=fg
+hi MBEVisibleChanged       guifg=#F1266F guibg=fg
+hi MBEVisibleActiveNormal  guifg=#A6DB29 guibg=fg
+hi MBEVisibleActiveChanged guifg=#F1266F guibg=fg 
+"}}}
+"}}}
+"tarbar设置{{{1
+"特性设置{{{2
+"ctags 程序路径
+let g:tarbar_ctags_bin='ctags'
+"窗口宽度
+let g:tarbar_width=30
+"}}}
+"映射绑定{{{2
+nnoremap <F4> :Tagbar<cr>
+"}}}
+"自动加载{{{2
+"当时c或者cpp文件时自动打开
+"autocmd BufReadPost *.cpp,*.c,*.h,*.hpp,*.cc,*.cxx call tagbar#autoopen()
+"}}}
+"}}}

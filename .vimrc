@@ -1,244 +1,221 @@
-"******************************************************************************
-"description:
-"    wangzhuowei's vimrc files
+"wangzhuowei's vimrc files{{{1
 "
 "author:
 "    wangzhuowe@eisoo.com
 "
 "time:
 "    2016-8-2
-"******************************************************************************
-"Source other module
-"source $VIMRUNTIME/mswin.vim
-"behave mswin
-
-"end_Source
-"******************************************************************************
-"Initialization
-
-"å…³é—­å…¼å®¹æ¨¡å¼
+"}}}
+"ÌØĞÔÉèÖÃ{{{1
+"¹Ø±Õ¼æÈİÄ£Ê½
 set nocompatible
 
-"è‡ªåŠ¨è¯­æ³•é«˜äº®
+"×Ô¶¯Óï·¨¸ßÁÁ
 syntax on
 
-"è®¾å®šé…è‰²æ–¹æ¡ˆ
+"Éè¶¨ÅäÉ«·½°¸
 colorscheme molokai
 
-"æ˜¾ç¤ºè¡Œå·
+"ÏÔÊ¾ĞĞºÅ
 set number
 
-"çªå‡ºæ˜¾ç¤ºå½“å‰è¡Œ
+"Í»³öÏÔÊ¾µ±Ç°ĞĞ
 set cursorline
 	
-"æ‰“å¼€çŠ¶æ€æ æ ‡å°º
+"´ò¿ª×´Ì¬À¸±ê³ß
 set ruler
 
-"ç”¨ç©ºæ ¼æ›¿æ¢tab
+"ÓÃ¿Õ¸ñÌæ»»tab
 set expandtab
 
-"è®¾å®štabé•¿åº¦
+"Éè¶¨tab³¤¶È
 set tabstop=4
 set softtabstop=4
 
-"è¦†ç›–æ–‡ä»¶ä¸å¤‡ä»½
+"¸²¸ÇÎÄ¼ş²»±¸·İ
 set nobackup
 
-"ä¸ç”Ÿæˆundoæ–‡ä»¶
+"²»Éú³ÉundoÎÄ¼ş
 set noundofile
 
-"ä¸ç”Ÿæˆswapæ–‡ä»¶
+"²»Éú³ÉswapÎÄ¼ş
 set noswapfile
 
-"è®¾ç½®æ¯è¡Œæœ€å¤§æ–‡æœ¬æ•°é‡
+"ÉèÖÃÃ¿ĞĞ×î´óÎÄ±¾ÊıÁ¿
 set textwidth=80
 
-"è®¾ç½®æ–‡ä»¶æ ¼å¼
+"ÉèÖÃÎÄ¼ş¸ñÊ½
 set fileformat=unix
 
-"è‡ªåŠ¨åˆ‡æ¢ç›®å½•ä¸ºå½“å‰æ–‡ä»¶ç›®å½•
+"×Ô¶¯ÇĞ»»Ä¿Â¼Îªµ±Ç°ÎÄ¼şÄ¿Â¼
 set autochdir
 
-"è®¾ç½®è‡ªåŠ¨å¯¹é½
+"ÉèÖÃ×Ô¶¯¶ÔÆë
 set autoindent
 
-"è®¾ç½®å¤‡ä»½è¡Œä¸ºä¸ºè¦†ç›–
+"ÉèÖÃ±¸·İĞĞÎªÎª¸²¸Ç
 set backupcopy=yes
 
-"åŠ¨æ€æ˜¾ç¤ºæœç´¢å†…å®¹
+"¶¯Ì¬ÏÔÊ¾ËÑË÷ÄÚÈİ
 set incsearch
 
-"é«˜äº®è¢«æœç´¢æ–‡æœ¬
+"¸ßÁÁ±»ËÑË÷ÎÄ±¾
 set hlsearch
 
-"å…³é—­é”™è¯¯ä¿¡æ¯å“é“ƒ
+"¹Ø±Õ´íÎóĞÅÏ¢ÏìÁå
 set noerrorbells
 
-"æ’å…¥æ‹¬å·æ˜¯çŸ­æš‚è°ƒåˆ°è¢«åŒ¹é…æ‹¬å·
+"²åÈëÀ¨ºÅÊÇ¶ÌÔİµ÷µ½±»Æ¥ÅäÀ¨ºÅ
 set showmatch
 
-"è·³è¿‡å»çš„æ—¶é—´
+"Ìø¹ıÈ¥µÄÊ±¼ä
 set matchtime=5
 
-"è®¾ç½®é­”æœ¯
+"ÉèÖÃÄ§Êõ
 set magic
 
-"å¼€å¯æ™ºèƒ½ç¼©è¿›
+"¿ªÆôÖÇÄÜËõ½ø
 set smartindent
 
-"éæ’å…¥çŠ¶æ€ä¸‹æ— æ³•ç”¨æ— æ³•åˆ é™¤å›è½¦ç¬¦
+"·Ç²åÈë×´Ì¬ÏÂÎŞ·¨ÓÃÎŞ·¨É¾³ı»Ø³µ·û
 set backspace=indent,eol,start
 
-"å¼€å§‹æŠ˜å 
+"¿ªÊ¼ÕÛµş
 set foldenable
 
-"è®¾ç½®è¯­æ³•æŠ˜å 
+"ÉèÖÃÓï·¨ÕÛµş
 set foldmethod=manual
 
-"è®¾ç½®æŠ˜å å®½åº¦
+"ÉèÖÃÕÛµş¿í¶È
 set foldcolumn=0
 
-"è®¾ç½®æŠ˜å å±‚æ•°
+"ÉèÖÃÕÛµş²ãÊı
 setlocal foldlevel=1 
 
-"è®¾ç½®ä¸ºè‡ªåŠ¨å…³é—­æŠ˜å 
+"ÉèÖÃÎª×Ô¶¯¹Ø±ÕÕÛµş
 set foldclose=all
 
-"è®¾ç½®å¯åŠ¨çª—å£å¤§å°
-"set lines=30 columns=80
-
-"ä½¿å¾—çŠ¶æ€æ å’Œå‘½ä»¤è¡Œåˆ†å¼€    
+"Ê¹µÃ×´Ì¬À¸ºÍÃüÁîĞĞ·Ö¿ª    
 set laststatus=2
 
-"å»æ‰èœå•
+"È¥µô²Ëµ¥
 set go=
 
-"è®¾ç½®cé£æ ¼ç¼©è¿›
+"ÉèÖÃc·ç¸ñËõ½ø
 set cindent
 
-"å¿½ç•¥å‘½ä»¤å¤§å°å†™
+"ºöÂÔÃüÁî´óĞ¡Ğ´
 set ignorecase
 
-"è®¾ç½®æ¯ä¸€çº§ç¼©è¿›é•¿åº¦
+"ÉèÖÃÃ¿Ò»¼¶Ëõ½ø³¤¶È
 set shiftwidth=4
 
-"è®¾ç½®çŠ¶æ€æ 
-set statusline=%f       " æ–‡ä»¶è·¯å¾„
-set statusline+=%=      " åˆ‡æ¢åˆ°å³ä¾§æ¨¡å¼ 
-set statusline+=%B      " æ˜¾ç¤ºå½“å‰å…‰æ ‡ç¼–ç å€¼
-set statusline+=%y      " æ˜¾ç¤ºæ–‡ä»¶ç±»å‹
-set statusline+=%c      " æ˜¾ç¤ºåˆ—å·
-set statusline+=%l      " å½“å‰è¡Œæ•°
-set statusline+=/       " åˆ†éš”ç¬¦
-set statusline+=%L      " æ€»è¡Œæ•°
-set statusline+=%P      " æ€»ç™¾åˆ†æ¯”
+"ÉèÖÃ×´Ì¬À¸
 set statusline=%<%f%h%m%r%y%=%b\ 0x%B\ \ %l/%L,%c\ %P
 
-au BufWinEnter * let w:m2=matchadd('Underlined', '\%>' . 80 . 'v.\+', -1)
-
-"å°†å‰ªç²˜æ¿è®¾ç½®ä¸ºunnamedå¯„å­˜å™¨
+"½«¼ôÕ³°åÉèÖÃÎªunnamed¼Ä´æÆ÷
 set clipboard=unnamed
 
-"GVIMå…¨å±åŒ–
+"GVIMÈ«ÆÁ»¯
 if has('gui_running') && has("win32")
     au GUIEnter * simalt ~x
 endif
 
-"è®¾ç½®ç¼–ç æ ¼å¼
+"ÉèÖÃ±àÂë¸ñÊ½
 set encoding=utf-8
 set fileencodings=ucs-bom,utf-8,cp936
 set fileencoding=gb2312
 set termencoding=utf-8
 
-"è®¾ç½®å­—ä½“
+"ÉèÖÃ×ÖÌå
 if has('mac')
     set guifont=Monaco:h18
 elseif has('win32')
     set guifont=consolas:h14
 endif
 
-"å…·æœ‰ä¸‰è¡Œä¸Šä¸‹å…‰æ ‡
+"¾ßÓĞÈıĞĞÉÏÏÂ¹â±ê
 set scrolloff=3
-"end_Initialization
-"******************************************************************************
-"individual_mapping
 
-"è®¾ç½®learderé”®
+"ÉèÖÃÆô¶¯´°¿Ú´óĞ¡
+"set lines=30 columns=80
+"}}}
+"Ó³Éä°ó¶¨{{{1
+"ÉèÖÃlearder¼ü
 let mapleader = ","
 
-"è®¾ç½®localleader
+"ÉèÖÃlocalleader
 let maplocalleader = "\\"
 
-"è®¾ç½®æ‰“å¼€é…ç½®æ–‡ä»¶å¿«æ·é”®
+"ÉèÖÃ´ò¿ªÅäÖÃÎÄ¼ş¿ì½İ¼ü
 nnoremap <leader>ev :vsplit $MYVIMRC<cr>
 
-"å­—ç¬¦æœç´¢æ—¶è‡ªåŠ¨åŠ å…¥\vå‚æ•°
+"×Ö·ûËÑË÷Ê±×Ô¶¯¼ÓÈë\v²ÎÊı
 nnoremap / /\v
 nnoremap ? ?\v
 
 nnoremap <leader>/ :execute "normal! /\\v" . expand(@*). "\r"<cr>
 
-"å»é™¤æœç´¢é«˜äº®
+"È¥³ıËÑË÷¸ßÁÁ
 nnoremap <leader>nh :nohlsearch<cr>
 
-"ä½¿vimrcè®¾ç½®ä½œä¸ºè„šæœ¬ç«‹å³æ‰§è¡Œ
+"Ê¹vimrcÉèÖÃ×÷Îª½Å±¾Á¢¼´Ö´ĞĞ
 nnoremap <leader>sv :source $MYVIMRC<cr>
 
-"ç»™å•è¯åŠ ä¸Šå•å¼•å·
+"¸øµ¥´Ê¼ÓÉÏµ¥ÒıºÅ
 nnoremap <leader>' viw<esc>a'<esc>hbi'<esc>lbl<cr>
 
-"å†æ’å…¥æ¨¡å¼ä¸­ç”¨jkå–ä»£<esc>
+"ÔÙ²åÈëÄ£Ê½ÖĞÓÃjkÈ¡´ú<esc>
 inoremap jk <esc>
 
-"å†æ’å…¥æ¨¡å¼ä¸­ç¦æ­¢ä½¿ç”¨<esc>é”®
+"ÔÙ²åÈëÄ£Ê½ÖĞ½ûÖ¹Ê¹ÓÃ<esc>¼ü
 inoremap <esc> <nop>
 
-"ç¦ç”¨æ–¹å‘é”®
+"½ûÓÃ·½Ïò¼ü
 noremap <up> <nop>
 noremap <down> <nop>
 noremap <right> <nop>
 noremap <left> <nop>
 
-"è®¾ç½®åˆ‡æ¢åˆ†å±çš„å¿«æ·é”®
+"ÉèÖÃÇĞ»»·ÖÆÁµÄ¿ì½İ¼ü
 nnoremap <leader><leader> <c-w>
-
-"è®¾ç½®è‡ªåŠ¨å‘½ä»¤ç»„ï¼Œé˜²æ­¢é‡å¤åŠ è½½
+"}}}
+"×Ô¶¯¼ÓÔØ{{{1
+"ÉèÖÃ×Ô¶¯ÃüÁî×é£¬·ÀÖ¹ÖØ¸´¼ÓÔØ
 augroup wzws_autocmd
 
-"æ¸…é™¤ç»„å†…è‡ªåŠ¨å‘½ä»¤
+"Çå³ı×éÄÚ×Ô¶¯ÃüÁî
 	autocmd!
 
-"åŠ è½½c++é…ç½®
+"¼ÓÔØc++ÅäÖÃ
 	autocmd FileType cpp source $HOME/.vim/plugin/CppPlugin.vim
 
-"åŠ è½½pythoné…ç½®
+"¼ÓÔØpythonÅäÖÃ
     autocmd Filetype python source $HOME/.vim/plugin/PythonPlugin.vim
 
-"åŠ è½½schemeé…ç½®
+"¼ÓÔØschemeÅäÖÃ
 	autocmd FileType scheme source $HOME/.vim/plugin/SchemePlugin.vim
 
-"åŠ è½½AsyncRun
+"´ò¿ªvimÎÄ¼şÊ±²ÉÓÃmarkerËõ½ø
+    autocmd FileType vim source $HOME/.vim/plugin/VimPlugin.vim
+
+"¼ÓÔØAsyncRun
 	source $HOME/.vim/plugin/asyncrun.vim
 
-"åŠ è½½é€šç”¨æ¨¡å—
+"¼ÓÔØÍ¨ÓÃÄ£¿é
     source $HOME/.vim/plugin/UtilModule.vim
 
-"åŠ è½½é…ç½®æ–‡ä»¶
+"¼ÓÔØÅäÖÃÎÄ¼ş
     source $HOME/.vim/plugin/PluginConfig.vim
 
-"ç»„ç»“æŸ
+"×é½áÊø
 augroup END
-
-"Vundleæ’ä»¶é…ç½®
-"end_individual_mapping
-"******************************************************************************
-"custom command
-"
+"}}}
+"×Ô¶¨ÒåÃüÁî{{{1
+"¼ÓÔØ²åÈëÄ£Ê½ÇóÖµÆ÷
 command! LoadCalcMod source $HOME/.vim/plugin/CalcModule.vim
-
-"end_custom-command
-"******************************************************************************
-"Vundleæ’ä»¶é…ç½®
+"}}}
+"Vundle²å¼şÁĞ±í{{{1
 filetype off                  " required
 " set the runtime path to include Vundle and initialize
 set rtp+=$HOME/.vim/bundle/Vundle.vim
@@ -258,8 +235,13 @@ Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
 Plugin 'ascenator/L9', {'name': 'newL9'}
 " Install The NERD-Tree
 Plugin 'The-NERD-tree'
+" Install tagbar
+Plugin 'majutsushi/tagbar'
+" Install vim-ariline
+Plugin 'bling/vim-airline'
+" Install miniBufExplorer
+Plugin 'fholgado/minibufexpl.vim'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
-"end_Vundle
-"*****************************************************************************
+"}}}
