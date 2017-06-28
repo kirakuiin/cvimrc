@@ -230,8 +230,6 @@ Plugin 'The-NERD-tree'
 Plugin 'majutsushi/tagbar'
 " A statusline mamanger
 Plugin 'bling/vim-airline'
-" Vim buffer management tools
-Plugin 'fholgado/minibufexpl.vim'
 " A syntax check tools
 " Plugin 'vim-syntastic/syntastic'
 " Color scheme

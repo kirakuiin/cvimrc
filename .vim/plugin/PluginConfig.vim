@@ -39,40 +39,6 @@ nnoremap <silent> <F2> :NERDTreeToggle<CR>
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 "}}}
 "}}}
-"miniBufExplore设置 {{{1
-"特性设置 {{{2
-let g:miniBufExplMapWindowNavVim = 1   
-let g:miniBufExplMapWindowNavArrows = 1   
-let g:miniBufExplMapCTabSwitchBufs = 1   
-let g:miniBufExplModSelTarget = 1  
-let g:miniBufExplMoreThanOne=0
-"}}}
-"映射绑定 {{{2
-nnoremap <PageUp> :MBEbp<CR>
-nnoremap <PageDown> :MBEbn<CR>
-nnoremap <F6> :call <SID>SwitchMBE()<cr>
-" }}}
-"颜色设置{{{2
-hi MBENormal               guifg=#808080 guibg=fg
-hi MBEChanged              guifg=#CD5907 guibg=fg
-hi MBEVisibleNormal        guifg=#5DC2D6 guibg=fg
-hi MBEVisibleChanged       guifg=#F1266F guibg=fg
-hi MBEVisibleActiveNormal  guifg=#A6DB29 guibg=fg
-hi MBEVisibleActiveChanged guifg=#F1266F guibg=fg 
-"}}}
-"函数定义{{{2
-let g:mbe_is_opening = v:true
-function! s:SwitchMBE()
-    if g:mbe_is_opening
-        let g:mbe_is_opening = v:false
-        MBEClose
-    else
-        let g:mbe_is_opening = v:true
-        MBEOpen
-    endif
-endfunction
-"}}}
-"}}}
 "tagbar设置{{{1
 "特性设置{{{2
 "ctags 程序路径
@@ -139,5 +105,12 @@ let g:airline#extensions#tagbar#enabled = 1
 let g:airline#extensions#tagbar#flags = 'f'
 let g:airline#extensions#tagbar#flags = 's'
 let g:airline#extensions#tagbar#flags = 'p'
+"开启bufferline
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#buffer_nr_show = 1
+"}}}
+"映射绑定{{{2
+nnoremap <PageUp> :bp<cr>
+nnoremap <PageDown> :bn<cr>
 "}}}
 "}}}
