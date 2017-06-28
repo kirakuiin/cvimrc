@@ -13,8 +13,6 @@ set nocompatible
 "自动语法高亮
 syntax on
 
-"设定配色方案
-colorscheme molokai
 
 "显示行号
 set number
@@ -130,8 +128,10 @@ set termencoding=utf-8
 "设置字体
 if has('mac')
     set guifont=Monaco:h18
+    set rtp+='~\vimfiles\bundle\molokai'
 elseif has('win32')
     set guifont=consolas:h14
+    set rtp+='~/vimfiles/bundle/molokai'
 endif
 
 "具有三行上下光标
@@ -217,30 +217,27 @@ command! LoadCalcMod source $HOME/.vim/plugin/CalcModule.vim
 "}}}
 "Vundle插件列表{{{1
 filetype off                  " required
+
 " set the runtime path to include Vundle and initialize
 set rtp+=$HOME/.vim/bundle/Vundle.vim
 call vundle#begin('$HOME/vimfiles/bundle')
-"call vundle#begin('~/some/path/here')
-" let Vundle manage Vundle, required
+
+" Let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
-" plugin on GitHub repo
+" Plugin on GitHub repo
 Plugin 'tpope/vim-fugitive'
-" plugin from http://vim-scripts.org/vim/scripts.html
-"Plugin 'L9'
-" The sparkup vim script is in a subdirectory of this repo called vim.
-" Pass the path to set the runtimepath properly.
-Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
-" Install L9 and avoid a Naming conflict if you've already installed a
-" different version somewhere else.
+" Provide some utility functions and command for programming in Vim
 Plugin 'ascenator/L9', {'name': 'newL9'}
-" Install The NERD-Tree
+" NERD-Tree allow you explore your filesystem and to open or edit them
 Plugin 'The-NERD-tree'
-" Install tagbar
+" Provide an easy way to browse the tags of the current file
 Plugin 'majutsushi/tagbar'
-" Install vim-ariline
+" A statusline mamanger
 Plugin 'bling/vim-airline'
-" Install miniBufExplorer
+" Vim buffer management tools
 Plugin 'fholgado/minibufexpl.vim'
+" Color scheme
+Plugin 'molokai'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
