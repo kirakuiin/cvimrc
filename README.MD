@@ -1,1 +1,27 @@
-* Lambda's Personal Vimrc
+## Lambda's Personal Vimrc
+
+## Table of Contents
+
+- [About](#about)
+- [Quick Start](#quick-start)
+- [Docs](#Docs)
+
+## About
+
+本项目为一个针对全平台gvim的配置文件集合,包含若干配置以及插件
+
+本配置集合提供如下功能
+
+* 提供了一个基本的开发环境(文件目录, 变量表, 调试执行窗口等)
+* 提供了若干开发时常用操作的快捷映射
+* 提供了对(c++, scheme, python)的一些功能性配置
+
+## Quick Start
+
+1. Introduction
+
+    下载之后请将本配置集合放置到用户目录(~), 然后在网络通畅的情况下运行命令**:InstallVim**, 之后将使用Vundle安装全部的插件, 配置中的部分功能需要额外下载其他软件才可以启用, 具体信息请参见文档
+
+## Docs
+
+参见~/.vim/docs/lambdas_vimrc.txt
