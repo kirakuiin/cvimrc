@@ -4,7 +4,7 @@
 
 - [About](#about)
 - [Quick Start](#quick-start)
-- [Docs](#Docs)
+- [Docs](#docs)
 
 ## About
 
