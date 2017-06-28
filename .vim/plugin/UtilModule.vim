@@ -100,12 +100,8 @@ endfunction
 "}}}
 "第一次从github上下载之后，安装vim配置的函数{{{2
 function! UtilModule#InstallVim()
-    if has('win32')
-        silent! execute '!copy /Y ..\colors\molokai.vim ' . '"' . expand($VIMRUNTIME) . '\colors' . '"'
-    else
-        silent! execute '!cp -f ../colors/molokai.vim ' . expand($VIMRUNTIME) . '/colors'
-    endif
 
+    "安装插件
     PluginInstall
 endfunction
 "}}}

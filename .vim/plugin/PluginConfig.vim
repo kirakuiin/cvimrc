@@ -83,3 +83,9 @@ nnoremap <F4> :Tagbar<cr>
 "autocmd BufReadPost *.cpp,*.c,*.h,*.hpp,*.cc,*.cxx call tagbar#autoopen()
 "}}}
 "}}}
+"molokai设置{{{1
+"设置颜色策略所在路径
+set rtp+=~/vimfiles/bundle/molokai
+"设置颜色模式
+colorscheme molokai
+"}}}

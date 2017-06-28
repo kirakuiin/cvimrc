@@ -128,10 +128,8 @@ set termencoding=utf-8
 "设置字体
 if has('mac')
     set guifont=Monaco:h18
-    set rtp+='~\vimfiles\bundle\molokai'
 elseif has('win32')
     set guifont=consolas:h14
-    set rtp+='~/vimfiles/bundle/molokai'
 endif
 
 "具有三行上下光标
@@ -226,8 +224,6 @@ call vundle#begin('$HOME/vimfiles/bundle')
 Plugin 'VundleVim/Vundle.vim'
 " Plugin on GitHub repo
 Plugin 'tpope/vim-fugitive'
-" Provide some utility functions and command for programming in Vim
-Plugin 'ascenator/L9', {'name': 'newL9'}
 " NERD-Tree allow you explore your filesystem and to open or edit them
 Plugin 'The-NERD-tree'
 " Provide an easy way to browse the tags of the current file
