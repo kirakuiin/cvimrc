@@ -19,7 +19,11 @@ let NERDTreeShowLineNumbers=1
 "窗口位置
 let NERDTreeWinPos='left'
 "窗口宽度
-let NERDTreeWinSize=38
+if has('win32')
+    let NERDTreeWinSize=38
+else
+    let NERDTreeWinSize=25
+endif
 "不显示'Bookmarks' label 'Press ? for help'
 let NERDTreeMinimalUI=1
 "显示书签
@@ -47,7 +51,7 @@ let g:miniBufExplMoreThanOne=0
 map <PageUp> :MBEbp<CR>
 map <PageDown> :MBEbn<CR>
 " }}}
-"颜色设置{{{
+"颜色设置{{{2
 hi MBENormal               guifg=#808080 guibg=fg
 hi MBEChanged              guifg=#CD5907 guibg=fg
 hi MBEVisibleNormal        guifg=#5DC2D6 guibg=fg
@@ -56,12 +60,20 @@ hi MBEVisibleActiveNormal  guifg=#A6DB29 guibg=fg
 hi MBEVisibleActiveChanged guifg=#F1266F guibg=fg 
 "}}}
 "}}}
-"tarbar设置{{{1
+"tagbar设置{{{1
 "特性设置{{{2
 "ctags 程序路径
-let g:tarbar_ctags_bin='ctags'
+let g:tagbar_ctags_bin='ctags'
 "窗口宽度
-let g:tarbar_width=30
+if has('win32')
+    let g:tagbar_width=30
+else
+    let g:tagbar_width=25
+endif
+"自动聚焦
+let g:tagbar_autofocus=1
+"自动关闭
+let g:tagbar_autoclose=1
 "}}}
 "映射绑定{{{2
 nnoremap <F4> :Tagbar<cr>

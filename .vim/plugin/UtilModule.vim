@@ -15,7 +15,7 @@ nnoremap <leader>w :<c-u>execute ":match Error " . '/\v +$/'<cr>
 "清除高亮空格
 nnoremap <leader>W :<c-u>execute ":match none"<cr>
 
-nnoremap <F3> :call asyncrun#quickfix_toggle(12)<cr>
+nnoremap <F3> :call asyncrun#quickfix_toggle(8)<cr>
 
 "映射cnext
 nnoremap <leader>> :cnext<cr>
