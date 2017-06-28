@@ -48,8 +48,9 @@ let g:miniBufExplModSelTarget = 1
 let g:miniBufExplMoreThanOne=0
 "}}}
 "映射绑定 {{{2
-map <PageUp> :MBEbp<CR>
-map <PageDown> :MBEbn<CR>
+nnoremap <PageUp> :MBEbp<CR>
+nnoremap <PageDown> :MBEbn<CR>
+nnoremap <F6> :call <SID>SwitchMBE()<cr>
 " }}}
 "颜色设置{{{2
 hi MBENormal               guifg=#808080 guibg=fg
@@ -58,6 +59,18 @@ hi MBEVisibleNormal        guifg=#5DC2D6 guibg=fg
 hi MBEVisibleChanged       guifg=#F1266F guibg=fg
 hi MBEVisibleActiveNormal  guifg=#A6DB29 guibg=fg
 hi MBEVisibleActiveChanged guifg=#F1266F guibg=fg 
+"}}}
+"函数定义{{{2
+let g:mbe_is_opening = v:true
+function! s:SwitchMBE()
+    if g:mbe_is_opening
+        let g:mbe_is_opening = v:false
+        MBEClose
+    else
+        let g:mbe_is_opening = v:true
+        MBEOpen
+    endif
+endfunction
 "}}}
 "}}}
 "tagbar设置{{{1
@@ -84,8 +97,47 @@ nnoremap <F4> :Tagbar<cr>
 "}}}
 "}}}
 "molokai设置{{{1
+"特性设置{{{2
 "设置颜色策略所在路径
 set rtp+=~/vimfiles/bundle/molokai
 "设置颜色模式
 colorscheme molokai
+"}}}
+"}}}
+"Syntastic设置{{{1
+"特性设置{{{2
+"set statusline+=%#warningmsg#
+"set statusline+=%{SyntasticStatuslineFlag()}
+"set statusline+=%*
+
+"let g:syntastic_always_populate_loc_list = 1
+"let g:syntastic_auto_loc_list = 1
+"let g:syntastic_check_on_open = 0
+"let g:syntastic_check_on_wq = 0
+"
+"let g:syntastic_mode_map = {
+"    \ "mode": "active",
+"    \ "active_filetypes": ['cpp'],
+"    \ "passive_filetypes": ['cpp'] }
+"
+"
+"if exists('$CPPCHECK') && has('win32')
+"    let g:syntastic_cpp_cppcheck_exec = expand('$CPPCHECK') . '\cppcheck.exe'
+"    let g:syntastic_cpp_checkers = ['cppcheck']
+"endif
+"}}}
+"映射绑定{{{2
+"nnoremap <F6> :SyntasticCheck<cr>
+"}}}
+"}}}
+"airline设置{{{1
+"特性设置{{{2
+"开启syntastic整合
+""let g:airline#extensions#syntastic#enabled = 1
+"开启tagbar整合
+let g:airline#extensions#tagbar#enabled = 1
+let g:airline#extensions#tagbar#flags = 'f'
+let g:airline#extensions#tagbar#flags = 's'
+let g:airline#extensions#tagbar#flags = 'p'
+"}}}
 "}}}
