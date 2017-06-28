@@ -1,73 +1,78 @@
 "utilmod have some useful operation
-"æ˜ å°„ç»‘å®š{{{1
-"æ›¿æ¢å­—ç¬¦å¸¸é‡ä¸ºç›¸åº”çš„å€¼
+"Ó³Éä°ó¶¨{{{1
+"Ìæ»»×Ö·û³£Á¿ÎªÏàÓ¦µÄÖµ
 nnoremap <leader>s :call UtilModule#SubstitudeFlag()<cr>
 
-"æ‰“å¼€æ­¤æ–‡ä»¶çš„æ–°buffer
+"´ò¿ª´ËÎÄ¼şµÄĞÂbuffer
 nnoremap <leader>nb :call UtilModule#OpenNewBufferForCurrentFile()<cr>
 
-"è®¾ç½®æŸ¥æ‰¾é‚®ä»¶æœªå®šæ“ä½œç¬¦(motion)
+"ÉèÖÃ²éÕÒÓÊ¼şÎ´¶¨²Ù×÷·û(motion)
 onoremap in@ :<c-u>execute "normal! /\\w\\+\\([-+.]\\w\\+\\)*@\\w\\+\\([-.]\\w\\+\\)*\\.\\w\\+\\([-.]\\w\\+\\)*\r:nohlsearch\rvg_"<cr><cr>
 
-"é«˜äº®ç»“å°¾ç©ºæ ¼
+"¸ßÁÁ½áÎ²¿Õ¸ñ
 nnoremap <leader>w :<c-u>execute ":match Error " . '/\v +$/'<cr>
 
-"æ¸…é™¤é«˜äº®ç©ºæ ¼
+"Çå³ı¸ßÁÁ¿Õ¸ñ
 nnoremap <leader>W :<c-u>execute ":match none"<cr>
 
 nnoremap <F3> :call asyncrun#quickfix_toggle(8)<cr>
 
-"æ˜ å°„cnext
+"Ó³Éäcnext
 nnoremap <leader>> :cnext<cr>
 
-"æ˜ å°„cprevious
+"Ó³Éäcprevious
 nnoremap <leader>< :cprevious<cr>
 
-"æ˜ å°„grepæ“ä½œ
+"Ó³Éägrep²Ù×÷
 nnoremap <leader>g :set operatorfunc=<SID>GrepOperator<cr>g@
 vnoremap <leader>g :<c-u>call <SID>GrepOperator(visualmode())<cr>
+
+"Ó³Éädash only for macos
+if has('mac')
+    nnoremap <leader>d :Dash<cr>
+endif
 "}}}
-"è‡ªå®šä¹‰å‘½ä»¤{{{1
+"×Ô¶¨ÒåÃüÁî{{{1
 command! -nargs=0 InstallVim :call UtilModule#InstallVim()
 "}}}
-"å‡½æ•°å®šä¹‰{{{1
-"æ›¿æ¢æ ‡å¿—ä¸ºç›¸åº”å®ä½“{{{2
+"º¯Êı¶¨Òå{{{1
+"Ìæ»»±êÖ¾ÎªÏàÓ¦ÊµÌå{{{2
 function! UtilModule#SubstitudeFlag()
 
-	" å…¨å±€é…ç½®
-	"å½“å‰æ–‡ä»¶å:%fname%
+	" È«¾ÖÅäÖÃ
+	"µ±Ç°ÎÄ¼şÃû:%fname%
 	let fnamestr = expand("%")
 	silent! execute '%s/%fname%/' . fnamestr . '/g'
-	"å½“å‰æ–‡ä»¶åå¤´:%fname:h%
+	"µ±Ç°ÎÄ¼şÃûÍ·:%fname:h%
 	let fnamehstr = expand("%:r")
 	silent! execute '%s/%fname:h%/' . fnamehstr . '/g'
-	"å½“å‰è¡Œæ•°:%fline%
+	"µ±Ç°ĞĞÊı:%fline%
 	let flinestr = string(line("."))
 	silent! execute '%s/%fline%/' . flinestr . '/g'
-	"å½“å‰æ—¶é—´:%ctime%
-	let ctimestr = substitute(strftime("%Y-%b-%d"), "æœˆ", "", "")
+	"µ±Ç°Ê±¼ä:%ctime%
+	let ctimestr = substitute(strftime("%Y-%b-%d"), "ÔÂ", "", "")
 	silent! execute '%s/%ctime%/' . ctimestr . '/g'
-	"ä¸ªäººé‚®ä»¶:%email%"
+	"¸öÈËÓÊ¼ş:%email%"
 	let emailstr = "549676201@qq.com"
 	silent! execute '%s/%email%/' . emailstr . '/g'
 
-	" ç‰¹åŒ–é…ç½®
+	" ÌØ»¯ÅäÖÃ
 	
-	"å½“å‰æ–‡ä»¶trace(cpp)
+	"µ±Ç°ÎÄ¼ştrace(cpp)
 	let g:um_cpptrace = 'NC_DO_MODULE_TRACE(_T("%s () ------ begin"), __AB_FUNC_NAME__);'
 	silent! execute '%s/%cpp_trace%/' . g:um_cpptrace . '/g'
 
-	"æ¶ˆé™¤^Må­—ç¬¦
+	"Ïû³ı^M×Ö·û
 	silent! execute '%s/\r//g'
 endfunction
 "}}}
-"é‡æ–°åˆ›å»ºä¸€ä¸ªGVIMæ¥æ‰“å¼€æ­¤æ–‡ä»¶{{{2
+"ÖØĞÂ´´½¨Ò»¸öGVIMÀ´´ò¿ª´ËÎÄ¼ş{{{2
 function! UtilModule#OpenNewBufferForCurrentFile()
 	let fnamestr = expand("%")
 	silent! execute '!start gvim ' . fnamestr
 endfunction
 "}}}
-"ä½¿ç”¨ç³»ç»Ÿgrepæ¥æŸ¥æ‰¾æŒ‡å®šå­—ç¬¦ä¸²{{{2
+"Ê¹ÓÃÏµÍ³grepÀ´²éÕÒÖ¸¶¨×Ö·û´®{{{2
 function! s:GrepOperator(type)
 	let saved_unnamed_register = @"
 
@@ -98,10 +103,9 @@ function! s:GrepOperator(type)
 	let @" = saved_unnamed_register
 endfunction
 "}}}
-"ç¬¬ä¸€æ¬¡ä»githubä¸Šä¸‹è½½ä¹‹åï¼Œå®‰è£…vimé…ç½®çš„å‡½æ•°{{{2
+"µÚÒ»´Î´ÓgithubÉÏÏÂÔØÖ®ºó£¬°²×°vimÅäÖÃµÄº¯Êı{{{2
 function! UtilModule#InstallVim()
-
-    "å®‰è£…æ’ä»¶
+    "°²×°²å¼ş
     PluginInstall
 endfunction
 "}}}

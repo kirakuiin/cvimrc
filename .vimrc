@@ -235,6 +235,11 @@ Plugin 'bling/vim-airline'
 " Color scheme
 Plugin 'molokai'
 
+if has('mac')
+" Dash plugin for mac
+Plugin 'rizzatti/dash.vim'
+endif
+
 call vundle#end()            " required
 filetype plugin indent on    " required
 "}}}
