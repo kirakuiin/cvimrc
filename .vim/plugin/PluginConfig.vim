@@ -108,6 +108,7 @@ let g:airline#extensions#tagbar#flags = 'p'
 "开启bufferline
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#buffer_nr_show = 1
+let g:airline#extensions#tabline#fnamemod = ':t'
 "}}}
 "映射绑定{{{2
 nnoremap <PageUp> :bp<cr>

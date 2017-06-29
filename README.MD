@@ -24,4 +24,4 @@
 
 ## Docs
 
-参见~/.vim/docs/lambdas_vimrc.txt
+参见~/.vim/docs/lambda-vimrc.txt
