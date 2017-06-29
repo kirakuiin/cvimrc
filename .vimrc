@@ -230,10 +230,10 @@ Plugin 'The-NERD-tree'
 Plugin 'majutsushi/tagbar'
 " A statusline mamanger
 Plugin 'bling/vim-airline'
-" A syntax check tools
-" Plugin 'vim-syntastic/syntastic'
 " Color scheme
 Plugin 'molokai'
+" Async run shell command
+Plugin 'skywind3000/asyncrun.vim'
 
 if has('mac')
 " Dash plugin for mac

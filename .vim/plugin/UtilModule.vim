@@ -33,7 +33,9 @@ if has('mac')
 endif
 "}}}
 "自定义命令{{{1
-command! -nargs=0 InstallVim :call UtilModule#InstallVim()
+command! -nargs=0 InstallLvimrc :call UtilModule#InstallVim()<cr>
+command! -nargs=0 UpdateLvimrc :call UtilModule#UpdateLvimrc()<cr>
+command! -nargs=0 UninstallLvimrc :call UtilModule#UninstallLvimrc()<cr>
 "}}}
 "函数定义{{{1
 "替换标志为相应实体{{{2
@@ -103,10 +105,32 @@ function! s:GrepOperator(type)
 	let @" = saved_unnamed_register
 endfunction
 "}}}
-"第一次从github上下载之后，安装vim配置的函数{{{2
-function! UtilModule#InstallVim()
+"安装插件函数{{{2
+function! UtilModule#InstallLvimrc()
     "安装插件
     PluginInstall
+endfunction
+"}}}
+"更新插件函数{{{2
+function! UtilModule#UpdateLvimrc()
+    " 更新插件
+    PluginUpdate
+    " 清理插件
+    PluginClean
+endfunction
+"}}}
+"卸载插件函数{{{2
+function! UtilModule#UninstallLvimrc()
+    if has('unix')
+        silent execute '!rm -rf ' . expand($HOME) .'/vimfiles'
+        silent execute '!rm -rf ' . expand($HOME) .'/.vim'
+        silent execute '!rm -rf ' . expand($HOME) .'/vimfiles'
+        silent execute '!rm -rf ' . expand($HOME) .'/.vimrc'
+        silent execute '!rm -rf ' . expand($HOME) .'/README.MD'
+        silent execute '!rm -rf ' . expand($HOME) .'/.git'
+        silent execute '!rm -rf ' . expand($HOME) .'/.gitignore'
+    else
+    endif
 endfunction
 "}}}
 "}}}
