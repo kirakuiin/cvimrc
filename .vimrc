@@ -197,9 +197,6 @@ augroup wzws_autocmd
 "打开vim文件时采用marker缩进
     autocmd FileType vim source $HOME/.vim/plugin/VimPlugin.vim
 
-"加载AsyncRun
-	source $HOME/.vim/plugin/asyncrun.vim
-
 "加载通用模块
     source $HOME/.vim/plugin/UtilModule.vim
 
