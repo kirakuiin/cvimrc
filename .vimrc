@@ -195,6 +195,13 @@ nnoremap <leader>> :cnext<cr>
 "映射cprevious
 nnoremap <leader>< :cprevious<cr>
 "}}}
+"全局加载{{{1
+"加载通用模块
+    source $HOME/.vim/plugin/UtilModule.vim
+
+"加载配置文件
+    source $HOME/.vim/plugin/PluginConfig.vim
+"}}}
 "自动加载{{{1
 "设置自动命令组，防止重复加载
 augroup wzws_autocmd
@@ -213,12 +220,6 @@ augroup wzws_autocmd
 
 "打开vim文件时采用marker缩进
     autocmd FileType vim source $HOME/.vim/plugin/VimPlugin.vim
-
-"加载通用模块
-    source $HOME/.vim/plugin/UtilModule.vim
-
-"加载配置文件
-    source $HOME/.vim/plugin/PluginConfig.vim
 
 "组结束
 augroup END
