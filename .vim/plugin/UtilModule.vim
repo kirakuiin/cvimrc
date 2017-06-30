@@ -16,7 +16,7 @@ vnoremap <leader>g :<c-u>call <SID>GrepOperator(visualmode())<cr>
 "}}}
 "自定义命令{{{1
 "插件集合管理命令
-command! -nargs=0 InstallLvimrc call UtilModule#InstallVim()
+command! -nargs=0 InstallLvimrc call UtilModule#InstallLvimrc()
 command! -nargs=0 UpdateLvimrc call UtilModule#UpdateLvimrc()
 command! -nargs=0 UninstallLvimrc call UtilModule#UninstallLvimrc()
 "加载插入模式求值器
