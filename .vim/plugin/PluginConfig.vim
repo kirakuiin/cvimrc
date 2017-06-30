@@ -99,6 +99,9 @@ set rtp+=~/vimfiles/bundle/molokai
 "设置颜色模式
 colorscheme molokai
 "}}}
+"自动命令{{{2
+autocmd BufNewFile,BufReadPost lvimrc.txt let b:tagbar_ignore = 1
+"}}}
 "}}}
 "airline设置{{{1
 "特性设置{{{2

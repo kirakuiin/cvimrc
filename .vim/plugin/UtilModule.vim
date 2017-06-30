@@ -98,6 +98,7 @@ endfunction
 "}}}
 "更新插件函数{{{2
 function! UtilModule#UpdateLvimrc()
+    execute 'helptags ++t ../doc'
     " 更新插件
     execute 'PluginUpdate'
     " 清理插件

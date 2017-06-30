@@ -1,0 +1,11 @@
+!_TAG_FILE_ENCODING	utf-8	//
+help-tags	tags	1
+lvimrc-contents	lvimrc.txt	/*lvimrc-contents*
+lvimrc.txt	lvimrc.txt	/*lvimrc.txt*
+lvimrc_commands	lvimrc.txt	/*lvimrc_commands*
+lvimrc_configuration	lvimrc.txt	/*lvimrc_configuration*
+lvimrc_contributions	lvimrc.txt	/*lvimrc_contributions*
+lvimrc_intro	lvimrc.txt	/*lvimrc_intro*
+lvimrc_license	lvimrc.txt	/*lvimrc_license*
+lvimrc_mapping	lvimrc.txt	/*lvimrc_mapping*
+lvimrc_plugin	lvimrc.txt	/*lvimrc_plugin*

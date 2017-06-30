@@ -127,8 +127,12 @@ set termencoding=utf-8
 "设置字体
 if has('mac')
     set guifont=Monaco:h18
+    set rtp+=~/.vim
 elseif has('win32')
     set guifont=consolas:h14
+    set rtp+=~\.vim
+else
+    set rtp+=~/.vim
 endif
 
 "具有三行上下光标
