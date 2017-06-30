@@ -7,7 +7,7 @@
 |_|\__,_|_| |_| |_|_.__/ \__,_|\__,_|      \_/ |_|_| |_| |_|_|  \___|~
                                                                      
 ==============================================================================
-CONTENTS                                                      *lvimrc-contents*
+CONTENTS                                                     *lvimrc-contents*
 
    01. Intro ................................................ |lvimrc_intro|
    02. Mapping ............................................ |lvimrc_mapping|
@@ -18,7 +18,7 @@ CONTENTS                                                      *lvimrc-contents*
    06. License ............................................ |lvimrc_license|
 
 ==============================================================================
-INTRODUCTION                                                     *lvimrc_intro*
+INTRODUCTION                                                    *lvimrc_intro*
 
 本配置集合主要是为了方便个人工作生活而实现的, 因此键位设置带有强烈的个人风格
 
@@ -146,12 +146,12 @@ CONFIGURATION                                           *lvimrc_configuration*
 
 所有的键位映射分配在这些文件之中，可根据自己的需要更改键位绑定
 ==============================================================================
-CONTRIBUTIONS                                            *lvimrc_contributions*
+CONTRIBUTIONS                                           *lvimrc_contributions*
 
 欢迎所有的人的pull request
 
 ==============================================================================
-LICENSE                                                        *lvimrc_license*
+LICENSE                                                       *lvimrc_license*
 
 MIT License.  Copyright © 2016-2017 Wang Zhuowei 
 
