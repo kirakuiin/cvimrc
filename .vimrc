@@ -197,10 +197,10 @@ nnoremap <leader>< :cprevious<cr>
 "}}}
 "全局加载{{{1
 "加载通用模块
-    source $HOME/.vim/plugin/UtilModule.vim
+    source $HOME/.vim/plugins/UtilModule.vim
 
 "加载配置文件
-    source $HOME/.vim/plugin/PluginConfig.vim
+    source $HOME/.vim/plugins/PluginConfig.vim
 "}}}
 "自动加载{{{1
 "设置自动命令组，防止重复加载
@@ -210,16 +210,16 @@ augroup wzws_autocmd
 	autocmd!
 
 "加载c++配置
-	autocmd FileType cpp source $HOME/.vim/plugin/CppPlugin.vim
+	autocmd FileType cpp source $HOME/.vim/plugins/CppPlugin.vim
 
 "加载python配置
-    autocmd Filetype python source $HOME/.vim/plugin/PythonPlugin.vim
+    autocmd Filetype python source $HOME/.vim/plugins/PythonPlugin.vim
 
 "加载scheme配置
-	autocmd FileType scheme source $HOME/.vim/plugin/SchemePlugin.vim
+	autocmd FileType scheme source $HOME/.vim/plugins/SchemePlugin.vim
 
 "打开vim文件时采用marker缩进
-    autocmd FileType vim source $HOME/.vim/plugin/VimPlugin.vim
+    autocmd FileType vim source $HOME/.vim/plugins/VimPlugin.vim
 
 "组结束
 augroup END
