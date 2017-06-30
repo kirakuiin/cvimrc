@@ -6,36 +6,21 @@ nnoremap <leader>s :call UtilModule#SubstitudeFlag()<cr>
 "打开此文件的新buffer
 nnoremap <leader>nb :call UtilModule#OpenNewBufferForCurrentFile()<cr>
 
-"设置查找邮件未定操作符(motion)
-onoremap in@ :<c-u>execute "normal! /\\w\\+\\([-+.]\\w\\+\\)*@\\w\\+\\([-.]\\w\\+\\)*\\.\\w\\+\\([-.]\\w\\+\\)*\r:nohlsearch\rvg_"<cr><cr>
-
-"高亮结尾空格
-nnoremap <leader>w :<c-u>execute ":match Error " . '/\v +$/'<cr>
-
-"清除高亮空格
-nnoremap <leader>W :<c-u>execute ":match none"<cr>
-
-nnoremap <F3> :call asyncrun#quickfix_toggle(8)<cr>
-
-"映射cnext
-nnoremap <leader>> :cnext<cr>
-
-"映射cprevious
-nnoremap <leader>< :cprevious<cr>
+"清理未使用的buffer
+nnoremap <leader>bc :call UtilModule#CleanUnusedBuffer()<cr>
 
 "映射grep操作
 nnoremap <leader>g :set operatorfunc=<SID>GrepOperator<cr>g@
 vnoremap <leader>g :<c-u>call <SID>GrepOperator(visualmode())<cr>
 
-"映射dash only for macos
-if has('mac')
-    nnoremap <leader>d :Dash<cr>
-endif
 "}}}
 "自定义命令{{{1
-command! -nargs=0 InstallLvimrc :call UtilModule#InstallVim()<cr>
-command! -nargs=0 UpdateLvimrc :call UtilModule#UpdateLvimrc()<cr>
-command! -nargs=0 UninstallLvimrc :call UtilModule#UninstallLvimrc()<cr>
+"插件集合管理命令
+command! -nargs=0 InstallLvimrc call UtilModule#InstallVim()
+command! -nargs=0 UpdateLvimrc call UtilModule#UpdateLvimrc()
+command! -nargs=0 UninstallLvimrc call UtilModule#UninstallLvimrc()
+"加载插入模式求值器
+command! LoadCalcMod source $HOME/.vim/plugin/CalcModule.vim
 "}}}
 "函数定义{{{1
 "替换标志为相应实体{{{2
@@ -114,23 +99,44 @@ endfunction
 "更新插件函数{{{2
 function! UtilModule#UpdateLvimrc()
     " 更新插件
-    PluginUpdate
+    execute 'PluginUpdate'
     " 清理插件
-    PluginClean
+    execute 'PluginClean'
+    q
 endfunction
 "}}}
 "卸载插件函数{{{2
 function! UtilModule#UninstallLvimrc()
     if has('unix')
-        silent execute '!rm -rf ' . expand($HOME) .'/vimfiles'
-        silent execute '!rm -rf ' . expand($HOME) .'/.vim'
-        silent execute '!rm -rf ' . expand($HOME) .'/vimfiles'
-        silent execute '!rm -rf ' . expand($HOME) .'/.vimrc'
-        silent execute '!rm -rf ' . expand($HOME) .'/README.MD'
-        silent execute '!rm -rf ' . expand($HOME) .'/.git'
-        silent execute '!rm -rf ' . expand($HOME) .'/.gitignore'
+        silent execute 'AsyncRun rm -rf ' . expand($HOME) .'/vimfiles'
+        silent execute 'AsyncRun rm -rf ' . expand($HOME) .'/.vim'
+        silent execute 'AsyncRun rm -rf ' . expand($HOME) .'/.vimrc'
+        silent execute 'AsyncRun rm -rf ' . expand($HOME) .'/README.MD'
+        silent execute 'AsyncRun rm -rf ' . expand($HOME) .'/.git'
+        silent execute 'AsyncRun rm -rf ' . expand($HOME) .'/.gitignore'
     else
+        silent execute 'AsyncRun del /Q ' . expand($HOME) .'\vimfiles'
+        silent execute 'AsyncRun del /Q ' . expand($HOME) .'\.vim'
+        silent execute 'AsyncRun del /Q ' . expand($HOME) .'\.vimrc'
+        silent execute 'AsyncRun del /Q ' . expand($HOME) .'\README.MD'
+        silent execute 'AsyncRun del /Q ' . expand($HOME) .'\.git'
+        silent execute 'AsyncRun del /Q ' . expand($HOME) .'\.gitignore'
     endif
+endfunction
+"}}}
+"清理bufferlist{{{2
+function! UtilModule#CleanUnusedBuffer()
+    let current_number = bufnr('%')
+    let last_number = bufnr('$')
+    let nerd_number = bufnr('NERD*')
+    let i = 1
+    
+    while i < last_number
+        if (i != current_number) && (i != nerd_number)
+            silent! execute 'bd ' . string(i)
+        endif
+        let i = i + 1
+    endwhile
 endfunction
 "}}}
 "}}}

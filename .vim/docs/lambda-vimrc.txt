@@ -30,150 +30,122 @@ INTRODUCTION                                                     *lvimrc-intro*
         4. 提供了全局特定标记替换功能
         5. 对c++语言实现了代码自动生成, 括号补全, 快速注释, 编译, 运行的功能
         6. 集成了多个插件
-            1.*Vundle* 插件管理器
-            2.*NERDTree* 目录树浏览器
-            3.*tagbar* 源代码标签浏览器
-            4.*vim-airline* 轻量级状态条工具
-            5.*molokai* 配色方案
-            6.*asyncrun* 异步命令运行工具
-            7.*fugitive* Git管理工具
-            8.*dash* Dash集成工具(only for macos)
-
 
 ==============================================================================
 MAPPING                                                       *lvimrc-mapping*
 
-*  tiny core written with extensibility in mind.
-*  integrates with many popular plugins.
-*  looks good with regular fonts, and provides configuration points so you
-   can use unicode or powerline symbols.
-*  optimized for speed; it loads in under a millisecond.
-*  fully customizable; if you know a little 'statusline' syntax you can
-   tweak it to your needs.
-*  extremely easy to write themes.
+*注意:
+    <up> <down> <left> <right>键位无法使用
+    <esc>在插入模式下无法使用, 由jk代替
+    |/|和|?| 搜索符开启very magic模式
+
+*全局映射:
+    *<leader>ev*    : 编辑配置文件  
+    *<leader>sv*    : 加载配置文件
+    *<leader>nh*    : 清除搜索结果高亮
+    *<leader>nb*    : 对当前文件开启一个新的buffer
+    *<leader>bc*    : 清理未使用的buffer
+    *<leader>d*     : 调用dash接口查询当前光标词语 (only for |macos|)
+    *<leader>g*     : 在当前目录对光标下单词进行grep搜索 支持visual模式 
+    *<leader>s*     : 替换所有占位符 (e.g. |%ctime%|)
+    *<leader>/*     : 搜索@"寄存器的内容
+    *<leader>'*     : 给光标下单词加上单引号
+    *<leader>>*     : 跳转到下一条quickfix
+    *<leader><*     : 跳转到上一条quickfix
+
+    *<F2>*          : 开启NERD目录浏览器
+    *<F3>*          : 开启quickfix窗口
+    *<F4>*          : 开启tagbar
+
+    *<PageUp>*      : 切换到下一个buffer
+    *<PageDown>*    : 切换到上一个buffer
+
+*CPP映射
+    *<localleader>mf*   : 生成头文件框架, 如果已有则生成对应cpp文件
+    *<localleader>c*    : 添加单行注释 
+    *<localleader>#*    : 添加宏条件编译
+    <localleader>*    : 在visual模式下进行块注释
+
+    *<F7>*              : 使用g++编译此文件 (必须安装了|g++|)
+    *<F5>*              : 运行编译出来的可执行文件
+
+*PYTHON映射
+    *<localleader>c*    : 添加单行注释 
+    <localleader>*    : 在visual模式下进行块注释
+
+    *<F5>*              : 运行本文件
+*SCHEME映射
+    *<localleader>c*    : 添加单行注释 
+
+    *<F5>*              : 运行本文件
 
 ==============================================================================
 PLUGIN                                                         *lvimrc-plugin*
 
-Where did the name come from?
-
-I wrote this on an airplane, and since it's light as air it turned out to be a
-good name :-)
+    插件列表如下:
+        1.*Vundle* 插件管理器
+            *command:*  >
+                :PluginInstall
+                :PluginUpdate
+                :PluginClean
+<        2.*NERDTree* 目录树浏览器
+            *command:*  >
+                :NerdTree
+<        3.*tagbar* 源代码标签浏览器
+        4.*vim-airline* 轻量级状态条工具
+        5.*molokai* 配色方案
+        6.*asyncrun* 异步命令运行工具
+            *command:*  >
+                :AsyncRun
+<        7.*fugitive* Git管理工具
+            *command:*  >
+                :Gstatus
+                :Gpull
+                :Gpush
+<        8.*dash* Dash集成工具(only for macos)
 
 ==============================================================================
 COMMANDS                                                     *lvimrc-commands*
 
-:lvimrcTheme {theme-name}                                   *:lvimrcTheme*
-  Displays or changes the current theme.
+:InstallLvimrc                                          *:InstallLvimrc*
+  安装本插件集合, 网络通畅情况下将自动下载所有配置的插件.
 
-:lvimrcToggleWhitespace                          *:lvimrcToggleWhitespace*
-  Toggles whitespace detection.
+:UpdateLvimrc                                           *:UpdateLvimrc*
+  更新本插件集合, 网络通畅下将更新并清理所有配置的插件.
 
-:lvimrcToggle                                              *:lvimrcToggle*
-  Toggles between the standard 'statusline' and lvimrc.
+:UninstallLvimrc                                        *:UninstallLvimrc*
+  删除此插件集合的所有文件.
 
-:lvimrcRefresh                                            *:lvimrcRefresh*
-  Refreshes all highlight groups and redraws the statusline.
+:LoadCalcMod                                            *:LoadCalcMode*
+  加载计算模式, 再次模式下插入模式输入'=?'将会对前面的表达式求值并将用结果替
+  换'?'.
 
 ==============================================================================
 CONFIGURATION                                           *lvimrc-configuration*
 
-There are a couple configuration values available (shown with their default
-values):
+*attention:*
+    *请务必将$HOME作为安装目录, 这个关系到插件的正常运作 >
+        Win32:  $HOME=X:\Users\username
+        Unix:   $HOME=~/username
+<
+    *如果想要启用tagbar功能, 请确保电脑内安装了ctags, 并且配置了正确的ctags 
+    路径 >
+        ~/.vim/PluginConfig.vim # g:tagbar_ctags_bin='path'
+<
+配置目录树如下:
+    
+|~.vim/
+| `~plugin/
+|   |-CalcModule.vim            #计算模块文件
+|   |-CppPlugin.vim             #cpp配置文件
+|   |-PluginConfig.vim          #插件配置文件
+|   |-PythonPlugin.vim          #python配置文件
+|   |-SchemePlugin.vim          #scheme配置文件
+|   |-UtilModule.vim            #通用配置文件
+|   `-VimPlugin.vim             #vim配置文件
+|~.vimrc                        #总体配置文件
 
-* the separator used on the left side >
-  let g:lvimrc_left_sep='>'
-<
-* the separator used on the right side >
-  let g:lvimrc_right_sep='<'
-<
-* enable modified detection >
-  let g:lvimrc_detect_modified=1
-
-* enable paste detection >
-  let g:lvimrc_detect_paste=1
-<
-* enable crypt detection >
-  let g:lvimrc_detect_crypt=1
-
-* enable spell detection >
-  let g:lvimrc_detect_spell=1
-<
-* enable iminsert detection >
-  let g:lvimrc_detect_iminsert=0
-<
-* determine whether inactive windows should have the left section collapsed to
-  only the filename of that buffer.  >
-  let g:lvimrc_inactive_collapse=1
-<
-* themes are automatically selected based on the matching colorscheme. this
-  can be overridden by defining a value. >
-  let g:lvimrc_theme='dark'
-<
-  Note: Only the dark theme is distributed with vim-lvimrc. For more themes,
-  checkout the vim-lvimrc-themes repository
-  (github.com/vim-lvimrc/vim-lvimrc-themes)
-
-* if you want to patch the lvimrc theme before it gets applied, you can
-  supply the name of a function where you can modify the palette. >
-  let g:lvimrc_theme_patch_func = 'lvimrcThemePatch'
-  function! lvimrcThemePatch(palette)
-    if g:lvimrc_theme == 'badwolf'
-      for colors in values(a:palette.inactive)
-        let colors[3] = 245
-      endfor
-    endif
-  endfunction
-<
-* By default, lvimrc will use unicode symbols if your encoding matches
-  utf-8. If you want the powerline symbols set this variable: >
-  let g:lvimrc_powerline_fonts = 1
-<
-  If you want to use plain ascii symbols, set this variable: >
-  let g:lvimrc_symbols_ascii = 1
-<
-* define the set of text to display for each mode.  >
-  let g:lvimrc_mode_map = {} " see source for the defaults
-
-  " or copy paste the following into your vimrc for shortform text
-  let g:lvimrc_mode_map = {
-      \ '__' : '-',
-      \ 'n'  : 'N',
-      \ 'i'  : 'I',
-      \ 'R'  : 'R',
-      \ 'c'  : 'C',
-      \ 'v'  : 'V',
-      \ 'V'  : 'V',
-      \ '' : 'V',
-      \ 's'  : 'S',
-      \ 'S'  : 'S',
-      \ '' : 'S',
-      \ }
-<
-* define the set of filename match queries which excludes a window from having
-  its statusline modified >
-  let g:lvimrc_exclude_filenames = [] " see source for current list
-<
-* define the set of filetypes which are excluded from having its window
-  statusline modified >
-  let g:lvimrc_exclude_filetypes = [] " see source for current list
-<
-* defines whether the preview window should be excluded from have its window
-  statusline modified (may help with plugins which use the preview window
-  heavily) >
-  let g:lvimrc_exclude_preview = 0
-<
-* disable the lvimrc customization for selective windows (this is a
-  window-local variable so you can disable it for only some windows) >
-  let w:lvimrc_disabled = 1
-
-* Do not draw separators for empty sections (only for the active window) >
-  let g:lvimrc_skip_empty_sections = 1
-<
-  This variable can be overriden by setting a window-local variable with
-  the same name (in the correct window): >
-  let w:lvimrc_skip_empty_sections = 0
-<
+所有的键位映射分配在这些文件之中，可根据自己的需要更改键位绑定
 ==============================================================================
 CONTRIBUTIONS                                             *lvimrc-contributions*
 
@@ -184,4 +156,4 @@ LICENSE                                                         *lvimrc-license*
 
 MIT License.  Copyright © 2016-2017 Wang Zhuowei 
 
-vim:tw=78:ts=8:ft=help:norl:
+ vim:tw=78:ts=8:ft=help:norl:

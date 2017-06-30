@@ -13,7 +13,6 @@ set nocompatible
 "自动语法高亮
 syntax on
 
-
 "显示行号
 set number
 
@@ -139,29 +138,9 @@ set scrolloff=3
 "set lines=30 columns=80
 "}}}
 "映射绑定{{{1
-"设置learder键
-let mapleader = ","
-
-"设置localleader
-let maplocalleader = "\\"
-
-"设置打开配置文件快捷键
-nnoremap <leader>ev :vsplit $MYVIMRC<cr>
-
 "字符搜索时自动加入\v参数
 nnoremap / /\v
 nnoremap ? ?\v
-
-nnoremap <leader>/ :execute "normal! /\\v" . expand(@*). "\r"<cr>
-
-"去除搜索高亮
-nnoremap <leader>nh :nohlsearch<cr>
-
-"使vimrc设置作为脚本立即执行
-nnoremap <leader>sv :source $MYVIMRC<cr>
-
-"给单词加上单引号
-nnoremap <leader>' viw<esc>a'<esc>hbi'<esc>lbl<cr>
 
 "再插入模式中用jk取代<esc>
 inoremap jk <esc>
@@ -175,8 +154,42 @@ noremap <down> <nop>
 noremap <right> <nop>
 noremap <left> <nop>
 
+"buffer切换键绑定
+nnoremap <PageUp> :bp<cr>
+nnoremap <PageDown> :bn<cr>
+
+"设置查找邮件未定操作符(motion)
+onoremap in@ :<c-u>execute "normal! /\\w\\+\\([-+.]\\w\\+\\)*@\\w\\+\\([-.]\\w\\+\\)*\\.\\w\\+\\([-.]\\w\\+\\)*\r:nohlsearch\rvg_"<cr><cr>
+
+"设置learder键
+let mapleader = ','
+
+"设置localleader
+let maplocalleader = '\'
+
+"设置打开配置文件快捷键
+nnoremap <leader>ev :vsplit $MYVIMRC<cr>
+
+"使vimrc设置作为脚本立即执行
+nnoremap <leader>sv :source $MYVIMRC<cr>
+
+"搜索@"寄存器的内容
+nnoremap <leader>/ :execute "normal! /\\v" . expand(@*). "\r"<cr>
+
+"去除搜索高亮
+nnoremap <leader>nh :nohlsearch<cr>
+
+"给单词加上单引号
+nnoremap <leader>' viw<esc>a'<esc>hbi'<esc>lbl<cr>
+
 "设置切换分屏的快捷键
 nnoremap <leader><leader> <c-w>
+
+"映射cnext
+nnoremap <leader>> :cnext<cr>
+
+"映射cprevious
+nnoremap <leader>< :cprevious<cr>
 "}}}
 "自动加载{{{1
 "设置自动命令组，防止重复加载
@@ -205,38 +218,4 @@ augroup wzws_autocmd
 
 "组结束
 augroup END
-"}}}
-"自定义命令{{{1
-"加载插入模式求值器
-command! LoadCalcMod source $HOME/.vim/plugin/CalcModule.vim
-"}}}
-"Vundle插件列表{{{1
-filetype off                  " required
-
-" set the runtime path to include Vundle and initialize
-set rtp+=$HOME/.vim/bundle/Vundle.vim
-call vundle#begin('$HOME/vimfiles/bundle')
-
-" Let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
-" Plugin on GitHub repo
-Plugin 'tpope/vim-fugitive'
-" NERD-Tree allow you explore your filesystem and to open or edit them
-Plugin 'The-NERD-tree'
-" Provide an easy way to browse the tags of the current file
-Plugin 'majutsushi/tagbar'
-" A statusline mamanger
-Plugin 'bling/vim-airline'
-" Color scheme
-Plugin 'molokai'
-" Async run shell command
-Plugin 'skywind3000/asyncrun.vim'
-
-if has('mac')
-" Dash plugin for mac
-Plugin 'rizzatti/dash.vim'
-endif
-
-call vundle#end()            " required
-filetype plugin indent on    " required
 "}}}

@@ -1,3 +1,33 @@
+"Vundle插件列表{{{1
+filetype off                  " required
+
+" set the runtime path to include Vundle and initialize
+set rtp+=$HOME/.vim/bundle/Vundle.vim
+call vundle#begin('$HOME/vimfiles/bundle')
+
+" Let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+" Plugin on GitHub repo
+Plugin 'tpope/vim-fugitive'
+" NERD-Tree allow you explore your filesystem and to open or edit them
+Plugin 'The-NERD-tree'
+" Provide an easy way to browse the tags of the current file
+Plugin 'majutsushi/tagbar'
+" A statusline mamanger
+Plugin 'bling/vim-airline'
+" Color scheme
+Plugin 'molokai'
+" Async run shell command
+Plugin 'skywind3000/asyncrun.vim'
+
+if has('mac')
+" Dash plugin for mac
+Plugin 'rizzatti/dash.vim'
+endif
+
+call vundle#end()            " required
+filetype plugin indent on    " required
+"}}}
 "NERD-Tree设置 {{{1
 "特性设置 {{{2
 "显示增强
@@ -70,32 +100,6 @@ set rtp+=~/vimfiles/bundle/molokai
 colorscheme molokai
 "}}}
 "}}}
-"Syntastic设置{{{1
-"特性设置{{{2
-"set statusline+=%#warningmsg#
-"set statusline+=%{SyntasticStatuslineFlag()}
-"set statusline+=%*
-
-"let g:syntastic_always_populate_loc_list = 1
-"let g:syntastic_auto_loc_list = 1
-"let g:syntastic_check_on_open = 0
-"let g:syntastic_check_on_wq = 0
-"
-"let g:syntastic_mode_map = {
-"    \ "mode": "active",
-"    \ "active_filetypes": ['cpp'],
-"    \ "passive_filetypes": ['cpp'] }
-"
-"
-"if exists('$CPPCHECK') && has('win32')
-"    let g:syntastic_cpp_cppcheck_exec = expand('$CPPCHECK') . '\cppcheck.exe'
-"    let g:syntastic_cpp_checkers = ['cppcheck']
-"endif
-"}}}
-"映射绑定{{{2
-"nnoremap <F6> :SyntasticCheck<cr>
-"}}}
-"}}}
 "airline设置{{{1
 "特性设置{{{2
 "开启syntastic整合
@@ -109,9 +113,19 @@ let g:airline#extensions#tagbar#flags = 'p'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#buffer_nr_show = 1
 let g:airline#extensions#tabline#fnamemod = ':t'
+let g:airline#extensions#tabline#buffer_idx_mode = 1
 "}}}
+"}}}
+"AsyncRun设置{{{1
 "映射绑定{{{2
-nnoremap <PageUp> :bp<cr>
-nnoremap <PageDown> :bn<cr>
+nnoremap <F3> :call asyncrun#quickfix_toggle(8)<cr>
+"}}}
+"}}}
+"Dash设置{{{1
+"映射绑定{{{2
+"映射dash only for macos
+if has('mac')
+    nnoremap <leader>d :Dash<cr>
+endif
 "}}}
 "}}}
