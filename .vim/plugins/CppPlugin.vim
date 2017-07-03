@@ -1,4 +1,8 @@
 "while c++ file open. loading following map and func
+"特性设置{{{1
+setlocal fdm=marker
+setlocal foldlevel=0
+"}}}
 "映射绑定{{{1
 "自动补全各种符号
 inoremap ( ()<Left>
@@ -34,7 +38,7 @@ endif
 inoreabbrev <buffer> ghc /***************************************************************************************************<cr><backspace><backspace><backspace>%fname%:<cr><tab>Copyright (c) Eisoo Software, Inc.(2004 - 2016), All rights reserved.<cr>Purpose:<cr><cr>Author:<cr><tab>wang.zhuowei@eisoo.com<cr><cr><backspace><backspace>Creating Time:<cr><tab>%ctime%<cr><bs>***************************************************************************************************/
 
 "生成类注释
-inoreabbrev <buffer> gcc ////////////////////////////////////////////////////////////////////////////////////////////////////<cr>class %fname:h%<cr>
+inoreabbrev <buffer> gcc //class %fname:h%{{{<cr> "}}}
 
 "生成trace
 inoreabbrev <buffer> gtr %cpp_trace%
@@ -83,7 +87,7 @@ function! CppPlugin#MakeHeaderFrame()
 		echom 'Only .h file can create header frame' 
 		return
 	endif
-
+    "{{{
 	if line("$") ==# 1
 		normal ggdGgg
 		normal Ighc 
@@ -91,14 +95,33 @@ function! CppPlugin#MakeHeaderFrame()
 		normal G\#
 		normal jo
 		normal jIgcc 
-		normal o
 		normal 0d$
-		normal o
 		normal Igcb
-		normal o
+        normal o
+		normal I//}}}
+        normal o
+		normal 0d$
 		normal ,s
+
+        let targetname = filename[0] . ".cpp"
+
 		" 创建一个同名cpp文件
-		execute 'silent !echo \#include "' . expand("%s") . '">' . filename[0] . ".cpp"
+        if has('win32')
+            silent execute '!cd. > ' . targetname
+        else
+            silent execute '!touch ' . targetname
+        endif
+
+        " 插入信息
+        let i = 0
+        let message = []
+        while i < 10
+            call add(message, getline(i+1))
+            let i = i + 1
+        endwhile
+        call add(message, '#include <' . expand('%s') . '>')
+        call add(message, '')
+        call writefile(message, targetname)
 	else
 		call CppPlugin#WriteFuncDef()
 	endif
@@ -190,14 +213,25 @@ function! CppPlugin#WriteFuncDef()
 		if isWrite
 			let funcdef = CppPlugin#ChangeFuncDef(i)
 			let result = split(funcdef, "#")
+
+            " 填写marker
+            let marker = '//'
+			for i in result
+                let marker = marker . i . ' '
+			endfor
+            let marker = CppPlugin#Trim(marker) . '{{{3' "}}}
+            call add(new_content, marker)
+            
+            " 填写函数定义
 			for i in result
 				call add(new_content, i)
 			endfor
+
 			call add(new_content, "{")
 			call add(new_content, '    NC_PROFILE_POINT();')
 			call add(new_content, '    %cpp_trace%')
-			call add(new_content, "}")
-			call add(new_content, " ")
+			call add(new_content, "}") "{{{
+			call add(new_content, "//}}}")
 		endif
 	endfor
 
