@@ -119,7 +119,7 @@ function! CppPlugin#MakeHeaderFrame()
             call add(message, getline(i+1))
             let i = i + 1
         endwhile
-        call add(message, '#include <' . expand('%s') . '>')
+        call add(message, '#include "' . expand('%s') . '"')
         call add(message, '')
         call writefile(message, targetname)
 	else
