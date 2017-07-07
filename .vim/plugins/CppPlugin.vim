@@ -219,7 +219,7 @@ function! CppPlugin#WriteFuncDef()
 			for i in result
                 let marker = marker . i . ' '
 			endfor
-            let marker = CppPlugin#Trim(marker) . '{{{3' "}}}
+            let marker = CppPlugin#Trim(marker) . '{{{' "}}}
             call add(new_content, marker)
             
             " ÌîÐ´º¯Êý¶¨Òå

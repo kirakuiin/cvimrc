@@ -132,7 +132,7 @@ function! UtilModule#CleanUnusedBuffer()
     let nerd_number = bufnr('NERD*')
     let i = 1
     
-    while i < last_number
+    while i <= last_number
         if (i != current_number) && (i != nerd_number)
             silent! execute 'bd ' . string(i)
         endif
