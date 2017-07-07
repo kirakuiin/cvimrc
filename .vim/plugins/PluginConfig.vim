@@ -58,6 +58,10 @@ endif
 let NERDTreeMinimalUI=1
 "显示书签
 let NERDTreeShowBookmarks=1
+"设置忽略文件
+if has('mac')
+    let NERDTreeIgnore=['\.DS_Store$[[file]]']
+endif
 " 设置当文件被改动时自动载入
 set autoread
 "}}}
