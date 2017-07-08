@@ -26,42 +26,45 @@ command! LoadCalcMod source $HOME/.vim/plugin/CalcModule.vim
 "替换标志为相应实体{{{2
 function! UtilModule#SubstitudeFlag()
 
-	" 全局配置
-	"当前文件名:%fname%
-	let fnamestr = expand("%")
-	silent! execute '%s/%fname%/' . fnamestr . '/g'
-	"当前文件名头:%fname:h%
-	let fnamehstr = expand("%:r")
-	silent! execute '%s/%fname:h%/' . fnamehstr . '/g'
-	"当前行数:%fline%
-	let flinestr = string(line("."))
-	silent! execute '%s/%fline%/' . flinestr . '/g'
-	"当前时间:%ctime%
-	let ctimestr = substitute(strftime("%Y-%b-%d"), "月", "", "")
-	silent! execute '%s/%ctime%/' . ctimestr . '/g'
-	"个人邮件:%email%"
-	let emailstr = "549676201@qq.com"
-	silent! execute '%s/%email%/' . emailstr . '/g'
+    "全局配置
+    "当前文件名:UtilModule.vim
+    let fnamestr = expand("%")
+    silent! execute '%s/UtilModule.vim/' . fnamestr . '/g'
+    "当前文件名头:UtilModule
+    let fnamehstr = expand("%:r")
+    silent! execute '%s/UtilModule/' . fnamehstr . '/g'
+    "当前行数:35
+    let flinestr = string(line("."))
+    silent! execute '%s/35/' . flinestr . '/g'
+    "当前时间:2017- 7-08
+    let ctimestr = substitute(strftime("%Y-%b-%d"), "月", "", "")
+    silent! execute '%s/2017- 7-08/' . ctimestr . '/g'
+    "个人邮件:549676201@qq.com"
+    let emailstr = "549676201@qq.com"
+    silent! execute '%s/549676201@qq.com/' . emailstr . '/g'
 
-	" 特化配置
-	
-	"当前文件trace(cpp)
-	let g:um_cpptrace = 'NC_DO_MODULE_TRACE(_T("%s () ------ begin"), __AB_FUNC_NAME__);'
-	silent! execute '%s/%cpp_trace%/' . g:um_cpptrace . '/g'
+    " 特化配置
 
-	"消除^M字符
-	silent! execute '%s/\r//g'
+    "当前文件trace(cpp)
+    let g:um_cpptrace = 'NC_DO_MODULE_TRACE(_T("%s () ------ begin"), __AB_FUNC_NAME__);'
+    silent! execute '%s/NC_DO_MODULE_TRACE(_T("%s () ------ begin"), __AB_FUNC_NAME__);/' . g:um_cpptrace . '/g'
+
+    "消除^M字符
+    silent! execute '%s/\r//g'
+
+    "清除末尾空格符
+    silent! execute '%s/\v\s+$//g'
 endfunction
 "}}}
 "重新创建一个GVIM来打开此文件{{{2
 function! UtilModule#OpenNewBufferForCurrentFile()
-	let fnamestr = expand("%")
-	silent! execute '!start gvim ' . fnamestr
+    let fnamestr = expand("%")
+    silent! execute '!start gvim ' . fnamestr
 endfunction
 "}}}
 "使用系统grep来查找指定字符串{{{2
 function! s:GrepOperator(type)
-	let saved_unnamed_register = @"
+    let saved_unnamed_register = @"
 
     if has('win32')
         let l:slash = "\\"
@@ -69,13 +72,13 @@ function! s:GrepOperator(type)
         let l:slash = "\/"
     endif
 
-	if a:type ==# 'v'
-		normal! `<v`>y
-	elseif a:type ==# 'char'
-		normal! `[v`]y
-	else
-		return
-	endif
+    if a:type ==# 'v'
+        normal! `<v`>y
+    elseif a:type ==# 'char'
+        normal! `[v`]y
+    else
+        return
+    endif
 
     let findpath = getcwd()
 
@@ -85,9 +88,9 @@ function! s:GrepOperator(type)
         silent execute "grep! -R " . shellescape(@") . " " . findpath . l:slash . "*"
     endif
 
-	copen
+    copen
 
-	let @" = saved_unnamed_register
+    let @" = saved_unnamed_register
 endfunction
 "}}}
 "安装插件函数{{{2
@@ -131,7 +134,7 @@ function! UtilModule#CleanUnusedBuffer()
     let last_number = bufnr('$')
     let nerd_number = bufnr('NERD*')
     let i = 1
-    
+
     while i <= last_number
         if (i != current_number) && (i != nerd_number)
             silent! execute 'bd ' . string(i)

@@ -18,7 +18,7 @@ set number
 
 "突出显示当前行
 set cursorline
-	
+    
 "打开状态栏标尺
 set ruler
 
@@ -44,8 +44,6 @@ set textwidth=80
 "设置文件格式
 set fileformat=unix
 
-"自动切换目录为当前文件目录
-set autochdir
 
 "设置自动对齐
 set autoindent
@@ -77,21 +75,6 @@ set smartindent
 "非插入状态下无法用无法删除回车符
 set backspace=indent,eol,start
 
-"开始折叠
-set foldenable
-
-"设置语法折叠
-set foldmethod=manual
-
-"设置折叠宽度
-set foldcolumn=0
-
-"设置折叠层数
-setlocal foldlevel=1 
-
-"设置为自动关闭折叠
-set foldclose=all
-
 "使得状态栏和命令行分开    
 set laststatus=2
 
@@ -113,33 +96,52 @@ set statusline=%<%f%h%m%r%y%=%b\ 0x%B\ \ %l/%L,%c\ %P
 "将剪粘板设置为unnamed寄存器
 set clipboard=unnamed
 
-"GVIM全屏化
-if has('gui_running') && has("win32")
-    au GUIEnter * simalt ~x
-endif
-
 "设置编码格式
 set encoding=utf-8
 set fileencodings=ucs-bom,utf-8,cp936
 set fileencoding=gb2312
 set termencoding=utf-8
 
-"设置字体
-if has('mac')
-    set guifont=Monaco:h18
-    set rtp+=~/.vim
-elseif has('win32')
-    set guifont=consolas:h14
-    set rtp+=~\.vim
-else
-    set rtp+=~/.vim
-endif
-
 "具有三行上下光标
 set scrolloff=3
 
-"设置启动窗口大小
-"set lines=30 columns=80
+"gvim专用
+if has('gui_running')
+    "开始折叠
+    set foldenable
+
+    "设置语法折叠
+    set foldmethod=manual
+
+    "设置折叠宽度
+    set foldcolumn=0
+
+    "设置折叠层数
+    setlocal foldlevel=1 
+
+    "设置为自动关闭折叠
+    set foldclose=all
+
+    "自动切换目录为当前文件目录
+    set autochdir
+
+    "设置平台相关信息
+    if has('mac')
+        set guifont=Monaco:h18
+        set rtp+=~/.vim
+
+    elseif has('win32')
+        set guifont=consolas:h14
+        set rtp+=~\.vim
+        "win GVIM全屏化
+        au GUIEnter * simalt ~x
+
+    else
+        set rtp+=~/.vim
+
+    endif
+endif
+
 "}}}
 "映射绑定{{{1
 "字符搜索时自动加入\v参数
@@ -207,16 +209,16 @@ nnoremap <leader>< :cprevious<cr>
 augroup wzws_autocmd
 
 "清除组内自动命令
-	autocmd!
+    autocmd!
 
 "加载c++配置
-	autocmd FileType cpp source $HOME/.vim/plugins/CppPlugin.vim
+    autocmd FileType cpp source $HOME/.vim/plugins/CppPlugin.vim
 
 "加载python配置
     autocmd Filetype python source $HOME/.vim/plugins/PythonPlugin.vim
 
 "加载scheme配置
-	autocmd FileType scheme source $HOME/.vim/plugins/SchemePlugin.vim
+    autocmd FileType scheme source $HOME/.vim/plugins/SchemePlugin.vim
 
 "打开vim文件时采用marker缩进
     autocmd FileType vim source $HOME/.vim/plugins/VimPlugin.vim
