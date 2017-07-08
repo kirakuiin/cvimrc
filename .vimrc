@@ -105,41 +105,36 @@ set termencoding=utf-8
 "具有三行上下光标
 set scrolloff=3
 
-"gvim专用
-if has('gui_running')
-    "开始折叠
-    set foldenable
+"开始折叠
+set foldenable
 
-    "设置语法折叠
-    set foldmethod=manual
+"设置语法折叠
+set foldmethod=manual
 
-    "设置折叠宽度
-    set foldcolumn=0
+"设置折叠宽度
+set foldcolumn=0
 
-    "设置折叠层数
-    setlocal foldlevel=1 
+"设置折叠层数
+setlocal foldlevel=1 
 
-    "设置为自动关闭折叠
-    set foldclose=all
+"设置为自动关闭折叠
+set foldclose=all
 
-    "自动切换目录为当前文件目录
-    set autochdir
+"自动切换目录为当前文件目录
+set autochdir
 
-    "设置平台相关信息
-    if has('mac')
-        set guifont=Monaco:h18
-        set rtp+=~/.vim
+"设置平台相关信息
+if has('mac')
+    set guifont=Monaco:h18
+    set rtp+=~/.vim
 
-    elseif has('win32')
-        set guifont=consolas:h14
-        set rtp+=~\.vim
-        "win GVIM全屏化
-        au GUIEnter * simalt ~x
+elseif has('win32')
+    set guifont=consolas:h14
+    set rtp+=~\.vim
 
-    else
-        set rtp+=~/.vim
+else
+    set rtp+=~/.vim
 
-    endif
 endif
 
 "}}}
@@ -210,6 +205,11 @@ augroup wzws_autocmd
 
 "清除组内自动命令
     autocmd!
+
+"win GVIM全屏化
+if has('win32') && has('gui_running')
+    autocmd GUIEnter * simalt ~x
+endif
 
 "加载c++配置
     autocmd FileType cpp source $HOME/.vim/plugins/CppPlugin.vim
