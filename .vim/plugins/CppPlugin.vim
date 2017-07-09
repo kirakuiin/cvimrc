@@ -35,19 +35,19 @@ endif
 "}}}
 "缩写设置{{{1
 "生成头文件注释
-inoreabbrev <buffer> ghc /***************************************************************************************************<cr><backspace><backspace><backspace>CppPlugin.vim:<cr><tab>Copyright (c) Eisoo Software, Inc.(2004 - 2016), All rights reserved.<cr>Purpose:<cr><cr>Author:<cr><tab>wang.zhuowei@eisoo.com<cr><cr><backspace><backspace>Creating Time:<cr><tab>2017- 7-08<cr><bs>***************************************************************************************************/
+inoreabbrev <buffer> ghc /***************************************************************************************************<cr><backspace><backspace><backspace>%fname:h%:<cr><tab>Copyright (c) Eisoo Software, Inc.(2004 - 2016), All rights reserved.<cr>Purpose:<cr><cr>Author:<cr><tab>wang.zhuowei@eisoo.com<cr><cr><backspace><backspace>Creating Time:<cr><tab>%ctime%<cr><bs>***************************************************************************************************/
 
 "生成类注释
-inoreabbrev <buffer> gcc //class CppPlugin{{{<cr> "}}}
+inoreabbrev <buffer> gcc //class %fname:h%{{{<cr> "}}}
 
 "生成trace
-inoreabbrev <buffer> gtr NC_DO_MODULE_TRACE(_T("%s () ------ begin"), __AB_FUNC_NAME__);
+inoreabbrev <buffer> gtr %cpp_trace%
 
 "生成函数注释
 inoreabbrev <buffer> /** /**<cr>purpose :<cr><cr>param :<cr><cr>return :<cr><cr>other :<cr><cr><bs><bs><bs>**/
 
 "生成类文件
-inoreabbrev <buffer> gcb class CppPlugin<cr>{<cr><bs>public:<cr>CppPlugin();<cr>virtual ~CppPlugin();<cr><cr>CppPlugin(const CppPlugin&);<cr><cr>CppPlugin& operator=(const CppPlugin&);<cr><cr>private:<cr>};
+inoreabbrev <buffer> gcb class %fname:h%<cr>{<cr><bs>public:<cr>%fname:h%();<cr>virtual ~%fname:h%();<cr><cr>%fname:h%(const %fname:h%&);<cr><cr>%fname:h%& operator=(const %fname:h%&);<cr><cr>private:<cr>};
 "}}}
 "函数定义{{{1
 "条件编译信息生成函数{{{2
@@ -171,9 +171,9 @@ function! CppPlugin#ChangeFuncDef(funcdef)
     let index = match(result, '\v\s+\S+\(.*\)')
 
     if  index ==# -1
-        let result ='#' . 'CppPlugin::' . result[:-2]
+        let result ='#' . '%fname:h%::' . result[:-2]
     else
-        let result = result[:index-1] . '#' . 'CppPlugin::' . result[index+1:-2]
+        let result = result[:index-1] . '#' . '%fname:h%::' . result[index+1:-2]
     endif
 
     return result
@@ -229,7 +229,7 @@ function! CppPlugin#WriteFuncDef()
 
             call add(new_content, "{")
             call add(new_content, '    NC_PROFILE_POINT();')
-            call add(new_content, '    NC_DO_MODULE_TRACE(_T("%s () ------ begin"), __AB_FUNC_NAME__);')
+            call add(new_content, '    %cpp_trace%')
             call add(new_content, "}") "{{{
             call add(new_content, "//}}}")
         endif
