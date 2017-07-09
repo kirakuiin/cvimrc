@@ -3,7 +3,7 @@ filetype off                  " required
 
 " set the runtime path to include Vundle and initialize
 set rtp+=$HOME/.vim/bundle/Vundle.vim
-call vundle#begin('$HOME/vimfiles/bundle')
+call vundle#begin('$HOME/.vimfiles/bundle')
 
 " Let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'

@@ -22,6 +22,15 @@ command! -nargs=0 UninstallLvimrc call UtilModule#UninstallLvimrc()
 "加载插入模式求值器
 command! LoadCalcMod source $HOME/.vim/plugin/CalcModule.vim
 "}}}
+"全局变量{{{1
+if has('win32')
+    let g:newline = '\n\r'
+elseif has('mac')
+    let g:newline = '\r'
+else
+    let g:newline = '\n'
+endif
+"}}}
 "函数定义{{{1
 "替换标志为相应实体{{{2
 function! UtilModule#SubstitudeFlag()
@@ -47,6 +56,7 @@ function! UtilModule#SubstitudeFlag()
 
     "当前文件trace(cpp)
     let g:um_cpptrace = 'NC_DO_MODULE_TRACE(_T("%s () ------ begin"), __AB_FUNC_NAME__);'
+    \ . g:newline . 'NC_DO_MODULE_TRACE(_T("%s () ------ end"), __AB_FUNC_NAME__);'
     silent! execute '%s/%cpp_trace%/' . g:um_cpptrace . '/g'
 
     "消除^M字符
