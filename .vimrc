@@ -127,7 +127,9 @@ set autochdir
 if has('mac')
     set guifont=Monaco:h18
     set rtp+=~/.vim
-    set fullscreen
+    if has('gui_running')
+        set fullscreen
+    endif
 
 elseif has('win32')
     set guifont=consolas:h14
