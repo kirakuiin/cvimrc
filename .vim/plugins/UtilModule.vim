@@ -66,7 +66,12 @@ function! UtilModule#SubstitudeFlag()
     silent! execute '%s/\v\s+$//g'
 
     "tab替换为空格符
-    ret
+    retab!
+
+    "cpp 文件自动设为bom格式
+    if &filetype ==# 'cpp'
+        set bomb
+    endif
 
     "保存修改
     write
