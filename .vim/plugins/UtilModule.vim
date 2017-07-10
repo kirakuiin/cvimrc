@@ -64,6 +64,9 @@ function! UtilModule#SubstitudeFlag()
 
     "清除末尾空格符
     silent! execute '%s/\v\s+$//g'
+
+    "tab替换为空格符
+    ret
 endfunction
 "}}}
 "重新创建一个GVIM来打开此文件{{{2
