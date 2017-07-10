@@ -5,11 +5,11 @@ setlocal foldlevel=0
 "}}}
 "映射绑定{{{1
 "自动补全各种符号
-inoremap ( ()<Left>
-inoremap " ""<Left>
-inoremap ' ''<Left>
-inoremap [ []<Left>
-inoremap { {}<Left><CR><CR><Up><Tab>
+inoremap <buffer>( ()<Left>
+inoremap <buffer>" ""<Left>
+inoremap <buffer>' ''<Left>
+inoremap <buffer>[ []<Left>
+inoremap <buffer>{ {}<Left><CR><CR><Up><Tab>
 
 "添加单行注释
 nnoremap <buffer><localleader>c I//<esc>
@@ -38,7 +38,7 @@ endif
 inoreabbrev <buffer> ghc /***************************************************************************************************<cr><backspace><backspace><backspace>%fname:h%:<cr><tab>Copyright (c) Eisoo Software, Inc.(2004 - 2016), All rights reserved.<cr>Purpose:<cr><cr>Author:<cr><tab>wang.zhuowei@eisoo.com<cr><cr><backspace><backspace>Creating Time:<cr><tab>%ctime%<cr><bs>***************************************************************************************************/
 
 "生成类注释
-inoreabbrev <buffer> gcc //class %fname:h%{{{<cr> "}}}
+inoreabbrev <buffer> gcc //class %fname:h%{{{<cr>}}}
 
 "生成trace
 inoreabbrev <buffer> gtr %cpp_trace%

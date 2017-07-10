@@ -1,11 +1,11 @@
 "while python file open. loading following map and func
 "映射绑定{{{1
 "自动补全各种符号
-inoremap ( ()<Left>
-inoremap " ""<Left>
-inoremap ' ''<Left>
-inoremap [ []<Left>
-inoremap { {}<Left>
+inoremap <buffer>( ()<Left>
+inoremap <buffer>" ""<Left>
+inoremap <buffer>' ''<Left>
+inoremap <buffer>[ []<Left>
+inoremap <buffer>{ {}<Left>
 
 "添加单行注释
 nnoremap <buffer><localleader>c I#<esc>
