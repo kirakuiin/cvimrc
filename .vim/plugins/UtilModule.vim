@@ -67,6 +67,9 @@ function! UtilModule#SubstitudeFlag()
 
     "tab替换为空格符
     ret
+
+    "保存修改
+    write
 endfunction
 "}}}
 "重新创建一个GVIM来打开此文件{{{2
