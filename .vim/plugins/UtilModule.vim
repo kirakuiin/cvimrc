@@ -36,29 +36,28 @@ endif
 function! UtilModule#SubstitudeFlag()
 
     "全局配置
-    "当前文件名:UtilModule.vim
+    "当前文件名:%fname%
     let fnamestr = expand("%")
-    silent! execute '%s/UtilModule.vim/' . fnamestr . '/g'
-    "当前文件名头:UtilModule
+    silent! execute '%s/%fname%/' . fnamestr . '/g'
+    "当前文件名头:%fname:h%
     let fnamehstr = expand("%:r")
-    silent! execute '%s/UtilModule/' . fnamehstr . '/g'
+    silent! execute '%s/%fname:h%/' . fnamehstr . '/g'
     "当前行数:%fline%
     let flinestr = string(line("."))
-    silent! execute '%s/44/' . flinestr . '/g'
-    "当前时间:2017- 7-10
+    silent! execute '%s/%fline%/' . flinestr . '/g'
+    "当前时间:%ctime%
     let ctimestr = substitute(strftime("%Y-%b-%d"), "月", "", "")
-    silent! execute '%s/2017- 7-10/' . ctimestr . '/g'
-    "个人邮件:549676201@qq.com
+    silent! execute '%s/%ctime%/' . ctimestr . '/g'
+    "个人邮件:%email%
     let emailstr = "549676201@qq.com"
-    silent! execute '%s/549676201@qq.com/' . emailstr . '/g'
+    silent! execute '%s/%email%/' . emailstr . '/g'
 
     " 特化配置
 
     "当前文件trace(cpp)
-    let g:um_cpptrace = 'NC_DO_MODULE_TRACE(_T("%s () ------ begin"), __AB_FUNC_NAME__);'
+    let g:cpptrace = 'NC_DO_MODULE_TRACE(_T("%s () ------ begin"), __AB_FUNC_NAME__);'
     \ . g:newline . 'NC_DO_MODULE_TRACE(_T("%s () ------ end"), __AB_FUNC_NAME__);'
-    silent! execute '%s/NC_DO_MODULE_TRACE(_T("%s () ------ begin"), __AB_FUNC_NAME__);
-NC_DO_MODULE_TRACE(_T("%s () ------ end"), __AB_FUNC_NAME__);/' . g:um_cpptrace . '/g'
+    silent! execute '%s/%cpp_trace%/' . g:cpp_trace . '/g'
 
     "消除^M字符
     silent! execute '%s/\r//g'
