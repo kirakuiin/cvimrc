@@ -52,11 +52,9 @@ function! UtilModule#SubstitudeFlag()
     let emailstr = "549676201@qq.com"
     silent! execute '%s/%email%/' . emailstr . '/g'
 
-    " 特化配置
-
     "当前文件trace(cpp)
     let g:cpptrace = 'NC_DO_MODULE_TRACE(_T("%s () ------ begin"), __AB_FUNC_NAME__);'
-    \ . g:newline . 'NC_DO_MODULE_TRACE(_T("%s () ------ end"), __AB_FUNC_NAME__);'
+                \ . g:newline . '\tNC_DO_MODULE_TRACE(_T("%s () ------ end"), __AB_FUNC_NAME__);'
     silent! execute '%s/%cpp_trace%/' . g:cpptrace . '/g'
 
     "消除^M字符
