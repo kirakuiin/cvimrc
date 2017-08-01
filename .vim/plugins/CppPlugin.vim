@@ -3,6 +3,9 @@
 setlocal fdm=marker
 setlocal foldlevel=0
 "}}}
+"命令设置{{{1
+command! -nargs=0 LoadEisooMake source $HOME/.vim/plugins/EisooMake.vim
+"}}}
 "映射绑定{{{1
 "自动补全各种符号
 inoremap <buffer>( ()<Left>
