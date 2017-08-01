@@ -18,7 +18,7 @@ set number
 
 "突出显示当前行
 set cursorline
-    
+
 "打开状态栏标尺
 set ruler
 
@@ -75,7 +75,7 @@ set smartindent
 "非插入状态下无法用无法删除回车符
 set backspace=indent,eol,start
 
-"使得状态栏和命令行分开    
+"使得状态栏和命令行分开
 set laststatus=2
 
 "去掉菜单
@@ -115,7 +115,7 @@ set foldmethod=manual
 set foldcolumn=0
 
 "设置折叠层数
-setlocal foldlevel=1 
+setlocal foldlevel=1
 
 "设置为自动关闭折叠
 set foldclose=all

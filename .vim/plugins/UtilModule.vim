@@ -20,7 +20,7 @@ command! -nargs=0 InstallLvimrc call UtilModule#InstallLvimrc()
 command! -nargs=0 UpdateLvimrc call UtilModule#UpdateLvimrc()
 command! -nargs=0 UninstallLvimrc call UtilModule#UninstallLvimrc()
 "加载插入模式求值器
-command! LoadCalcMod source $HOME/.vim/plugin/CalcModule.vim
+command! LoadCalcMod source $HOME/.vim/plugins/CalcModule.vim
 "}}}
 "全局变量{{{1
 if has('win32')
@@ -30,6 +30,8 @@ elseif has('mac')
 else
     let g:newline = '\n'
 endif
+
+let g:asyncrun_encs = 'cp936'
 "}}}
 "函数定义{{{1
 "替换标志为相应实体{{{2
