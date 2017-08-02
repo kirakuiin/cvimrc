@@ -24,14 +24,16 @@ command! LoadCalcMod source $HOME/.vim/plugins/CalcModule.vim
 "}}}
 "全局变量{{{1
 if has('win32')
-    let g:newline = '\n\r'
+    let g:newline = '\r\n'
+    let g:asyncrun_encs = 'cp936'
 elseif has('mac')
     let g:newline = '\r'
+    let g:asyncrun_encs = 'utf-8'
 else
     let g:newline = '\n'
+    let g:asyncrun_encs = 'utf-8'
 endif
 
-let g:asyncrun_encs = 'cp936'
 "}}}
 "函数定义{{{1
 "替换标志为相应实体{{{2
