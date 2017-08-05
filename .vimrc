@@ -128,7 +128,7 @@ if has('mac')
     set guifont=Monaco:h18
     set rtp+=~/.vim
     if has('gui_running')
-        set fullscreen
+        "set fullscreen
     endif
 
 elseif has('win32')
