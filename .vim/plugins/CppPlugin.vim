@@ -59,17 +59,19 @@ inoreabbrev <buffer> gcb class %fname:h%<cr>{<cr><bs>public:<cr>%fname:h%();<cr>
 function! CppPlugin#GenerateDef()
     let wordList = split(expand("%s"), '\v\.')
     let prefix = split(wordList[0], '\v[A-Z]\zs')
-
-    "将前一个字符串的最后一个大写字母移到下个字符串的开头, 并去掉空字符串
-    let iter = 0
-    let listlen = len(prefix)
-    while iter < listlen-1
-        let tmp = prefix[iter][-1:]
-        let prefix[iter] = prefix[iter][:-2]
-        let prefix[iter+1] = tmp . prefix[iter+1]
-        let iter += 1
-    endwhile
-    call filter(prefix, 'v:val !=# ""')
+    echo prefix
+    if len(prefix) != 1
+        "将前一个字符串的最后一个大写字母移到下个字符串的开头, 并去掉空字符串
+        let iter = 0
+        let listlen = len(prefix)
+        while iter < listlen-1
+            let tmp = prefix[iter][-1:]
+            let prefix[iter] = prefix[iter][:-2]
+            let prefix[iter+1] = tmp . prefix[iter+1]
+            let iter += 1
+        endwhile
+        call filter(prefix, 'v:val !=# ""')
+    endif
 
     let marcoName = add(prefix, wordList[1])
     let marcoName = join(marcoName, "_")
