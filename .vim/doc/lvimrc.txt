@@ -39,64 +39,71 @@ MAPPING                                                       *lvimrc_mapping*
     '/' 和 '?' 搜索符开启very magic模式
 
 *全局映射:
-   <leader>ev   : 编辑配置文件
-   <leader>sv   : 加载配置文件
-   <leader>nh   : 清除搜索结果高亮
-   <leader>nb   : 对当前文件开启一个新的buffer
-   <leader>bc   : 清理未使用的buffer
-   <leader>d    : 调用dash接口查询当前光标词语 (only for macos)
-   <leader>g    : 在当前目录对光标下单词进行grep搜索 支持visual模式
-   <leader>s    : 替换所有占位符 (e.g. 2017-8月-09)
-   <leader>/    : 搜索@"寄存器的内容
-   <leader>'    : 给光标下单词加上单引号
-   <leader>>    : 跳转到下一条quickfix
-   <leader><    : 跳转到上一条quickfix
+    <leader>ev  : 编辑配置文件
+    <leader>sv  : 加载配置文件
+    <leader>nh  : 清除搜索结果高亮
+    <leader>nb  : 对当前文件开启一个新的buffer
+    <leader>bc  : 清理未使用的buffer
+    <leader>d   : 调用dash接口查询当前光标词语 (only for macos)
+    <leader>g   : 在当前目录对光标下单词进行grep搜索 支持visual模式
+    <leader>s   : 替换所有占位符 (%xxx%)
+    <leader>/   : 搜索@"寄存器的内容
+    <leader>'   : 给光标下单词加上单引号
+    <leader>>   : 跳转到下一条quickfix
+    <leader><   : 跳转到上一条quickfix
 
-   <F2>         : 开启NERD目录浏览器
-   <F3>         : 开启quickfix窗口
-   <F4>         : 开启tagbar
+    <F2>        : 开启NERD目录浏览器
+    <F3>        : 开启quickfix窗口
+    <F4>        : 开启tagbar
 
-   <PageUp>     : 切换到下一个buffer
-   <PageDown>   : 切换到上一个buffer
+    <PageUp>    : 切换到下一个buffer
+    <PageDown>  : 切换到上一个buffer
+    <leader>1   : 切换到1号buffer(需要airline)
+    ...
+    <leader>9   : 切换到9号buffer(需要airline)
 
 *CPP映射
-    <localleader>mf   : 生成头文件框架, 如果已有则生成对应cpp文件
-    <localleader>c    : 添加单行注释
-    <localleader>#    : 添加宏条件编译
-    <localleader>*    : 在visual模式下进行块注释
+    <localleader>mf     : 生成头文件框架, 如果已有则生成对应cpp文件
+    <localleader>c      : 添加单行注释
+    <localleader>#      : 添加宏条件编译
+    <localleader>*      : 在visual模式下进行块注释
 
-    <F7>              : 使用g++编译此文件 (必须安装了g++)
-    <F5>              : 运行编译出来的可执行文件
+    <F7>                : 使用g++编译此文件 (必须安装了g++)
+    <F5>                : 运行编译出来的可执行文件
+
+*CPP缩写
+    ghc                 : 生成文件注释文件
+    gcc                 : 生成类注释文件
 
 *PYTHON映射
-    <localleader>c    : 添加单行注释
-    <localleader>*    : 在visual模式下进行块注释
+    <localleader>c      : 添加单行注释
+    <localleader>*      : 在visual模式下进行块注释
 
-    <F5>              : 运行本文件
+    <F5>                : 运行本文件
 *SCHEME映射
-    <localleader>c    : 添加单行注释
+    <localleader>c      : 添加单行注释
 
-    <F5>              : 运行本文件
+    <F5>                : 运行本文件
 
 ==============================================================================
 PLUGIN                                                         *lvimrc_plugin*
 
     插件列表如下:
-        1.*Vundle* 插件管理器    >
-                :PluginInstall
-                :PluginUpdate
-                :PluginClean
-<        2.*NERDTree* 目录树浏览器 >
-                :NerdTree
-<        3.*tagbar* 源代码标签浏览器
-        4.*vim-airline* 轻量级状态条工具
-        5.*molokai* 配色方案
-        6.*asyncrun* 异步命令运行工具 >
-                :AsyncRun
-<        7.*fugitive* Git管理工具 >
-                :Gstatus
-                :Gpull
-                :Gpush
+        1.*Vundle* 插件管理器               >
+            :PluginInstall
+            :PluginUpdate
+            :PluginClean
+<        2.*NERDTree* 目录树浏览器          >
+            :NerdTree
+<        3.*tagbar* 源代码标签浏览器        >
+<        4.*vim-airline* 轻量级状态条工具   >
+<        5.*molokai* 配色方案               >
+<        6.*asyncrun* 异步命令运行工具      >
+            :AsyncRun
+<        7.*fugitive* Git管理工具           >
+            :Gstatus
+            :Gpull
+            :Gpush
 <        8.*dash* Dash集成工具(only for macos)
 
 ==============================================================================
@@ -112,8 +119,17 @@ COMMANDS                                                     *lvimrc_commands*
   删除此插件集合的所有文件.
 
 :LoadCalcMod
-  加载计算模式, 再次模式下插入模式输入'=?'将会对前面的表达式求值并将用结果替
+  加载计算模式, 在此模式下插入模式输入'=?'将会对前面的表达式求值并将用结果替
   换'?'.
+
+:LoadEisooMode
+  加载Eisoo-Make模式，在此模式下将会激活部分命令来完成eisoo源代码的编译工作
+    :SetEisooEnv (x86|x64)
+    1.<localleader>md  makec debug
+    2.<localleader>mdc makec debug cleanall
+    3.<localleader>mr  makec release
+    4.<localleader>mrc makec release cleanall
+    5.<localleader>ml  ls
 
 ==============================================================================
 CONFIGURATION                                           *lvimrc_configuration*
