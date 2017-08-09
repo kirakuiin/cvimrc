@@ -130,14 +130,14 @@ endfunction
 "Ð¶ÔØ²å¼þº¯Êý{{{2
 function! UtilModule#UninstallLvimrc()
     if has('unix')
-        silent execute 'AsyncRun rm -rf ' . expand($HOME) .'/vimfiles'
+        silent execute 'AsyncRun rm -rf ' . expand($HOME) .'/.vimfiles'
         silent execute 'AsyncRun rm -rf ' . expand($HOME) .'/.vim'
         silent execute 'AsyncRun rm -rf ' . expand($HOME) .'/.vimrc'
         silent execute 'AsyncRun rm -rf ' . expand($HOME) .'/README.MD'
         silent execute 'AsyncRun rm -rf ' . expand($HOME) .'/.git'
         silent execute 'AsyncRun rm -rf ' . expand($HOME) .'/.gitignore'
     else
-        silent execute 'AsyncRun del /Q ' . expand($HOME) .'\vimfiles'
+        silent execute 'AsyncRun del /Q ' . expand($HOME) .'\.vimfiles'
         silent execute 'AsyncRun del /Q ' . expand($HOME) .'\.vim'
         silent execute 'AsyncRun del /Q ' . expand($HOME) .'\.vimrc'
         silent execute 'AsyncRun del /Q ' . expand($HOME) .'\README.MD'

@@ -41,6 +41,17 @@ function! s:EisooMakec(option)
     execute 'AsyncRun makec ' . compile_cmd
 endfunction
 "}}}
+"生成配置文件{{{2
+function! s:GenerateConfigFile()
+    let filepath = expand($HOME) . '/eisoo.config'
+    silent! execute '!cd. > ' . filepath
+
+    let content = ['WIN32_EISOO_TOOLS=E:\eisoo\Apollo\apollo\cmake\tools']
+    call add(content, 'LINUX_EISOO_TOOLS=/code/Columbus/5r')
+
+    call writefile(content, filepath)
+endfunction
+"}}}
 "加载$HOME/eisoo.config文件{{{2
 function! s:LoadEisooConfig(bitnum)
 
@@ -88,17 +99,6 @@ function! s:LoadEisooConfig(bitnum)
     execute 'AsyncRun start eisoo_make.bat ' . a:bitnum
     sleep 2
     qa
-endfunction
-"}}}
-"生成配置文件{{{2
-function! s:GenerateConfigFile()
-    let filepath = expand($HOME) . '/eisoo.config'
-    silent! execute '!cd. > ' . filepath
-
-    let content = ['WIN32_EISOO_TOOLS=E:\eisoo\Apollo\apollo\cmake\tools']
-    call add(content, 'LINUX_EISOO_TOOLS=/code/Columbus/5r')
-
-    call writefile(content, filepath)
 endfunction
 "}}}
 "}}}
