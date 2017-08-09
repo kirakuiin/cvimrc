@@ -26,9 +26,9 @@ function! s:EisooMakec(option)
     elseif a:option ==# 'rc'
         let compile_cmd = 'release cleanall'
     elseif a:option ==# 'd'
-        let compile_cmd = 'debug'
+        let compile_cmd = ''
     elseif a:option ==# 'dc'
-        let compile_cmd = 'debug cleanall'
+        let compile_cmd = 'cleanall'
     elseif a:option ==# 'l'
         if has('win32')
             execute 'AsyncRun dir'
@@ -46,7 +46,8 @@ function! s:LoadEisooConfig(bitnum)
 
     let s:config_path = expand($HOME) .'/eisoo.config'
     if !filereadable(s:config_path)
-        echoerr  "not have config file"
+        echoerr  "not found config file! gene it at $HOME/eisoo.config"
+        call GenerateConfigFile();
         return
     endif
 
@@ -87,6 +88,17 @@ function! s:LoadEisooConfig(bitnum)
     execute 'AsyncRun start eisoo_make.bat ' . a:bitnum
     sleep 2
     qa
+endfunction
+"}}}
+"生成配置文件{{{2
+function! s:GenerateConfigFile()
+    let filepath = expand($HOME) . '/eisoo.config'
+    silent! execute '!cd. > ' . filepath
+
+    let content = ['WIN32_EISOO_TOOLS=E:\eisoo\Apollo\apollo\cmake\tools']
+    call add(content, 'LINUX_EISOO_TOOLS=/code/Columbus/5r')
+
+    call writefile(content, filepath)
 endfunction
 "}}}
 "}}}

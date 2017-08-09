@@ -24,16 +24,12 @@ command! LoadCalcMod source $HOME/.vim/plugins/CalcModule.vim
 "}}}
 "全局变量{{{1
 if has('win32')
-    let g:newline = '\r\n'
     let g:asyncrun_encs = 'cp936'
 elseif has('mac')
-    let g:newline = '\r'
     let g:asyncrun_encs = 'utf-8'
 else
-    let g:newline = '\n'
     let g:asyncrun_encs = 'utf-8'
 endif
-
 "}}}
 "函数定义{{{1
 "替换标志为相应实体{{{2
@@ -58,7 +54,7 @@ function! UtilModule#SubstitudeFlag()
 
     "当前文件trace(cpp)
     let g:cpptrace = 'NC_DO_MODULE_TRACE(_T("%s () ------ begin"), __AB_FUNC_NAME__);'
-                \ . g:newline . '\tNC_DO_MODULE_TRACE(_T("%s () ------ end"), __AB_FUNC_NAME__);'
+                \ . '\r' . '\tNC_DO_MODULE_TRACE(_T("%s () ------ end"), __AB_FUNC_NAME__);'
     silent! execute '%s/%cpp_trace%/' . g:cpptrace . '/g'
 
     "消除^M字符
