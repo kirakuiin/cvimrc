@@ -82,22 +82,18 @@ MAPPING                                                       *lvimrc_mapping*
 PLUGIN                                                         *lvimrc_plugin*
 
     插件列表如下:
-        1.*Vundle* 插件管理器
-            command:  >
+        1.*Vundle* 插件管理器    >
                 :PluginInstall
                 :PluginUpdate
                 :PluginClean
-<        2.*NERDTree* 目录树浏览器
-            command:  >
+<        2.*NERDTree* 目录树浏览器 >
                 :NerdTree
 <        3.*tagbar* 源代码标签浏览器
         4.*vim-airline* 轻量级状态条工具
         5.*molokai* 配色方案
-        6.*asyncrun* 异步命令运行工具
-           command:  >
-               :AsyncRun
-<        7.*fugitive* Git管理工具
-            command:  >
+        6.*asyncrun* 异步命令运行工具 >
+                :AsyncRun
+<        7.*fugitive* Git管理工具 >
                 :Gstatus
                 :Gpull
                 :Gpush
