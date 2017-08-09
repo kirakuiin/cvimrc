@@ -19,6 +19,8 @@ Plugin 'bling/vim-airline'
 Plugin 'molokai'
 " Async run shell command
 Plugin 'skywind3000/asyncrun.vim'
+" Eisoo Make
+Plugin 'Chinazwking/eisoo_make'
 
 if has('mac')
 " Dash plugin for mac
@@ -80,14 +82,14 @@ augroup END
 "}}}
 "函数定义{{{2
 function! s:AutoCloseOldNerdBuf()
-    let isNew = v:true
+    let isNew = 1
 
     let last = bufnr('$')
     while last >= 1
         let curBufName = bufname(last)
 
         if (curBufName =~? "NERD*") && isNew
-            let isNew = v:false
+            let isNew = 0
         elseif curBufName =~? "NERD*"
             silent! execute 'bw ' . curBufName
         endif
@@ -157,22 +159,6 @@ nmap <leader>8 <Plug>AirlineSelectTab8
 nmap <leader>9 <Plug>AirlineSelectTab9
 "}}}
 "函数定义{{{2
-function! s:AutoCloseOldNerdBuf()
-    let isNew = v:true
-
-    let last = bufnr('$')
-    while last >= 1
-        let curBufName = bufname(last)
-
-        if (curBufName =~? "NERD*") && isNew
-            let isNew = v:false
-        elseif curBufName =~? "NERD*"
-            silent! execute 'bw ' . curBufName
-        endif
-
-        let last = last - 1
-    endwhile
-endfunction
 "}}}
 "}}}
 "AsyncRun设置{{{1
