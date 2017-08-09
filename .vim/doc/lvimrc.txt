@@ -13,9 +13,9 @@ CONTENTS                                                     *lvimrc-contents*
    02. Mapping ............................................ |lvimrc_mapping|
    03. Plugin .............................................. |lvimrc_plugin|
    04. Commands .......................................... |lvimrc_commands|
-   04. Configuration ................................ |lvimrc_configuration|
-   05. Contributions ................................ |lvimrc_contributions|
-   06. License ............................................ |lvimrc_license|
+   05. Configuration ................................ |lvimrc_configuration|
+   06. Contributions ................................ |lvimrc_contributions|
+   07. License ............................................ |lvimrc_license|
 
 ==============================================================================
 INTRODUCTION                                                    *lvimrc_intro*
@@ -68,18 +68,25 @@ MAPPING                                                       *lvimrc_mapping*
     <localleader>#      : 添加宏条件编译
     <localleader>*      : 在visual模式下进行块注释
 
+    <localleader>md     : makec debug               (需要emake)
+    <localleader>mdc    : makec debug cleanall      (需要emake)
+    <localleader>mr     : makec release             (需要emake)
+    <localleader>mrc    : makec release cleanall    (需要emake)
+
     <F7>                : 使用g++编译此文件 (必须安装了g++)
     <F5>                : 运行编译出来的可执行文件
 
 *CPP缩写
     ghc                 : 生成文件注释文件
     gcc                 : 生成类注释文件
+    gtr                 : 生成trace宏
 
 *PYTHON映射
     <localleader>c      : 添加单行注释
     <localleader>*      : 在visual模式下进行块注释
 
     <F5>                : 运行本文件
+
 *SCHEME映射
     <localleader>c      : 添加单行注释
 
@@ -105,7 +112,9 @@ PLUGIN                                                         *lvimrc_plugin*
             :Gpull
             :Gpush
 <        8.*dash* Dash集成工具(only for macos)
-
+        9.*emake* Eisoo cpp make工具        >
+            :SetEisooEnv {x64|x86}
+<
 ==============================================================================
 COMMANDS                                                     *lvimrc_commands*
 
@@ -121,15 +130,6 @@ COMMANDS                                                     *lvimrc_commands*
 :LoadCalcMod
   加载计算模式, 在此模式下插入模式输入'=?'将会对前面的表达式求值并将用结果替
   换'?'.
-
-:LoadEisooMode
-  加载Eisoo-Make模式，在此模式下将会激活部分命令来完成eisoo源代码的编译工作
-    :SetEisooEnv (x86|x64)
-    1.<localleader>md  makec debug
-    2.<localleader>mdc makec debug cleanall
-    3.<localleader>mr  makec release
-    4.<localleader>mrc makec release cleanall
-    5.<localleader>ml  ls
 
 ==============================================================================
 CONFIGURATION                                           *lvimrc_configuration*

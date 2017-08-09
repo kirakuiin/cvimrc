@@ -5,7 +5,6 @@ setlocal foldlevel=0
 "}}}
 "√¸¡Ó…Ë÷√{{{1
 if has('win32')
-    command! -nargs=0 LoadEisooMake source $HOME/.vim/plugins/EisooMake.vim
 endif
 "}}}
 "”≥…‰∞Û∂®{{{1
