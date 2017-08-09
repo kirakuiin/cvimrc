@@ -69,8 +69,32 @@ set autoread
 nnoremap <silent> <F2> :NERDTreeToggle<CR>
 "}}}
 "自动加载 {{{2
-"只剩 NERDTree时自动关闭
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+augroup nerdtree_group
+    "清除组命令
+    au!
+    "只剩 NERDTree时自动关闭
+    autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+    "打开新的buffer时自动清除所有旧的nerdbuffer，保留一个最新的
+    autocmd bufadd * call <SID>AutoCloseOldNerdBuf()
+augroup END
+"}}}
+"函数定义{{{2
+function! s:AutoCloseOldNerdBuf()
+    let isNew = v:true
+
+    let last = bufnr('$')
+    while last >= 1
+        let curBufName = bufname(last)
+
+        if (curBufName =~? "NERD*") && isNew
+            let isNew = v:false
+        elseif curBufName =~? "NERD*"
+            silent! execute 'bw ' . curBufName
+        endif
+
+        let last = last - 1
+    endwhile
+endfunction
 "}}}
 "}}}
 "tagbar设置{{{1
@@ -92,8 +116,10 @@ let g:tagbar_autoclose=1
 nnoremap <F4> :Tagbar<cr>
 "}}}
 "自动加载{{{2
-"当时c或者cpp文件时自动打开
-"autocmd BufReadPost *.cpp,*.c,*.h,*.hpp,*.cc,*.cxx call tagbar#autoopen()
+augroup tagbar_group
+    au!
+    autocmd BufNewFile,BufReadPost lvimrc.txt let b:tagbar_ignore = 1
+augroup END
 "}}}
 "}}}
 "molokai设置{{{1
@@ -102,9 +128,6 @@ nnoremap <F4> :Tagbar<cr>
 set rtp+=~/vimfiles/bundle/molokai
 "设置颜色模式
 colorscheme molokai
-"}}}
-"自动命令{{{2
-autocmd BufNewFile,BufReadPost lvimrc.txt let b:tagbar_ignore = 1
 "}}}
 "}}}
 "airline设置{{{1
@@ -118,9 +141,38 @@ let g:airline#extensions#tagbar#flags = 's'
 let g:airline#extensions#tagbar#flags = 'p'
 "开启bufferline
 let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#buffer_nr_show = 1
 let g:airline#extensions#tabline#fnamemod = ':t'
 let g:airline#extensions#tabline#buffer_idx_mode = 1
+"let g:airline#extensions#tabline#buffer_nr_show = 1
+"}}}
+"映射绑定{{{2
+nmap <leader>1 <Plug>AirlineSelectTab1
+nmap <leader>2 <Plug>AirlineSelectTab2
+nmap <leader>3 <Plug>AirlineSelectTab3
+nmap <leader>4 <Plug>AirlineSelectTab4
+nmap <leader>5 <Plug>AirlineSelectTab5
+nmap <leader>6 <Plug>AirlineSelectTab6
+nmap <leader>7 <Plug>AirlineSelectTab7
+nmap <leader>8 <Plug>AirlineSelectTab8
+nmap <leader>9 <Plug>AirlineSelectTab9
+"}}}
+"函数定义{{{2
+function! s:AutoCloseOldNerdBuf()
+    let isNew = v:true
+
+    let last = bufnr('$')
+    while last >= 1
+        let curBufName = bufname(last)
+
+        if (curBufName =~? "NERD*") && isNew
+            let isNew = v:false
+        elseif curBufName =~? "NERD*"
+            silent! execute 'bw ' . curBufName
+        endif
+
+        let last = last - 1
+    endwhile
+endfunction
 "}}}
 "}}}
 "AsyncRun设置{{{1

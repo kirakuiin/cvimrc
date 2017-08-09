@@ -4,7 +4,9 @@ setlocal fdm=marker
 setlocal foldlevel=0
 "}}}
 "命令设置{{{1
-command! -nargs=0 LoadEisooMake source $HOME/.vim/plugins/EisooMake.vim
+if has('win32')
+    command! -nargs=0 LoadEisooMake source $HOME/.vim/plugins/EisooMake.vim
+endif
 "}}}
 "映射绑定{{{1
 "自动补全各种符号

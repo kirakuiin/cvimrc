@@ -5,7 +5,7 @@
 | |/ _` | '_ ` _ \| '_ \ / _` |/ _` |____\ \ / / | '_ ` _ \| '__/ __|~
 | | (_| | | | | | | |_) | (_| | (_| |_____\ V /| | | | | | | | | (__ ~
 |_|\__,_|_| |_| |_|_.__/ \__,_|\__,_|      \_/ |_|_| |_| |_|_|  \___|~
-                                                                     
+
 ==============================================================================
 CONTENTS                                                     *lvimrc-contents*
 
@@ -22,7 +22,7 @@ INTRODUCTION                                                    *lvimrc_intro*
 
 本配置集合主要是为了方便个人工作生活而实现的, 因此键位设置带有强烈的个人风格
 
-    主要功能如下: 
+    主要功能如下:
         1. 对一些常用的set进行了设定
         2. 提供了一些常用功能的映射
         3. 提供了方便的全局文本搜索功能
@@ -39,14 +39,14 @@ MAPPING                                                       *lvimrc_mapping*
     '/' 和 '?' 搜索符开启very magic模式
 
 *全局映射:
-   <leader>ev   : 编辑配置文件  
+   <leader>ev   : 编辑配置文件
    <leader>sv   : 加载配置文件
    <leader>nh   : 清除搜索结果高亮
    <leader>nb   : 对当前文件开启一个新的buffer
    <leader>bc   : 清理未使用的buffer
    <leader>d    : 调用dash接口查询当前光标词语 (only for macos)
-   <leader>g    : 在当前目录对光标下单词进行grep搜索 支持visual模式 
-   <leader>s    : 替换所有占位符 (e.g. %ctime%)
+   <leader>g    : 在当前目录对光标下单词进行grep搜索 支持visual模式
+   <leader>s    : 替换所有占位符 (e.g. 2017-8月-09)
    <leader>/    : 搜索@"寄存器的内容
    <leader>'    : 给光标下单词加上单引号
    <leader>>    : 跳转到下一条quickfix
@@ -61,7 +61,7 @@ MAPPING                                                       *lvimrc_mapping*
 
 *CPP映射
     <localleader>mf   : 生成头文件框架, 如果已有则生成对应cpp文件
-    <localleader>c    : 添加单行注释 
+    <localleader>c    : 添加单行注释
     <localleader>#    : 添加宏条件编译
     <localleader>*    : 在visual模式下进行块注释
 
@@ -69,12 +69,12 @@ MAPPING                                                       *lvimrc_mapping*
     <F5>              : 运行编译出来的可执行文件
 
 *PYTHON映射
-    <localleader>c    : 添加单行注释 
+    <localleader>c    : 添加单行注释
     <localleader>*    : 在visual模式下进行块注释
 
     <F5>              : 运行本文件
 *SCHEME映射
-    <localleader>c    : 添加单行注释 
+    <localleader>c    : 添加单行注释
 
     <F5>              : 运行本文件
 
@@ -106,16 +106,16 @@ PLUGIN                                                         *lvimrc_plugin*
 ==============================================================================
 COMMANDS                                                     *lvimrc_commands*
 
-:InstallLvimrc                                       
+:InstallLvimrc
   安装本插件集合, 网络通畅情况下将自动下载所有配置的插件.
 
-:UpdateLvimrc                                         
+:UpdateLvimrc
   更新本插件集合, 网络通畅下将更新并清理所有配置的插件.
 
-:UninstallLvimrc                                       
+:UninstallLvimrc
   删除此插件集合的所有文件.
 
-:LoadCalcMod                                            
+:LoadCalcMod
   加载计算模式, 再次模式下插入模式输入'=?'将会对前面的表达式求值并将用结果替
   换'?'.
 
@@ -127,12 +127,12 @@ CONFIGURATION                                           *lvimrc_configuration*
         Win32:  $HOME=X:\Users\username
         Unix:   $HOME=~/username
 <
-    *如果想要启用tagbar功能, 请确保电脑内安装了ctags, 并且配置了正确的ctags 
+    *如果想要启用tagbar功能, 请确保电脑内安装了ctags, 并且配置了正确的ctags
     路径 >
         ~/.vim/PluginConfig.vim # g:tagbar_ctags_bin='path'
 <
 配置目录树如下:
-    
+
 |~.vim/
 | `~plugin/
 |   |-CalcModule.vim            #计算模块文件
@@ -153,6 +153,6 @@ CONTRIBUTIONS                                           *lvimrc_contributions*
 ==============================================================================
 LICENSE                                                       *lvimrc_license*
 
-MIT License.  Copyright © 2016-2017 Wang Zhuowei 
+MIT License.  Copyright © 2016-2017 Wang Zhuowei
 
  vim:tw=78:ts=8:ft=help:norl:

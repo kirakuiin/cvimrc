@@ -223,7 +223,7 @@ endif
 "加载scheme配置
     autocmd FileType scheme source $HOME/.vim/plugins/SchemePlugin.vim
 
-"打开vim文件时采用marker缩进
+"加载vim配置
     autocmd FileType vim source $HOME/.vim/plugins/VimPlugin.vim
 
 "组结束

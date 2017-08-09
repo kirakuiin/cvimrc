@@ -158,7 +158,7 @@ function! UtilModule#CleanUnusedBuffer()
 
     while i <= last_number
         if (i != current_number) && (i != nerd_number)
-            silent! execute 'bd ' . string(i)
+            silent! execute 'bw ' . string(i)
         endif
         let i = i + 1
     endwhile
