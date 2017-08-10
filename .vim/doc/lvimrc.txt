@@ -44,6 +44,8 @@ MAPPING                                                       *lvimrc_mapping*
     <leader>nh  : 清除搜索结果高亮
     <leader>nb  : 对当前文件开启一个新的buffer
     <leader>bc  : 清理未使用的buffer
+    <leader>he  : 二进制编辑模式
+    <leader>hr  : 从二进制编辑模式退出
     <leader>d   : 调用dash接口查询当前光标词语 (only for macos)
     <leader>g   : 在当前目录对光标下单词进行grep搜索 支持visual模式
     <leader>s   : 替换所有占位符 (%xxx%)

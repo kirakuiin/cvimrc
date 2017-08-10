@@ -194,6 +194,12 @@ nnoremap <leader>> :cnext<cr>
 
 "映射cprevious
 nnoremap <leader>< :cprevious<cr>
+
+"二进制编辑模式
+nnoremap <leader>he :%!xxd<cr>
+
+"返回正常模式
+nnoremap <leader>hr :%!xxd -r<cr>
 "}}}
 "全局加载{{{1
 "加载通用模块
