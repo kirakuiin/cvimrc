@@ -120,6 +120,8 @@ endfunction
 "}}}
 "更新插件函数{{{2
 function! UtilModule#UpdateLvimrc()
+    " 更新自身
+    execute '!git pull'
     " 更新插件
     execute 'PluginUpdate'
     " 清理插件
