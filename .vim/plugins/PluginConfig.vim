@@ -88,9 +88,9 @@ function! s:AutoCloseOldNerdBuf()
     while last >= 1
         let curBufName = bufname(last)
 
-        if (curBufName =~? "NERD*") && isNew
+        if (curBufName =~? "NERD_tree_*") && isNew
             let isNew = 0
-        elseif curBufName =~? "NERD*"
+        elseif curBufName =~? "NERD_tree_*"
             silent! execute 'bw ' . curBufName
         endif
 
