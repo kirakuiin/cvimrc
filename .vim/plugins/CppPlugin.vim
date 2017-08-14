@@ -51,7 +51,7 @@ inoreabbrev <buffer> gtr %cpp_trace%
 inoreabbrev <buffer> /** /**<cr>purpose :<cr><cr>param :<cr><cr>return :<cr><cr>other :<cr><cr><bs><bs><bs>**/
 
 "生成类文件
-inoreabbrev <buffer> gcb class %fname:h%<cr>{<cr><bs>public:<cr>%fname:h%();<cr>virtual ~%fname:h%();<cr><cr>%fname:h%(const %fname:h%&);<cr><cr>%fname:h%& operator=(const %fname:h%&);<cr><cr>private:<cr>};
+inoreabbrev <buffer> gcb class %fname:h%<cr>{<cr><bs>public:<cr>%fname:h%();<cr>virtual ~%fname:h%();<cr><cr>private:<cr>%fname:h%(const %fname:h%&);<cr>%fname:h%& operator=(const %fname:h%&);<cr>};
 "}}}
 "函数定义{{{1
 "条件编译信息生成函数{{{2

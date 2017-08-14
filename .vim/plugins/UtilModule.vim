@@ -121,9 +121,14 @@ endfunction
 "更新插件函数{{{2
 function! UtilModule#UpdateLvimrc()
     " 更新自身
+    let currentDir = getcwd()
+    cd $HOME
     execute '!git pull'
+    execute 'cd ' . currentDir
+
     " 更新插件
     execute 'PluginUpdate'
+
     " 清理插件
     execute 'PluginClean'
     q
