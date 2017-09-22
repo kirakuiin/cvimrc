@@ -39,15 +39,19 @@ function! UtilModule#SubstitudeFlag()
     "当前文件名:%fname%
     let fnamestr = expand("%")
     silent! execute '%s/%fname%/' . fnamestr . '/g'
+
     "当前文件名头:%fname:h%
     let fnamehstr = expand("%:r")
     silent! execute '%s/%fname:h%/' . fnamehstr . '/g'
+
     "当前行数:%fline%
     let flinestr = string(line("."))
     silent! execute '%s/%fline%/' . flinestr . '/g'
+
     "当前时间:%ctime%
     let ctimestr = substitute(strftime("%Y-%b-%d"), "月", "", "")
     silent! execute '%s/%ctime%/' . ctimestr . '/g'
+
     "个人邮件:%email%
     let emailstr = "549676201@qq.com"
     silent! execute '%s/%email%/' . emailstr . '/g'

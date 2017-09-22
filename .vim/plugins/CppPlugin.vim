@@ -142,8 +142,8 @@ function! CppPlugin#Trim(str)
     return a:str[bindex:eindex-1]
 
 endfunction
-
-" 在一个字符串中获得一个函数的原型, 忽略返回值
+"}}}
+" 在一个字符串中获得一个函数的原型, 忽略返回值{{{2
 function! CppPlugin#GetFuncPrototype(funcdef)
     let index = match(a:funcdef, '\v::')
     if index ==? -1
