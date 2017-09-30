@@ -192,10 +192,10 @@ function! CppPlugin#WriteFuncDef()
     let buf_content     = readfile(bufname)
     let new_content     = []
 
-    let regexp_h        = "v:val =~? " . '"\\v(\\w+|operator.+)\\(.*\\)\\s*(const|)\\s*(\\=\\s*0|);"'
+    let regexp_h        = "v:val =~? " . '"\\v(\\w+|operator.+)\\(.*\\)\\s*(const|noexcept)\\s*(\\=\\s*0|);"'
     call filter(file_content, regexp_h)
 
-    let regexp_cpp      = "v:val =~? " . '"\\v\\w+::.+\\(.*\\)\\s*(const|)"'
+    let regexp_cpp      = "v:val =~? " . '"\\v\\w+::.+\\(.*\\)\\s*(const|noexcept|)"'
     call filter(buf_content, regexp_cpp)
 
     for i in file_content
