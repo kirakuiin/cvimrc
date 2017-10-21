@@ -29,7 +29,7 @@ function! IdlPlugin#MakeHeaderFrame()
         normal! 2o
         normal! I%{ C++
         normal! o
-        normal! I};
+        normal! I%};
         normal! 2o
         normal! :sleep 100ms
         normal ,s
