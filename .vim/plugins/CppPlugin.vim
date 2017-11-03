@@ -39,7 +39,7 @@ endif
 "}}}
 "缩写设置{{{1
 "生成头文件注释
-inoreabbrev <buffer> ghc /***************************************************************************************************<cr><backspace><backspace><backspace>%fname:h%:<cr><tab>Copyright (c) Eisoo Software, Inc.(2004 - 2016), All rights reserved.<cr>Purpose:<cr><cr>Author:<cr><tab>wang.zhuowei@eisoo.com<cr><cr><backspace><backspace>Creating Time:<cr><tab>%ctime%<cr><bs>***************************************************************************************************/
+inoreabbrev <buffer> ghc /*******************************************************************************<cr><backspace><backspace><backspace>%fname:h%:<cr><tab>Copyright (c) Eisoo Software, Inc.(2004 - 2016), All rights reserved.<cr>Purpose:<cr><cr>Author:<cr><tab>wang.zhuowei@eisoo.com<cr><cr><backspace><backspace>Creating Time:<cr><tab>%ctime%<cr><bs>*******************************************************************************/
 
 "生成类注释
 inoreabbrev <buffer> gcc //class %fname:h%{{{<cr>}}}
