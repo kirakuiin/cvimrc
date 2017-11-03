@@ -142,12 +142,12 @@ function! CppPlugin#Trim(str)
     return a:str[bindex:eindex-1]
 
 endfunction
-
-" 在一个字符串中获得一个函数的原型, 忽略返回值
+"}}}
+" 在一个字符串中获得一个函数的原型, 忽略返回值{{{2
 function! CppPlugin#GetFuncPrototype(funcdef)
     let index = match(a:funcdef, '\v::')
     if index ==? -1
-        let index = match(a:funcdef, '\v\S+\(.*\)\s*(const|)\s*(\=\s*0|);')
+        let index = match(a:funcdef, '\v\S+\(.*\)\s*(const|noexcept|)\s*(\=\s*0|);')
         let eindex = match(a:funcdef, '\v\s*\=\s*0;')
         return a:funcdef[index: eindex-1]
     else
@@ -192,10 +192,10 @@ function! CppPlugin#WriteFuncDef()
     let buf_content     = readfile(bufname)
     let new_content     = []
 
-    let regexp_h        = "v:val =~? " . '"\\v(\\w+|operator.+)\\(.*\\)\\s*(const|)\\s*(\\=\\s*0|);"'
+    let regexp_h        = "v:val =~? " . '"\\v(\\w+|operator.+)\\(.*\\)\\s*(const|noexcept|)\\s*(\\=\\s*0|);"'
     call filter(file_content, regexp_h)
 
-    let regexp_cpp      = "v:val =~? " . '"\\v\\w+::.+\\(.*\\)\\s*(const|)"'
+    let regexp_cpp      = "v:val =~? " . '"\\v\\w+::.+\\(.*\\)\\s*(const|noexcept|)"'
     call filter(buf_content, regexp_cpp)
 
     for i in file_content

@@ -232,6 +232,9 @@ endif
 "加载vim配置
     autocmd FileType vim source $HOME/.vim/plugins/VimPlugin.vim
 
+"加载idl配置
+    autocmd FileType idl source $HOME/.vim/plugins/IdlPlugin.vim
+
 "组结束
 augroup END
 "}}}
