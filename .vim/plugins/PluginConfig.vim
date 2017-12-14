@@ -23,6 +23,8 @@ Plugin 'skywind3000/asyncrun.vim'
 Plugin 'Chinazwking/eisoo_make'
 
 if has('mac')
+" Python-Mode
+Plugin 'python-mode/python-mode'
 " Dash plugin for mac
 Plugin 'rizzatti/dash.vim'
 endif
