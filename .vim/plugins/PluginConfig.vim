@@ -21,6 +21,8 @@ Plugin 'molokai'
 Plugin 'skywind3000/asyncrun.vim'
 " Eisoo Make
 Plugin 'Chinazwking/eisoo_make'
+" Rainbow parenthesss
+Plugin 'kien/rainbow_parentheses.vim'
 
 if has('mac')
 " Python-Mode
@@ -174,5 +176,33 @@ nnoremap <F3> :call asyncrun#quickfix_toggle(8)<cr>
 if has('mac')
     nnoremap <leader>d :Dash<cr>
 endif
+"}}}
+"}}}
+"raindow parentheses设置{{{1
+"特性设置{{{2
+let g:rbpt_colorpairs = [
+    \ ['brown',       'RoyalBlue3'],
+    \ ['Darkblue',    'SeaGreen3'],
+    \ ['darkgray',    'DarkOrchid3'],
+    \ ['darkgreen',   'firebrick3'],
+    \ ['darkcyan',    'RoyalBlue3'],
+    \ ['darkred',     'SeaGreen3'],
+    \ ['darkmagenta', 'DarkOrchid3'],
+    \ ['brown',       'firebrick3'],
+    \ ['gray',        'RoyalBlue3'],
+    \ ['darkmagenta', 'DarkOrchid3'],
+    \ ['Darkblue',    'firebrick3'],
+    \ ['darkgreen',   'RoyalBlue3'],
+    \ ['darkcyan',    'SeaGreen3'],
+    \ ['darkred',     'DarkOrchid3'],
+    \ ['red',         'firebrick3'],
+    \ ]
+
+let g:rbpt_max = 16
+let g:rbpt_loadcmd_toggle = 0
+au VimEnter * RainbowParenthesesToggle
+au Syntax * RainbowParenthesesLoadRound
+au Syntax * RainbowParenthesesLoadSquare
+au Syntax * RainbowParenthesesLoadBraces
 "}}}
 "}}}
