@@ -15,6 +15,10 @@ inoremap <buffer>' ''<Left>
 inoremap <buffer>[ []<Left>
 inoremap <buffer>{ {}<Left><CR><CR><Up><Tab>
 
+"cpplint检查代码
+nnoremap <buffer><localleader>l :AsyncRun $HOME/.vim/pyscript/cpplint.py
+            \ --verbose=5 %<cr>
+
 "添加单行注释
 nnoremap <buffer><localleader>c I//<esc>
 
@@ -22,7 +26,7 @@ nnoremap <buffer><localleader>c I//<esc>
 vnoremap <buffer><localleader>* <esc>`<i/*<esc>`>a*/<esc>
 
 "添加宏条件编译
-nnoremap <buffer><localleader># :call CppPlugin#GenerateDef()<cr>
+nnoremap <buffer><localleader># :call CppPlugin#GenerateGuard()<cr>
 
 "添加头文件框架
 nnoremap <buffer><localleader>mf :call CppPlugin#MakeHeaderFrame()<cr>
@@ -42,7 +46,7 @@ endif
 inoreabbrev <buffer> ghc /*******************************************************************************<cr><backspace><backspace><backspace>%fname:h%:<cr><tab>Copyright (c) Eisoo Software, Inc.(2004 - 2016), All rights reserved.<cr>Purpose:<cr><cr>Author:<cr><tab>wang.zhuowei@eisoo.com<cr><cr><backspace><backspace>Creating Time:<cr><tab>%ctime%<cr><bs>*******************************************************************************/
 
 "生成类注释
-inoreabbrev <buffer> gcc //class %fname:h%{{{<cr>}}}
+inoreabbrev <buffer> gcc //class %fname:h%
 
 "生成trace
 inoreabbrev <buffer> gtr %cpp_trace%
@@ -51,12 +55,12 @@ inoreabbrev <buffer> gtr %cpp_trace%
 inoreabbrev <buffer> /** /**<cr>purpose :<cr><cr>param :<cr><cr>return :<cr><cr>other :<cr><cr><bs><bs><bs>**/
 
 "生成类文件
-inoreabbrev <buffer> gcb class %fname:h%<cr>{<cr><bs>public:<cr>%fname:h%();<cr>virtual ~%fname:h%();<cr>%fname:h%(const %fname:h%&) = delete;<cr>%fname:h%& operator=(const %fname:h%&) = delete;<cr>};
+inoreabbrev <buffer> gcb class %fname:h%<cr>{<cr><bs><space><space>public:<cr><bs>%fname:h%();<cr>virtual ~%fname:h%();<cr>%fname:h%(const %fname:h%&) = delete;<cr>%fname:h%& operator=(const %fname:h%&) = delete;<cr>};
 "}}}
 "函数定义{{{1
 "条件编译信息生成函数{{{2
-function! CppPlugin#GenerateDef()
-    let wordList = split(expand("%s"), '\v\.')
+function! CppPlugin#GenerateGuard()
+    let wordList = split(expand("%"), '\v\C\.')
     let prefix = split(wordList[0], '\v[A-Z]\zs')
     echo prefix
     if len(prefix) != 1
@@ -74,7 +78,7 @@ function! CppPlugin#GenerateDef()
 
     let marcoName = add(prefix, wordList[1])
     let marcoName = join(marcoName, "_")
-    let marcoName = "__" . toupper(marcoName) . "__"
+    let marcoName = "_" . toupper(marcoName) . "_"
 
     execute 'normal! I#ifndef ' . marcoName . "\r"
     execute 'normal! I#define ' . marcoName . "\r"
@@ -104,7 +108,6 @@ function! CppPlugin#MakeHeaderFrame()
         normal 0d$
         normal Igcb
         normal o
-        normal I//}}}
         normal o
         normal 0d$
         normal ,s
@@ -187,7 +190,7 @@ endfunction
 "}}}
 " 将h文件里声明的函数在同名cpp文件中定义, 已经存在的定义不会被覆盖{{{2
 function! CppPlugin#WriteFuncDef()
-    let bufname         = split(expand("%s"), '\v\.')[0] . ".cpp"
+    let bufname         = split(expand("%s"), '\v\.')[0] . ".cc"
     let file_content    = getline(1, "$")
     let buf_content     = readfile(bufname)
     let new_content     = []
@@ -221,12 +224,12 @@ function! CppPlugin#WriteFuncDef()
             let result = split(funcdef, "#")
 
             " 填写marker
-            let marker = '//'
-            for i in result
-                let marker = marker . i . ' '
-            endfor
-            let marker = CppPlugin#Trim(marker) . '{{{' "}}}
-            call add(new_content, marker)
+            " let marker = '//'
+            " for i in result
+            "     let marker = marker . i . ' '
+            " endfor
+            " let marker = CppPlugin#Trim(marker) . '{{{' "}}}
+            " call add(new_content, marker)
 
             " 填写函数定义
             for i in result
@@ -236,12 +239,22 @@ function! CppPlugin#WriteFuncDef()
             call add(new_content, "{")
             call add(new_content, '    NC_PROFILE_POINT();')
             call add(new_content, '    %cpp_trace%')
-            call add(new_content, "}") "{{{
-            call add(new_content, "//}}}")
+            call add(new_content, "}")
         endif
     endfor
 
     call writefile(new_content, bufname, "a")
 endfunction
 "}}}
+"}}}
+"测试代码 {{{
+"主函数 {{{2
+function! CppPlugin#MainTest()
+endfunction
+"}}}
+if exists("g:enable_vim_test")
+    echom "Begin test"
+    call CppPlugin#MainTest()
+    echom "End test"
+endif
 "}}}

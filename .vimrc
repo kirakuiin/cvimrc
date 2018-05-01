@@ -69,6 +69,9 @@ set matchtime=5
 "设置魔术
 set magic
 
+"设置80列提示
+set colorcolumn=80
+
 "开启智能缩进
 set smartindent
 

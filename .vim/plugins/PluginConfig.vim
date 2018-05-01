@@ -26,7 +26,7 @@ Plugin 'kien/rainbow_parentheses.vim'
 
 if has('mac')
 " Python-Mode
-Plugin 'python-mode/python-mode'
+" Plugin 'python-mode/python-mode'
 " Dash plugin for mac
 Plugin 'rizzatti/dash.vim'
 endif

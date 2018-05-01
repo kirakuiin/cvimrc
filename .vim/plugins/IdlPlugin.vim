@@ -37,3 +37,4 @@ function! IdlPlugin#MakeHeaderFrame()
 endfunction
 "}}}
 "}}}
+call CalcModule#EvalArithmeticExp()
