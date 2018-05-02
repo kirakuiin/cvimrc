@@ -16,8 +16,8 @@ inoremap <buffer>[ []<Left>
 inoremap <buffer>{ {}<Left><CR><CR><Up><Tab>
 
 "cpplint检查代码
-nnoremap <buffer><localleader>l :AsyncRun $HOME/.vim/pyscript/cpplint.py
-            \ --verbose=5 %<cr>
+nnoremap <buffer><localleader>l :execute 'AsyncRun '. expand('$HOME').
+            \'/.vim/pyscript/cpplint.py --verbose=5 %'<cr>
 
 "添加单行注释
 nnoremap <buffer><localleader>c I//<esc>
