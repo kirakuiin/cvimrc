@@ -2,7 +2,7 @@
 filetype off                  " required
 
 " set the runtime path to include Vundle and initialize
-set rtp+=$HOME/.vim/bundle/Vundle.vim
+set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin('$HOME/.vimfiles/bundle')
 
 " Let Vundle manage Vundle, required
@@ -15,24 +15,37 @@ Plugin 'The-NERD-tree'
 Plugin 'majutsushi/tagbar'
 " A statusline mamanger
 Plugin 'bling/vim-airline'
-" Color scheme
+" Color scheme molokai
 Plugin 'molokai'
 " Async run shell command
 Plugin 'skywind3000/asyncrun.vim'
-" Eisoo Make
-Plugin 'Chinazwking/eisoo_make'
 " Rainbow parenthesss
 Plugin 'kien/rainbow_parentheses.vim'
+" A Lint engine
+Plugin 'w0rp/ale'
 
-if has('mac')
-" Python-Mode
-" Plugin 'python-mode/python-mode'
-" Dash plugin for mac
-Plugin 'rizzatti/dash.vim'
+if has('osx')
+    " Dash plugin for mac
+    Plugin 'rizzatti/dash.vim'
 endif
 
 call vundle#end()            " required
 filetype plugin indent on    " required
+
+function! PluginConfig#UpdateLvimrc()
+    " 更新自身
+    let currentDir = getcwd()
+    cd $HOME
+    silent! execute '!git pull'
+    execute 'cd ' . currentDir
+
+    " 更新插件
+    execute 'PluginUpdate'
+
+    " 清理插件
+    execute 'PluginClean'
+    q
+endfunction
 "}}}
 "NERD-Tree设置 {{{1
 "特性设置 {{{2
@@ -138,8 +151,8 @@ colorscheme molokai
 "}}}
 "airline设置{{{1
 "特性设置{{{2
-"开启syntastic整合
-""let g:airline#extensions#syntastic#enabled = 1
+"开启ale整合
+let g:airline#extensions#ale#enable = 1
 "开启tagbar整合
 let g:airline#extensions#tagbar#enabled = 1
 let g:airline#extensions#tagbar#flags = 'f'
@@ -150,6 +163,7 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#fnamemod = ':t'
 let g:airline#extensions#tabline#buffer_idx_mode = 1
 "let g:airline#extensions#tabline#buffer_nr_show = 1
+
 "}}}
 "映射绑定{{{2
 nmap <leader>1 <Plug>AirlineSelectTab1
@@ -169,6 +183,13 @@ nmap <leader>9 <Plug>AirlineSelectTab9
 "映射绑定{{{2
 nnoremap <F3> :call asyncrun#quickfix_toggle(8)<cr>
 "}}}
+if has('win32')
+    let g:asyncrun_encs = 'cp936'
+elseif has('mac')
+    let g:asyncrun_encs = 'utf-8'
+else
+    let g:asyncrun_encs = 'utf-8'
+endif
 "}}}
 "Dash设置{{{1
 "映射绑定{{{2
@@ -206,3 +227,39 @@ au Syntax * RainbowParenthesesLoadSquare
 au Syntax * RainbowParenthesesLoadBraces
 "}}}
 "}}}
+"ale设置{{{
+" 仅当保存文件时启用linter
+let g:ale_lint_on_text_changed = 'never'
+let g:ale_lint_on_enter = 0
+
+" 始终启用符号栏
+"let g:ale_sign_column_always = 1
+
+" 关闭loclist
+let g:ale_set_loclist = 0
+
+" 开启quickfix
+let g:ale_set_quickfix = 1
+
+" 设置ale错误标识
+let g:ale_sign_error = 'e'
+
+" 设置ale警报标识
+let g:ale_sign_warning = 'w'
+
+" 语言使用插件设置
+let g:ale_linters = {
+    \'cpp': ['cpplint'],
+    \'python': ['pylint'],
+    \}
+
+" cpplint设置
+let g:ale_cpp_cpplint_executable = expand('~'). '/.vim/pyscript/cpplint.py'
+let g:ale_cpp_cpplint_options = '--verbose=5 --filter=-build/header_guard'
+
+" pylint设置
+let g:ale_python_pylint_executable = expand('~'). '/.vim/pyscript/pylint'
+let g:ale_python_pylint_options = '--rcfile '. expand('~'). '/.pylintrc'
+" The virtualenv detection needs to be disabled.
+let g:ale_python_pylint_use_global = 1
+"}}}}

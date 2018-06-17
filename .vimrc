@@ -1,243 +1,282 @@
-"wangzhuowei's vimrc files{{{1
-"
-"author:
-"    wangzhuowe@eisoo.com
-"
-"time:
-"    2016-8-2
-"}}}
-"ÌØĞÔÉèÖÃ{{{1
-"¹Ø±Õ¼æÈİÄ£Ê½
+" A generic set of VIM plugin for programmers
+" Last Change: 2018 June 15
+" Maintainer: Wang Zhuowei <wang.zhuowei@foxmail.com>
+
+" Features setting {{{
+" VIM normal config {{{
+" Activate extension of VIM
 set nocompatible
 
-"×Ô¶¯Óï·¨¸ßÁÁ
-syntax on
+" Sets how many lines of history VIM has to remember
+set history=100
 
-"ÏÔÊ¾ĞĞºÅ
+" Display line number
 set number
 
-"Í»³öÏÔÊ¾µ±Ç°ĞĞ
+" Highlight the line where the cursor is
 set cursorline
 
-"´ò¿ª×´Ì¬À¸±ê³ß
+" Always show current position
 set ruler
 
-"ÓÃ¿Õ¸ñÌæ»»tab
-set expandtab
+" Height of the command bar
+set cmdheight=1
 
-"Éè¶¨tab³¤¶È
-set tabstop=4
-set softtabstop=4
+" A buffer becomes hidden when it is abandoned
+set hidden
 
-"¸²¸ÇÎÄ¼ş²»±¸·İ
-set nobackup
-
-"²»Éú³ÉundoÎÄ¼ş
-set noundofile
-
-"²»Éú³ÉswapÎÄ¼ş
-set noswapfile
-
-"ÉèÖÃÃ¿ĞĞ×î´óÎÄ±¾ÊıÁ¿
-set textwidth=80
-
-"ÉèÖÃÎÄ¼ş¸ñÊ½
-set fileformat=unix
-
-
-"ÉèÖÃ×Ô¶¯¶ÔÆë
-set autoindent
-
-"ÉèÖÃ±¸·İĞĞÎªÎª¸²¸Ç
-set backupcopy=yes
-
-"¶¯Ì¬ÏÔÊ¾ËÑË÷ÄÚÈİ
-set incsearch
-
-"¸ßÁÁ±»ËÑË÷ÎÄ±¾
-set hlsearch
-
-"¹Ø±Õ´íÎóĞÅÏ¢ÏìÁå
-set noerrorbells
-
-"²åÈëÀ¨ºÅÊÇ¶ÌÔİµ÷µ½±»Æ¥ÅäÀ¨ºÅ
-set showmatch
-
-"Ìø¹ıÈ¥µÄÊ±¼ä
-set matchtime=5
-
-"ÉèÖÃÄ§Êõ
-set magic
-
-"ÉèÖÃ80ÁĞÌáÊ¾
-set colorcolumn=80
-
-"¿ªÆôÖÇÄÜËõ½ø
-set smartindent
-
-"·Ç²åÈë×´Ì¬ÏÂÎŞ·¨ÓÃÎŞ·¨É¾³ı»Ø³µ·û
-set backspace=indent,eol,start
-
-"Ê¹µÃ×´Ì¬À¸ºÍÃüÁîĞĞ·Ö¿ª
-set laststatus=2
-
-"È¥µô²Ëµ¥
-set go=
-
-"ÉèÖÃc·ç¸ñËõ½ø
-set cindent
-
-"ºöÂÔÃüÁî´óĞ¡Ğ´
-set ignorecase
-
-"ÉèÖÃÃ¿Ò»¼¶Ëõ½ø³¤¶È
-set shiftwidth=4
-
-"ÉèÖÃ×´Ì¬À¸
-set statusline=%<%f%h%m%r%y%=%b\ 0x%B\ \ %l/%L,%c\ %P
-
-"½«¼ôÕ³°åÉèÖÃÎªunnamed¼Ä´æÆ÷
-set clipboard=unnamed
-
-"ÉèÖÃ±àÂë¸ñÊ½
-set encoding=utf-8
-set fileencodings=ucs-bom,utf-8,cp936
-set fileencoding=gb2312
-set termencoding=utf-8
-
-"¾ßÓĞÈıĞĞÉÏÏÂ¹â±ê
-set scrolloff=3
-
-"¿ªÊ¼ÕÛµş
-set foldenable
-
-"ÉèÖÃÓï·¨ÕÛµş
-set foldmethod=manual
-
-"ÉèÖÃÕÛµş¿í¶È
-set foldcolumn=0
-
-"ÉèÖÃÕÛµş²ãÊı
-setlocal foldlevel=1
-
-"ÉèÖÃÎª×Ô¶¯¹Ø±ÕÕÛµş
-set foldclose=all
-
-"×Ô¶¯ÇĞ»»Ä¿Â¼Îªµ±Ç°ÎÄ¼şÄ¿Â¼
-set autochdir
-
-"ÉèÖÃÆ½Ì¨Ïà¹ØĞÅÏ¢
-if has('mac')
-    set guifont=Monaco:h18
-    set rtp+=~/.vim
-    if has('gui_running')
-        "set fullscreen
-    endif
-
-elseif has('win32')
-    set guifont=consolas:h14
-    set rtp+=~\.vim
-
+" Turn on the Wild menu
+set wildmenu
+" Ignore compiled files
+set wildignore=*.o,*~,*.pyc
+if has('win32')
+    set wildignore+=.git\*,.svn\*,.hg\\*
 else
-    set rtp+=~/.vim
-
+    set wildignore+=*/.git/*,*/.svn/*,*/.DS_Store
 endif
 
-"}}}
-"Ó³Éä°ó¶¨{{{1
-"×Ö·ûËÑË÷Ê±×Ô¶¯¼ÓÈë\v²ÎÊı
+" Configure backspace so it acts as it should act
+set backspace=indent,eol,start
+
+" Indicate keys that can move to the previous/next line by left/right
+set whichwrap+=<,>,[,]
+
+" For regular expressions turn magic on
+set magic
+
+" Ignore case when searching
+set ignorecase
+" Highlight search results
+set hlsearch
+" Make search act like search in modern browsers
+set incsearch
+
+" Set 7 lines to the cursor when moving vertically using j/k
+set scrolloff=7
+
+" Avoid garbled charaters in Chinese language windows OS
+set langmenu=en
+
+" Don't redraw while executing macros (good performance config)
+set lazyredraw
+
+" Show matching brackets when text indicator is over them
+set showmatch
+" How many tenths of a second to blink when matching brackets
+set matchtime=5     " This means 0.5s
+
+" No annoying sound on errors
+set noerrorbells
+set novisualbell
+set timeoutlen=500
+
+" Bind unamed register to clipboard
+set clipboard=unnamed
+
+" Set runtime path for VIM
+if has('osx')
+    set rtp+=~/.vim
+    silent execute '!rm -f ._'. expand('%:t')
+elseif has('win32')
+    set rtp+=~\.vim
+else
+    set rtp+=~/.vim
+endif
+" }}} VIM normal config
+
+" Color and fonts {{{
+" Enable syntax highlighting
+syntax enable
+
+" Set background color
+set background=dark
+
+" Set extra options when running in GUI mode
+if has('gui_running')
+    " Add a bit extra margin to the left
+    set foldcolumn=1
+    " Enable fold
+    set foldenable
+    " Set syntax fold
+    set foldmethod=manual
+    " Maximum the fold level
+    set foldlevel=1
+    " Automatic fold
+    set foldclose=all
+
+    " Don't show graphical user interface
+    set guioptions=
+
+    " Set fond style and size
+    if has('osx')
+        set guifont=Monaco:h18
+    elseif has('win32')
+        set guifont=consolas:h14
+    endif
+endif
+
+" Set utf-8 as standard encoding and en_US as standard language
+set encoding=utf-8
+" Use the first codec as fileencoding, if error is detect, use next one.
+set fileencodings=utf-8,ucs-bom,cp936
+" Use Unix as the standard file type
+set fileformats=unix,dos,mac
+" }}} Color and fonts
+
+" Backup and undo {{{
+" Turn backup off, since most stuff in CVS
+set nobackup
+set nowritebackup
+set noswapfile
+set noundofile
+set backupcopy=yes
+" }}} Backup and undo
+
+" Text, tab and indent relate {{{
+" Use spaces instead of tabs
+set expandtab
+
+" Be smart when using tabs
+set smarttab
+
+" 1 tab == 4 spaces
+set shiftwidth=4
+set tabstop=4
+
+" Linebreak on 120 characters
+set linebreak
+set textwidth=120
+
+" Auto indent
+set autoindent
+" Smart indent
+set smartindent
+" Wrap lines
+set nowrap
+
+" Highlight the column that is at column 100
+set colorcolumn=80
+" }}} Text, tab and indent relate
+
+" Tabs, windows, statusline {{{2
+" Always show the status line
+set laststatus=2
+
+" Format the status line
+set statusline=%<%f%h%m%r%y%=%b\ 0x%B\ \ %l/%L,%c\ %P
+" }}} Fold, tabs, windows, statusline
+" }}} Features setting
+
+" Basic key mapping {{{
+" Set leader key to comma
+let mapleader = ','
+
+" Set localleader key to back-slash
+let maplocalleader = '\'
+
+"Search in very magic mode
 nnoremap / /\v
 nnoremap ? ?\v
 
-"ÔÙ²åÈëÄ£Ê½ÖĞÓÃjkÈ¡´ú<esc>
+" Replace esc with jk in insert mode
 inoremap jk <esc>
 
-"ÔÙ²åÈëÄ£Ê½ÖĞ½ûÖ¹Ê¹ÓÃ<esc>¼ü
-inoremap <esc> <nop>
+" Buffer switch shortcut
+nnoremap <left> :bprevious<cr>
+nnoremap <right> :bnext<cr>
 
-"½ûÓÃ·½Ïò¼ü
-noremap <up> <nop>
-noremap <down> <nop>
-noremap <right> <nop>
-noremap <left> <nop>
+" Quickfix move shortcut
+nnoremap <up> :cprevious<cr>
+nnoremap <down> :cnext<cr>
 
-"bufferÇĞ»»¼ü°ó¶¨
-nnoremap <PageUp> :bp<cr>
-nnoremap <PageDown> :bn<cr>
-
-"ÉèÖÃ²éÕÒÓÊ¼şÎ´¶¨²Ù×÷·û(motion)
-onoremap in@ :<c-u>execute "normal! /\\w\\+\\([-+.]\\w\\+\\)*@\\w\\+\\([-.]\\w\\+\\)*\\.\\w\\+\\([-.]\\w\\+\\)*\r:nohlsearch\rvg_"<cr><cr>
-
-"ÉèÖÃlearder¼ü
-let mapleader = ','
-
-"ÉèÖÃlocalleader
-let maplocalleader = '\'
-
-"ÉèÖÃ´ò¿ªÅäÖÃÎÄ¼ş¿ì½İ¼ü
+" Open .vimrc file
 nnoremap <leader>ev :vsplit $MYVIMRC<cr>
 
-"Ê¹vimrcÉèÖÃ×÷Îª½Å±¾Á¢¼´Ö´ĞĞ
+" Source .vimrc file
 nnoremap <leader>sv :source $MYVIMRC<cr>
 
-"ËÑË÷@"¼Ä´æÆ÷µÄÄÚÈİ
+" Search the string that save in the @* register
 nnoremap <leader>/ :execute "normal! /\\v" . expand(@*). "\r"<cr>
 
-"È¥³ıËÑË÷¸ßÁÁ
+" Stop highlighting for search result
 nnoremap <leader>nh :nohlsearch<cr>
 
-"¸øµ¥´Ê¼ÓÉÏµ¥ÒıºÅ
-nnoremap <leader>' viw<esc>a'<esc>hbi'<esc>lbl<cr>
-
-"ÉèÖÃÇĞ»»·ÖÆÁµÄ¿ì½İ¼ü
+" Set shortcut for switch window
 nnoremap <leader><leader> <c-w>
 
-"Ó³Éäcnext
-nnoremap <leader>> :cnext<cr>
-
-"Ó³Éäcprevious
-nnoremap <leader>< :cprevious<cr>
-
-"¶ş½øÖÆ±à¼­Ä£Ê½
+" Hex editing
 nnoremap <leader>he :%!xxd<cr>
 
-"·µ»ØÕı³£Ä£Ê½
+" Quit hex editing
 nnoremap <leader>hr :%!xxd -r<cr>
-"}}}
-"È«¾Ö¼ÓÔØ{{{1
-"¼ÓÔØÍ¨ÓÃÄ£¿é
-    source $HOME/.vim/plugins/UtilModule.vim
 
-"¼ÓÔØÅäÖÃÎÄ¼ş
-    source $HOME/.vim/plugins/PluginConfig.vim
-"}}}
-"×Ô¶¯¼ÓÔØ{{{1
-"ÉèÖÃ×Ô¶¯ÃüÁî×é£¬·ÀÖ¹ÖØ¸´¼ÓÔØ
-augroup wzws_autocmd
+" Format the total file
+nnoremap <leader>s :call <SID>FormatTotalFile()<cr>
 
-"Çå³ı×éÄÚ×Ô¶¯ÃüÁî
-    autocmd!
+" Clean the buffer that is not nerd and current buffer
+nnoremap <leader>bc :call <SID>CleanUnusedBuffer()<cr>
 
-"win GVIMÈ«ÆÁ»¯
-if has('win32') && has('gui_running')
-    autocmd GUIEnter * simalt ~x
-endif
+" Shortcut for search string
+nnoremap <leader>g :set operatorfunc=<SID>GrepOperator<cr>g@
+vnoremap <leader>g :<c-u>call <SID>GrepOperator(visualmode())<cr>
+" }}} Basic key mapping
 
-"¼ÓÔØc++ÅäÖÃ
-    autocmd FileType cpp source $HOME/.vim/plugins/CppPlugin.vim
+" Utility functions {{{
+function! s:GrepOperator(type)
+    let saved_unnamed_register = @"
 
-"¼ÓÔØpythonÅäÖÃ
-    autocmd Filetype python source $HOME/.vim/plugins/PythonPlugin.vim
+    if has('win32')
+        let l:slash = "\\"
+    else
+        let l:slash = "\/"
+    endif
 
-"¼ÓÔØschemeÅäÖÃ
-    autocmd FileType scheme source $HOME/.vim/plugins/SchemePlugin.vim
+    if a:type ==# 'v'
+        normal! `<v`>y
+    elseif a:type ==# 'char'
+        normal! `[v`]y
+    else
+        return
+    endif
 
-"¼ÓÔØvimÅäÖÃ
-    autocmd FileType vim source $HOME/.vim/plugins/VimPlugin.vim
+    let findpath = getcwd()
 
-"¼ÓÔØidlÅäÖÃ
-    autocmd FileType idl source $HOME/.vim/plugins/IdlPlugin.vim
+    if (has("win32"))
+        silent execute "grep! /S " . shellescape(@") . " " . findpath . l:slash . "*"
+    else
+        silent execute "grep! -R " . shellescape(@") . " " . findpath . l:slash . "*"
+    endif
 
-"×é½áÊø
-augroup END
-"}}}
+    copen
+
+    let @" = saved_unnamed_register
+endfunction
+
+function! s:FormatTotalFile()
+    "æ¶ˆé™¤^Må­—ç¬¦
+    silent! execute '%s/\r//g'
+
+    "æ¸…é™¤æœ«å°¾ç©ºæ ¼ç¬¦
+    silent! execute '%s/\v\s+$//g'
+
+    "tabæ›¿æ¢ä¸ºç©ºæ ¼ç¬¦
+    retab!
+endfunction
+
+function! s:CleanUnusedBuffer()
+    let current_number = bufnr('%')
+    let last_number = bufnr('$')
+    let nerd_number = bufnr('NERD*')
+    let i = 1
+
+    while i <= last_number
+        if (i != current_number) && (i != nerd_number)
+            silent! execute 'bw ' . string(i)
+        endif
+        let i = i + 1
+    endwhile
+endfunction
+" }}} Utility functions
+
+" source $HOME/.vim/plugins/PluginConfig.vim
+" vim: set expandtab sts=2 ts=4 sw=4 tw=78 fdm=marker foldlevel=0:
