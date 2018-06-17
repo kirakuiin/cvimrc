@@ -113,6 +113,9 @@ if has('gui_running')
     elseif has('win32')
         set guifont=consolas:h14
     endif
+
+    " Set background and font color
+    highlight Normal guibg=Black guifg=White
 endif
 
 " Set utf-8 as standard encoding and en_US as standard language
