@@ -1,9 +1,1 @@
 # 屏蔽全部文件
-/*
-.vim/.netrwhist
-
-# 仅管理以下文件
-!.vim/
-!.vimrc
-!.gitignore
-!README.MD
