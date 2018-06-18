@@ -225,19 +225,32 @@ vnoremap <leader>g :<c-u>call <SID>GrepOperator(visualmode())<CR>
 " }}} Basic key mapping
 
 " Basic custom command {{{
+" Change pwd to current work dir
 command! -nargs=0 Cwd :execute ':cd '. expand('%:p:h')
+
+" Search pattern in current work dir
+command! -nargs=1 -complete=customlist,<SID>SearchComplete Search
+            \ call <SID>SearchInFiles('<args>')
 " }}} Basic custom command
 
 " Utility functions {{{
+" Search pattern for all the files that under cwd(use vim regexp) {{{
+function! s:SearchInFiles(pattern)
+    let findpath = getcwd(). '/**' " Search files recursively
+    silent! execute 'vimgrep! /'. a:pattern. '/j '. findpath
+    copen " show result in quickfix
+endfunction
+" }}} s:SearchInFiles
+
+" Search command complete func {{{
+function! s:SearchComplete(A, L, P)
+    return ['\v', '\C', '\v\C']
+endfunction
+" }}} s:SearchComplete
+
 " Custom grep {{{
 function! s:GrepOperator(type)
     let saved_unnamed_register = @"
-
-    if has('win32')
-        let l:slash = "\\"
-    else
-        let l:slash = "\/"
-    endif
 
     if a:type ==# 'v'
         normal! `<v`>y
@@ -247,16 +260,10 @@ function! s:GrepOperator(type)
         return
     endif
 
-    let findpath = getcwd()
+    let pattern = shellescape(@")[1:-2]
+    call <SID>SearchInFiles(pattern)
 
-    if (has("win32"))
-        silent execute "grep! /S " . shellescape(@") . " " . findpath . l:slash . "*"
-    else
-        silent execute "grep! -R " . shellescape(@") . " " . findpath . l:slash . "*"
-    endif
-
-    copen
-
+    copen " show result in quickfix
     let @" = saved_unnamed_register
 endfunction
 " }}} s:GrepOperator
