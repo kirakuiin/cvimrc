@@ -1,1 +1,3 @@
-# 屏蔽全部文件
+# 屏蔽bundle里的额外插件
+bundle/*
+!bundle/Vundle.vim
