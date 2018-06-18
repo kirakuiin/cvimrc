@@ -308,7 +308,7 @@ endif
 filetype off                  " required
 
 " set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
+set rtp+=~/.vimfiles/bundle/Vundle.vim
 call vundle#begin('~/.vimfiles/bundle')
 
 " Let Vundle manage Vundle, required
@@ -576,11 +576,11 @@ let g:ale_linters = {
     \}
 
 " cpplint设置
-let g:ale_cpp_cpplint_executable = expand('~'). '/.vim/pyscript/cpplint.py'
+let g:ale_cpp_cpplint_executable = 'cpplint.py'
 let g:ale_cpp_cpplint_options = '--verbose=5 --filter=-build/header_guard'
 
 " pylint设置
-let g:ale_python_pylint_executable = expand('~'). '/.vim/pyscript/pylint'
+let g:ale_python_pylint_executable = 'pylint'
 let g:ale_python_pylint_options = '--rcfile '. expand('~'). '/.pylintrc'
 " The virtualenv detection needs to be disabled.
 let g:ale_python_pylint_use_global = 1
