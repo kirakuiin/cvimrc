@@ -224,7 +224,12 @@ nnoremap <leader>g :set operatorfunc=<SID>GrepOperator<CR>g@
 vnoremap <leader>g :<c-u>call <SID>GrepOperator(visualmode())<CR>
 " }}} Basic key mapping
 
+" Basic custom command {{{
+command! -nargs=0 Cwd :execute ':cd '. expand('%:p:h')
+" }}} Basic custom command
+
 " Utility functions {{{
+" Custom grep {{{
 function! s:GrepOperator(type)
     let saved_unnamed_register = @"
 
@@ -254,7 +259,9 @@ function! s:GrepOperator(type)
 
     let @" = saved_unnamed_register
 endfunction
+" }}} s:GrepOperator
 
+" Format current file {{{
 function! s:FormatTotalFile()
     "消除^M字符
     silent! execute '%s/\r//g'
@@ -265,7 +272,9 @@ function! s:FormatTotalFile()
     "tab替换为空格符
     retab
 endfunction
+" }}} s:FormatTotalFile
 
+" Clear all buffer execpt nerdtree and current {{{
 function! s:CleanUnusedBuffer()
     let current_number = bufnr('%')
     let last_number = bufnr('$')
@@ -279,6 +288,7 @@ function! s:CleanUnusedBuffer()
         let i = i + 1
     endwhile
 endfunction
+" }}} s:CleanUnusedBuffer
 " }}} Utility functions
 
 " Plugin config {{{
