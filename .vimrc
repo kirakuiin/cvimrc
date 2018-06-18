@@ -220,8 +220,8 @@ nnoremap <leader>s :call <SID>FormatTotalFile()<CR>
 nnoremap <leader>bc :call <SID>CleanUnusedBuffer()<CR>
 
 " Shortcut for search string
-nnoremap <leader>g :set operatorfunc=<SID>GrepOperator<CR>g@
-vnoremap <leader>g :<c-u>call <SID>GrepOperator(visualmode())<CR>
+nnoremap <leader>g :set operatorfunc=<SID>VimgrepOperator<CR>g@
+vnoremap <leader>g :<c-u>call <SID>VimgrepOperator(visualmode())<CR>
 " }}} Basic key mapping
 
 " Basic custom command {{{
@@ -249,7 +249,7 @@ endfunction
 " }}} s:SearchComplete
 
 " Custom grep {{{
-function! s:GrepOperator(type)
+function! s:VimgrepOperator(type)
     let saved_unnamed_register = @"
 
     if a:type ==# 'v'
@@ -266,7 +266,7 @@ function! s:GrepOperator(type)
     copen " show result in quickfix
     let @" = saved_unnamed_register
 endfunction
-" }}} s:GrepOperator
+" }}} s:VimgrepOperator
 
 " Format current file {{{
 function! s:FormatTotalFile()
