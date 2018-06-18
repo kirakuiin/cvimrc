@@ -89,7 +89,7 @@ endif
 syntax enable
 
 " Set background color
-set background=dark
+set background=light
 
 " Set extra options when running in GUI mode
 if has('gui_running')
@@ -115,7 +115,7 @@ if has('gui_running')
     endif
 
     " Set background and font color
-    highlight Normal guibg=Black guifg=White
+    highlight Normal guibg=White guifg=Black
 endif
 
 " Set utf-8 as standard encoding and en_US as standard language
@@ -282,7 +282,7 @@ endfunction
 " }}} Utility functions
 
 " Plugin config {{{
-" Only activate in gui mode
+" Only activate when in gui mode
 if !has('gui_running')
     finish
 endif
@@ -514,11 +514,20 @@ let g:rbpt_colorpairs = [
 
 let g:rbpt_max = 16
 let g:rbpt_loadcmd_toggle = 0
-au VimEnter * RainbowParenthesesToggle
-au Syntax * RainbowParenthesesLoadRound
-au Syntax * RainbowParenthesesLoadSquare
-au Syntax * RainbowParenthesesLoadBraces
 " }}} Features setting
+
+" Autocmd setting {{{
+augroup rainbow_parentheses_group
+    au!
+    if exists(':RainbowParenthesesToggle')
+        " Vim初始化完成后启用插件
+        autocmd VimEnter * RainbowParenthesesToggle
+        autocmd Syntax * RainbowParenthesesLoadRound
+        autocmd Syntax * RainbowParenthesesLoadSquare
+        autocmd Syntax * RainbowParenthesesLoadBraces
+    endif
+augroup END
+" }}} Autocmd setting
 " }}} Raindow parentheses setting
 
 " Ale setting {{{
@@ -562,13 +571,18 @@ let g:ale_python_pylint_use_global = 1
 
 " Solarized setting {{{
 " Features setting {{{
-" 设置颜色模式
+" 设置背景颜色
 if has('gui_running')
     set background=light
 else
     set background=dark
 endif
-colorscheme solarized
+
+" 设置颜色模式
+try
+    colorscheme solarized
+catch
+endtry
 
 " 关闭菜单
 let g:solarized_menu=0
