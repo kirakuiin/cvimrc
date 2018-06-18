@@ -334,7 +334,8 @@ Plugin 'nathanaelkane/vim-indent-guides'
 Plugin 'michaeljsmith/vim-indent-object'
 " Multiple selection for vim
 Plugin 'terryma/vim-multiple-cursors'
-
+" A fuzzy file search engine
+Plugin 'ctrlpvim/ctrlp.vim'
 if has('osx')
     " Dash plugin for mac
     Plugin 'rizzatti/dash.vim'
@@ -654,7 +655,7 @@ map <leader>ig :IndentGuidesToggle<CR>
 " }}} Mapping setting
 " }}} Indent guide setting
 
-" Multiple cursors {{{
+" Multiple cursors setting {{{
 " Features setting {{{
 " Disable default mapping
 let g:multi_cursor_use_default_mapping = 0
@@ -670,6 +671,15 @@ let g:multi_cursor_prev_key            = '<C-p>'
 let g:multi_cursor_skip_key            = '<C-x>'
 let g:multi_cursor_quit_key            = '<Esc>'
 " }}} Mapping setting
-" }}} Multiple cursors
+" }}} Multiple cursors setting
+
+" Ctrlp setting {{{
+" Features setting {{{
+" Set the format of ctrlp's match window
+let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:10,results:10'
+" Use pwd
+let g:ctrlp_working_path_mode = 'wr'
+" }}}
+" }}} Ctrlp setting
 " }}} Plugin config
 " vim: set et sts=2 ts=4 sw=4 tw=78 fdm=marker foldlevel=0:
