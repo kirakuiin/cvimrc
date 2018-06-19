@@ -35,6 +35,26 @@ Version() {
 }
 
 ########################################
+# Get system info
+# Arguments:
+#     None
+# Returns:
+#     System type(linux|macos|win)
+########################################
+GetSystemInfo() {
+    type=$(uname -s)
+    if [[ "${type}" =~ Darwin ]]
+    then
+        echo 'macos'
+    elif [[ "${type}" =~ Linux ]]
+    then
+        echo 'linux'
+    else
+        echo 'win'
+    fi
+}
+
+########################################
 # Install basic vimrc
 # Arguments:
 #     None
@@ -76,6 +96,13 @@ if [[ "$#" == "0" ]]
 then
     Help
     exit
+else
+    ostype=$(GetSystemInfo)
+    if [[ "${ostype}" =~ win ]]
+    then
+        # Change /x/a/b/... -> x:/a/b/...
+        VIMRC_RTP=${VIMRC_RTP:1:1}':'${VIMRC_RTP:2}
+    fi
 fi
 
 while getopts abvh OPTION;do
@@ -88,5 +115,4 @@ while getopts abvh OPTION;do
     esac
 done
 
-echo 'Installed the vimrc for vim is successfully! (QWQ)'
-echo 'For more infomation, please read README.MD'
+echo 'Installed the vimrc configuration is successfully! (QWQ)'
