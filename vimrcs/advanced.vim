@@ -2,13 +2,24 @@
 " Last Change: 2018 June 15
 " Maintainer: Wang Zhuowei <wang.zhuowei@foxmail.com>
 
-" Plugin guard {{{
-" Only activate when in gui mode
-if !has('gui_running')
-    finish
-endif
-" }}} Plugin guard
+" Advanced key mapping {{{
+nnoremap <leader>r :call <SID>ReloadNerdAndAirline()<cr>
+" }}} Advanced key mapping
 
+" Plugin functions {{{
+" Reset cwd and reload Nerdtree and airline {{{
+function! s:ReloadNerdAndAirline()
+    let cur_bufnr = bufnr('%')
+    silent! execute ':Cwd'
+    silent! execute ':NERDTree'
+    silent! execute ':AirlineToggle'
+    silent! execute ':AirlineToggle'
+    silent! execute bufwinnr(cur_bufnr).'wincmd w'
+endfunction
+" }}} s:ReloadNerdAndAirline
+" }}} Plugin functions
+
+" Plugin setting {{{
 " Vundle setting {{{
 filetype off                  " required
 
@@ -389,8 +400,15 @@ let g:multi_cursor_quit_key            = '<Esc>'
 " Features setting {{{
 " Set the format of ctrlp's match window
 let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:10,results:10'
-" Use pwd
-let g:ctrlp_working_path_mode = 'wr'
+" Use git dir
+let g:ctrlp_working_path_mode = 'r'
+" Not clear cache
+let g:ctrlp_clear_cache_on_exit = 0
+" Set cache dir
+let g:ctrlp_cache_dir = g:vundle_rtp. '/../runtime/'
+" Set extension
+let g:ctrlp_extensions = ['tag', 'dir', 'undo']
 " }}}
 " }}} Ctrlp setting
+" }}} Plugin setting
 " vim: set et sts=2 ts=4 sw=4 tw=78 fdm=marker foldlevel=0:
