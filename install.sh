@@ -87,7 +87,7 @@ InstallAdvanced() {
     InstallBasic
     vimrc_path=~/.vimrc
     echo '" Advanced:' >> ${vimrc_path}
-    echo "let g:vundle_rtp = '${VIMRC_RTP}/bundle/Vundle.vim'" >> ${vimrc_path}
+    echo "let g:vimrc_rtp = '${VIMRC_RTP}/'" >> ${vimrc_path}
     echo "source ${VIMRC_RTP}/vimrcs/advanced.vim">> ${vimrc_path}
 }
 

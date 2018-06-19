@@ -170,7 +170,7 @@ set statusline=%<%f%h%m%r%y%=%b\ 0x%B\ \ %l/%L,%c\ %P
 " }}} Fold, tabs, windows, statusline
 " }}} Features setting
 
-" Autocmd initialization {{{
+" Basic initialization {{{
 augroup basic_initialization
     au!
     if has('win32') && has('gui_running')
@@ -178,7 +178,7 @@ augroup basic_initialization
         autocmd GUIEnter * simalt ~x
     endif
 augroup END
-" }}} Autocmd initialization
+" }}} Basic initialization
 
 " Basic key mapping {{{
 " Set leader key to comma

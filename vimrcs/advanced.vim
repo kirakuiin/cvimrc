@@ -2,21 +2,65 @@
 " Last Change: 2018 June 15
 " Maintainer: Wang Zhuowei <wang.zhuowei@foxmail.com>
 
+" Common Constant {{{
+let s:runtime_path = simplify(g:vimrc_rtp. 'runtime/')
+let s:tags_path = simplify(s:runtime_path. 'tagsdir/')
+let s:bundle_path = simplify(g:vimrc_rtp. 'bundle/')
+let s:vundle_path = simplify(s:bundle_path. 'Vundle.vim/')
+" }}} Common Constant
+
+" Advanced initialization {{{
+if exepath('ctags') !=# ''
+    execute 'set tags+='. s:tags_path. '**/tags'
+endif
+" }}} Advanced initialization
+
 " Advanced key mapping {{{
-nnoremap <leader>r :call <SID>ReloadNerdAndAirline()<cr>
+nnoremap <leader>rn :call <SID>ReloadNerd()<cr>
+nnoremap <leader>ts :call <SID>GeneTagsAndSaveit()<cr>
+nnoremap <leader>dc :call <SID>DeleteAllCache()<cr>
 " }}} Advanced key mapping
 
 " Plugin functions {{{
-" Reset cwd and reload Nerdtree and airline {{{
-function! s:ReloadNerdAndAirline()
+
+" A very simple string hash algorithm {{{
+function! s:SimpleHash(str)
+    let i = 0
+    let result = 1
+    while i < len(a:str)
+        let result = result*31 + char2nr(a:str[i])
+        let i += 1
+    endwhile
+    return string(result)
+endfunction
+" }}} s:SimpleHash
+
+" Reset cwd and reload Nerdtree {{{
+function! s:ReloadNerd()
     let cur_bufnr = bufnr('%')
     silent! execute ':Cwd'
     silent! execute ':NERDTree'
-    silent! execute ':AirlineToggle'
-    silent! execute ':AirlineToggle'
     silent! execute bufwinnr(cur_bufnr).'wincmd w'
 endfunction
-" }}} s:ReloadNerdAndAirline
+" }}} s:ReloadNerd
+
+" Generate tags and save it {{{
+function! s:GeneTagsAndSaveit()
+    if exepath('ctags') !=# ''
+        let cwdname = getcwd()
+        let tags_dir = simplify(s:tags_path. s:SimpleHash(cwdname). '/')
+        let tags_name = simplify(tags_dir. 'tags')
+        silent! execute 'call mkdir("'. tags_dir. '", "p")'
+        silent! execute 'AsyncRun ctags -R -o '. tags_name
+    endif
+endfunction
+" }}} s:GeneTagsAndSaveit
+
+" Clear all cache content {{{
+function! s:DeleteAllCache()
+    silent execute 'call delete("'. s:runtime_path. '", "rf")'
+endfunction
+" }}} s:DeleteAllCache
 " }}} Plugin functions
 
 " Plugin setting {{{
@@ -24,8 +68,8 @@ endfunction
 filetype off                  " required
 
 " set the runtime path to include Vundle and initialize
-execute 'set rtp+='. g:vundle_rtp
-call vundle#begin(g:vundle_rtp. '/..')
+execute 'set rtp+='. s:vundle_path
+call vundle#begin(s:bundle_path)
 
 " Let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
@@ -115,7 +159,7 @@ nnoremap <silent> <F2> :NERDTreeToggle<CR>
 augroup nerdtree_group
     au!
     "只剩 NERDTree时自动关闭
-    autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+    autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree")) | q | endif
     "打开新的buffer时自动清除所有旧的nerdbuffer，保留一个最新的
     autocmd bufadd * call <SID>AutoCloseOldNerdBuf()
 augroup END
@@ -175,7 +219,7 @@ augroup END
 " 开启ale扩展
 let g:airline#extensions#ale#enable = 1
 " 开启tagbar扩展
-let g:airline#extensions#tagbar#enabled = 1
+let g:airline#extensions#tagbar#enabled = 0
 let g:airline#extensions#tagbar#flags = 'f'
 let g:airline#extensions#tagbar#flags = 's'
 let g:airline#extensions#tagbar#flags = 'p'
@@ -405,8 +449,8 @@ let g:ctrlp_working_path_mode = 'r'
 " Not clear cache
 let g:ctrlp_clear_cache_on_exit = 0
 " Set cache dir
-let g:ctrlp_cache_dir = g:vundle_rtp. '/../runtime/'
-" Set extension
+let g:ctrlp_cache_dir = simplify(s:runtime_path. '.cache')
+" Set ctrlp's extension
 let g:ctrlp_extensions = ['tag', 'dir', 'undo']
 " }}}
 " }}} Ctrlp setting
