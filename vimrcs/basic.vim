@@ -170,6 +170,16 @@ set statusline=%<%f%h%m%r%y%=%b\ 0x%B\ \ %l/%L,%c\ %P
 " }}} Fold, tabs, windows, statusline
 " }}} Features setting
 
+" Autocmd initialization {{{
+augroup basic_initialization
+    au!
+    if has('win32') && has('gui_running')
+        " Full screen when open vim
+        autocmd GUIEnter * simalt ~x
+    endif
+augroup END
+" }}} Autocmd initialization
+
 " Basic key mapping {{{
 " Set leader key to comma
 let mapleader = ','
