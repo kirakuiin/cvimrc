@@ -51,7 +51,7 @@ function! s:GeneTagsAndSaveit()
         let tags_dir = simplify(s:tags_path. s:SimpleHash(cwdname). '/')
         let tags_name = simplify(tags_dir. 'tags')
         silent! execute 'call mkdir("'. tags_dir. '", "p")'
-        silent! execute 'AsyncRun ctags -R -o '. tags_name
+        silent! execute 'AsyncRun ctags --tag-relative=yes -R -o '. tags_name
     endif
 endfunction
 " }}} s:GeneTagsAndSaveit

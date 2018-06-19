@@ -30,7 +30,7 @@ Help() {
 #     None
 ########################################
 Version() {
-    echo "version 0.1"
+    echo "version 0.2"
     echo "author: wang.zhuowei@foxmail.com"
 }
 
