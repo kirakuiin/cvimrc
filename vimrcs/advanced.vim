@@ -51,7 +51,8 @@ function! s:GeneTagsAndSaveit()
         let tags_dir = simplify(s:tags_path. s:SimpleHash(cwdname). '/')
         let tags_name = simplify(tags_dir. 'tags')
         silent! execute 'call mkdir("'. tags_dir. '", "p")'
-        silent! execute 'AsyncRun ctags --tag-relative=yes -R -o '. tags_name
+        silent! execute 'AsyncRun ctags --tag-relative=yes -R -o '. tags_name.
+                    \' '. cwdname
     endif
 endfunction
 " }}} s:GeneTagsAndSaveit
@@ -451,7 +452,7 @@ let g:ctrlp_clear_cache_on_exit = 0
 " Set cache dir
 let g:ctrlp_cache_dir = simplify(s:runtime_path. '.cache')
 " Set ctrlp's extension
-let g:ctrlp_extensions = ['tag', 'dir', 'undo']
+let g:ctrlp_extensions = ['dir', 'undo']
 " }}}
 " }}} Ctrlp setting
 " }}} Plugin setting
