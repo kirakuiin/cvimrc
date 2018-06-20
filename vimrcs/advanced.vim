@@ -16,7 +16,7 @@ endif
 " }}} Advanced initialization
 
 " Advanced key mapping {{{
-nnoremap <leader>rn :call <SID>ReloadNerd()<cr>
+nnoremap <leader>nr :call <SID>ReloadNerd()<cr>
 nnoremap <leader>ts :call <SID>GeneTagsAndSaveit()<cr>
 nnoremap <leader>dc :call <SID>DeleteAllCache()<cr>
 " }}} Advanced key mapping
@@ -453,6 +453,12 @@ let g:ctrlp_clear_cache_on_exit = 0
 let g:ctrlp_cache_dir = simplify(s:runtime_path. '.cache')
 " Set ctrlp's extension
 let g:ctrlp_extensions = ['dir', 'undo']
+" Unlimit max files loaded
+let g:ctrlp_max_files = 0
+" Ignore these files
+let g:ctrlp_custom_ignore = {
+            \ 'dir':  '\v(deps|build|target|cmake|ui|setup|proxy|nginx|keepalived|db-cluster)$',
+            \ }
 " }}}
 " }}} Ctrlp setting
 " }}} Plugin setting
