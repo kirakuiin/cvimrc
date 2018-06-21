@@ -1,6 +1,7 @@
 " A set of basic configuration about vim
-" Last Change: 2018 June 15
+" Last Change: 2018 June 22
 " Maintainer: Wang Zhuowei <wang.zhuowei@foxmail.com>
+" License:This file is placed in the public domain.
 
 " Features setting {{{
 " VIM normal config {{{
@@ -73,14 +74,9 @@ set timeoutlen=500
 " Bind unamed register to clipboard
 set clipboard=unnamed
 
-" Set runtime path for VIM
+" Macos open virtual machine file system gene trash file
 if has('osx')
-    set rtp+=~/.vim
     silent execute '!rm -f ._'. expand('%:t')
-elseif has('win32')
-    set rtp+=~\.vim
-else
-    set rtp+=~/.vim
 endif
 " }}} VIM normal config
 
@@ -181,6 +177,12 @@ augroup END
 " }}} Basic initialization
 
 " Basic key mapping {{{
+" Prevent reloading and user can disable basic mapping
+if exists('g:disable_lambda_vimrc_basic_mapping')
+    finish
+endif
+let g:disable_lambda_vimrc_basic_mapping = 1
+
 " Set leader key to comma
 let mapleader = ','
 
@@ -222,89 +224,6 @@ nnoremap <leader>he :%!xxd<CR>
 
 " Quit hex editing
 nnoremap <leader>hr :%!xxd -r<CR>
-
-" Format the total file
-nnoremap <leader>s :call <SID>FormatTotalFile()<CR>
-
-" Clean the buffer that is not nerd and current buffer
-nnoremap <leader>bc :call <SID>CleanUnusedBuffer()<CR>
-
-" Shortcut for search string
-nnoremap <leader>g :set operatorfunc=<SID>VimgrepOperator<CR>g@
-vnoremap <leader>g :<c-u>call <SID>VimgrepOperator(visualmode())<CR>
 " }}} Basic key mapping
 
-" Basic custom command {{{
-" Change pwd to current work dir
-command! -nargs=0 Cwd :execute ':cd '. expand('%:p:h')
-
-" Search pattern in current work dir
-command! -nargs=1 -complete=customlist,<SID>SearchComplete Search
-            \ call <SID>SearchInFiles('<args>')
-" }}} Basic custom command
-
-" Utility functions {{{
-" Search pattern for all the files that under cwd(use vim regexp) {{{
-function! s:SearchInFiles(pattern)
-    let findpath = getcwd(). '/**' " Search files recursively
-    silent! execute 'vimgrep! /'. a:pattern. '/j '. findpath
-    copen " show result in quickfix
-endfunction
-" }}} s:SearchInFiles
-
-" Search command complete func {{{
-function! s:SearchComplete(A, L, P)
-    return ['\v', '\C', '\v\C']
-endfunction
-" }}} s:SearchComplete
-
-" Custom grep {{{
-function! s:VimgrepOperator(type)
-    let saved_unnamed_register = @"
-
-    if a:type ==# 'v'
-        normal! `<v`>y
-    elseif a:type ==# 'char'
-        normal! `[v`]y
-    else
-        return
-    endif
-
-    let pattern = shellescape(@")[1:-2]
-    call <SID>SearchInFiles(pattern)
-
-    copen " show result in quickfix
-    let @" = saved_unnamed_register
-endfunction
-" }}} s:VimgrepOperator
-
-" Format current file {{{
-function! s:FormatTotalFile()
-    "消除^M字符
-    silent! execute '%s/\r//g'
-
-    "清除末尾空格符
-    silent! execute '%s/\v\s+$//g'
-
-    "tab替换为空格符
-    retab
-endfunction
-" }}} s:FormatTotalFile
-
-" Clear all buffer execpt nerdtree and current {{{
-function! s:CleanUnusedBuffer()
-    let current_number = bufnr('%')
-    let last_number = bufnr('$')
-    let nerd_number = bufnr('NERD*')
-    let i = 1
-
-    while i <= last_number
-        if (i != current_number) && (i != nerd_number)
-            silent! execute 'bw ' . string(i)
-        endif
-        let i = i + 1
-    endwhile
-endfunction
-" }}} s:CleanUnusedBuffer
-" }}} Utility functions
-" vim: set et sts=2 ts=4 sw=4 tw=78 fdm=marker foldlevel=0:
+" vim:et:sts=2:ts=4:sw=4:tw=78:fdm=marker:foldlevel=0:

@@ -30,7 +30,7 @@ Help() {
 #     None
 ########################################
 Version() {
-    echo "version 0.2"
+    echo "version 0.3"
     echo "author: wang.zhuowei@foxmail.com"
 }
 
@@ -65,13 +65,25 @@ GetSystemInfo() {
 ########################################
 InstallBasic() {
     vimrc_path=~/.vimrc
-    echo '" A powerful vim configuration for programmers' > ${vimrc_path}
-    echo '" Last Change: 2018 June 15'>> ${vimrc_path}
+    echo '" A powerful vim configuration for programmers'> ${vimrc_path}
+    echo '" Last Change: 2018 June 22'>> ${vimrc_path}
     echo '" Maintainer: Wang Zhuowei <wang.zhuowei@foxmail.com>'>> ${vimrc_path}
-    echo '" Basic:' >> ${vimrc_path}
+    echo '" License: This file is placed in the public domain.'>> ${vimrc_path}
+    echo ''>> ${vimrc_path}
+    echo '" ====Put your custom keymapping and command here===='>> ${vimrc_path}
+    echo '" for example:'>> ${vimrc_path}
+    echo '" map jk <esc>'>> ${vimrc_path}
+    echo '" ...'>> ${vimrc_path}
+    echo ''>> ${vimrc_path}
+    echo '" Basic config:'>> ${vimrc_path}
     echo "set runtimepath+=${VIMRC_RTP}">> ${vimrc_path}
     echo "source ${VIMRC_RTP}/vimrcs/basic.vim">> ${vimrc_path}
-    echo '' >> ${vimrc_path}
+    echo ''>> ${vimrc_path}
+    echo '" ====Put your custom setting here===='>> ${vimrc_path}
+    echo '" for example:'>> ${vimrc_path}
+    echo '" set background=dark'>> ${vimrc_path}
+    echo '" ...'>> ${vimrc_path}
+    echo ''>> ${vimrc_path}
 }
 
 ########################################
@@ -86,8 +98,8 @@ InstallBasic() {
 InstallAdvanced() {
     InstallBasic
     vimrc_path=~/.vimrc
-    echo '" Advanced:' >> ${vimrc_path}
-    echo "let g:vimrc_rtp = '${VIMRC_RTP}/'" >> ${vimrc_path}
+    echo '" Advanced config:'>> ${vimrc_path}
+    echo "let g:vimrc_rtp = '${VIMRC_RTP}/'">> ${vimrc_path}
     echo "source ${VIMRC_RTP}/vimrcs/advanced.vim">> ${vimrc_path}
 }
 

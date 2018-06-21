@@ -1,6 +1,7 @@
 " A set of plugins which are useful for programmers
-" Last Change: 2018 June 15
+" Last Change: 2018 June 22
 " Maintainer: Wang Zhuowei <wang.zhuowei@foxmail.com>
+" License:This file is placed in the public domain.
 
 " Common Constant {{{
 let s:runtime_path = simplify(g:vimrc_rtp. 'runtime/')
@@ -11,17 +12,144 @@ let s:vundle_path = simplify(s:bundle_path. 'Vundle.vim/')
 
 " Advanced initialization {{{
 if exepath('ctags') !=# ''
+    " Auto load ctags file in rumtime path
     execute 'set tags+='. s:tags_path. '**/tags'
 endif
 " }}} Advanced initialization
 
+" Advanced custom command {{{
+" :Search [\v|\C]pattern {Search pattern in current work dir} {{{
+if !exists(':Search')
+    command -nargs=1 -complete=customlist,<SID>SearchComplete Search
+                \ call <SID>SearchInFiles('<args>')
+endif
+" }}} :Search
+
+" :Cwd {Change pwd to current work dir} {{{
+if !exists(':Cwd')
+    command -nargs=0 Cwd :execute ':cd '. expand('%:p:h')
+endif
+" }}} :Cwd
+" }}} Advanced custom command
+
 " Advanced key mapping {{{
-nnoremap <leader>nr :call <SID>ReloadNerd()<cr>
-nnoremap <leader>ts :call <SID>GeneTagsAndSaveit()<cr>
-nnoremap <leader>dc :call <SID>DeleteAllCache()<cr>
+" Map Impl {{{
+nnoremap <silent> <Plug>ReloadNerd :call <SID>ReloadNerd()<CR>
+nnoremap <silent> <Plug>GeneTagsAndSaveit :call <SID>GeneTagsAndSaveit()<CR>
+nnoremap <silent> <Plug>DeleteAllCache :call <SID>DeleteAllCache()<CR>
+nnoremap <silent> <Plug>FormatTotalFile :call <SID>FormatTotalFile()<CR>
+nnoremap <silent> <Plug>CleanUnusedBuffer :call <SID>CleanUnusedBuffer()<CR>
+nnoremap <silent> <Plug>IndentGuides :IndentGuidesToggle<CR>
+nnoremap <silent> <Plug>VimgrepOperator :set operatorfunc=<SID>VimgrepOperator<CR>g@
+vnoremap <silent> <Plug>VimgrepOperator :<c-u>call <SID>VimgrepOperator(visualmode())<CR>
+nnoremap <silent> <Plug>ShowNerdTree :NERDTreeToggle<CR>
+nnoremap <silent> <Plug>ShowTagBar :Tagbar<CR>
+nnoremap <silent> <Plug>ShowQuickFix :call asyncrun#quickfix_toggle(8)<CR>
+" }}} Map Impl
+
+" Map Interface {{{
+if !hasmapto('<Plug>ReloadNerd')
+    map <unique> <Leader>nr <Plug>ReloadNerd
+endif
+if !hasmapto('<Plug>GeneTagsAndSaveit')
+    map <unique> <Leader>ts <Plug>GeneTagsAndSaveit
+endif
+if !hasmapto('<Plug>DeleteAllCache')
+    map <unique> <Leader>dc <Plug>DeleteAllCache
+endif
+if !hasmapto('<Plug>FormatTotalFile')
+    map <unique> <Leader>ft <Plug>FormatTotalFile
+endif
+if !hasmapto('<Plug>CleanUnusedBuffer')
+    map <unique> <Leader>bc <Plug>CleanUnusedBuffer
+endif
+if !hasmapto('<Plug>IndentGuides')
+    map <unique> <Leader>ig <Plug>IndentGuides
+endif
+if !hasmapto('<Plug>VimgrepOperator')
+    map <Leader>g <Plug>VimgrepOperator
+    vmap <Leader>g <Plug>VimgrepOperator
+endif
+if !hasmapto('<Plug>ShowNerdTree')
+    map <unique> <F2> <Plug>ShowNerdTree
+endif
+if !hasmapto('<Plug>ShowQuickFix')
+    map <unique> <F3> <Plug>ShowQuickFix
+endif
+if !hasmapto('<Plug>ShowTagBar')
+    map <unique> <F4> <Plug>ShowTagBar
+endif
+if !hasmapto('<Plug>AirlineSelectTab1')
+    map <unique> <Leader>1 <Plug>AirlineSelectTab1
+    map <unique> <Leader>2 <Plug>AirlineSelectTab2
+    map <unique> <Leader>3 <Plug>AirlineSelectTab3
+    map <unique> <Leader>4 <Plug>AirlineSelectTab4
+    map <unique> <Leader>5 <Plug>AirlineSelectTab5
+    map <unique> <Leader>6 <Plug>AirlineSelectTab6
+    map <unique> <Leader>7 <Plug>AirlineSelectTab7
+    map <unique> <Leader>8 <Plug>AirlineSelectTab8
+    map <unique> <Leader>9 <Plug>AirlineSelectTab9
+endif
+if !hasmapto('<Plug>NERDCommenterComment')
+    map <unique> <Leader>c <Plug>NERDCommenterComment
+    map <unique> <Leader>cn <Plug>NERDCommenterNested
+    map <unique> <Leader>c<space> <Plug>NERDCommenterToggle
+    map <unique> <Leader>cm <Plug>NERDCommenterMinimal
+    map <unique> <Leader>ci <Plug>NERDCommenterInvert
+    map <unique> <Leader>cs <Plug>NERDCommenterSexy
+    map <unique> <Leader>c$ <Plug>NERDCommenterToEOL
+    map <unique> <Leader>cA <Plug>NERDCommenterAppend
+    map <unique> <Leader>ca <Plug>NERDCommenterAltDelims
+    map <unique> <Leader>cu <Plug>NERDCommenterUncomment
+endif
+" }}} Map Interface
 " }}} Advanced key mapping
 
-" Plugin functions {{{
+" Utility functions {{{
+" Format current file {{{
+function! s:FormatTotalFile()
+    " Remove ^M charactor
+    silent! execute '%s/\r//g'
+
+    " Remove tailing space
+    silent! execute '%s/\v\s+$//g'
+
+    " Replace tab with space
+    retab
+endfunction
+" }}} s:FormatTotalFile
+
+" Custom grep {{{
+function! s:VimgrepOperator(type)
+    let saved_unnamed_register = @"
+
+    if a:type ==# 'v'
+        normal! `<v`>y
+    elseif a:type ==# 'char'
+        normal! `[v`]y
+    else
+        return
+    endif
+
+    let pattern = shellescape(@")[1:-2]
+    call <SID>SearchInFiles(pattern)
+
+    copen " show result in quickfix
+    let @" = saved_unnamed_register
+endfunction
+" }}} s:VimgrepOperator
+" Custom Search command complete {{{
+function! s:SearchComplete(A, L, P)
+    return [@/, @*]
+endfunction
+" }}} s:SearchComplete
+" Search pattern for all the files that under cwd(use vim regexp) {{{
+function! s:SearchInFiles(pattern)
+    let findpath = getcwd(). '/**' " Search files recursively
+    silent! execute 'vimgrep! /'. a:pattern. '/j '. findpath
+    copen " show result in quickfix
+endfunction
+" }}} s:SearchInFiles
 
 " A very simple string hash algorithm {{{
 function! s:SimpleHash(str)
@@ -34,16 +162,6 @@ function! s:SimpleHash(str)
     return string(result)
 endfunction
 " }}} s:SimpleHash
-
-" Reset cwd and reload Nerdtree {{{
-function! s:ReloadNerd()
-    let cur_bufnr = bufnr('%')
-    silent! execute ':Cwd'
-    silent! execute ':NERDTree'
-    silent! execute bufwinnr(cur_bufnr).'wincmd w'
-endfunction
-" }}} s:ReloadNerd
-
 " Generate tags and save it {{{
 function! s:GeneTagsAndSaveit()
     if exepath('ctags') !=# ''
@@ -56,13 +174,54 @@ function! s:GeneTagsAndSaveit()
     endif
 endfunction
 " }}} s:GeneTagsAndSaveit
-
 " Clear all cache content {{{
 function! s:DeleteAllCache()
     silent execute 'call delete("'. s:runtime_path. '", "rf")'
 endfunction
 " }}} s:DeleteAllCache
-" }}} Plugin functions
+
+" Reset cwd and reload Nerdtree {{{
+function! s:ReloadNerd()
+    let cur_bufnr = bufnr('%')
+    silent! execute ':Cwd'
+    silent! execute ':NERDTree'
+    silent! execute bufwinnr(cur_bufnr).'wincmd w'
+endfunction
+" }}} s:ReloadNerd
+" Auto close unused Nerd buffer {{{
+function! s:AutoCloseOldNerdBuf()
+    let isNew = 1
+
+    let last = bufnr('$')
+    while last >= 1
+        let curBufName = bufname(last)
+
+        if (curBufName =~? "NERD_tree_*") && isNew
+            let isNew = 0
+        elseif curBufName =~? "NERD_tree_*"
+            silent! execute 'bw ' . curBufName
+        endif
+
+        let last = last - 1
+    endwhile
+endfunction
+" }}} s:AutoCloseOldNerdBuf
+" Clear all buffer execpt nerdtree and current {{{
+function! s:CleanUnusedBuffer()
+    let current_number = bufnr('%')
+    let last_number = bufnr('$')
+    let nerd_number = bufnr('NERD*')
+    let i = 1
+
+    while i <= last_number
+        if (i != current_number) && (i != nerd_number)
+            silent! execute 'bw ' . string(i)
+        endif
+        let i = i + 1
+    endwhile
+endfunction
+" }}} s:CleanUnusedBuffer
+" }}} Utility functions
 
 " Plugin setting {{{
 " Vundle setting {{{
@@ -151,11 +310,6 @@ endif
 set autoread
 " }}} Features setting
 
-" Mapping setting {{{
-" 打开或关闭目录树
-nnoremap <silent> <F2> :NERDTreeToggle<CR>
-" }}} Mapping setting
-
 " Autocmd setting {{{
 augroup nerdtree_group
     au!
@@ -165,26 +319,6 @@ augroup nerdtree_group
     autocmd bufadd * call <SID>AutoCloseOldNerdBuf()
 augroup END
 " }}} Autocmd setting
-
-" Utility functions {{{
-" 自动关闭未使用的NERD buffer
-function! s:AutoCloseOldNerdBuf()
-    let isNew = 1
-
-    let last = bufnr('$')
-    while last >= 1
-        let curBufName = bufname(last)
-
-        if (curBufName =~? "NERD_tree_*") && isNew
-            let isNew = 0
-        elseif curBufName =~? "NERD_tree_*"
-            silent! execute 'bw ' . curBufName
-        endif
-
-        let last = last - 1
-    endwhile
-endfunction
-" }}} Utility functions
 " }}} NERD-Tree setting
 
 " Tagbar setting {{{
@@ -202,10 +336,6 @@ let g:tagbar_autofocus=1
 " 自动关闭
 let g:tagbar_autoclose=1
 " }}} Features setting
-
-" Mapping setting {{{
-nnoremap <F4> :Tagbar<CR>
-" }}} Mapping setting
 
 " Autocmd setting {{{
 augroup tagbar_group
@@ -232,18 +362,6 @@ let g:airline#extensions#tabline#buffer_idx_mode = 1
 " 开启virtualenv扩展
 let g:airline#extensions#virtualenv#enabled = 1
 " }}} Features setting
-
-" Mapping setting {{{
-nmap <leader>1 <Plug>AirlineSelectTab1
-nmap <leader>2 <Plug>AirlineSelectTab2
-nmap <leader>3 <Plug>AirlineSelectTab3
-nmap <leader>4 <Plug>AirlineSelectTab4
-nmap <leader>5 <Plug>AirlineSelectTab5
-nmap <leader>6 <Plug>AirlineSelectTab6
-nmap <leader>7 <Plug>AirlineSelectTab7
-nmap <leader>8 <Plug>AirlineSelectTab8
-nmap <leader>9 <Plug>AirlineSelectTab9
-" }}} Mapping setting
 " }}} Airline setting
 
 " AsyncRun setting {{{
@@ -256,17 +374,13 @@ else
     let g:asyncrun_encs = 'utf-8'
 endif
 " }}} Features setting
-
-" Mapping setting {{{
-nnoremap <F3> :call asyncrun#quickfix_toggle(8)<CR>
-" }}} Mapping setting
 " }}} AsyncRun setting
 
 " Dash setting {{{
 " Mapping setting {{{
 " 映射dash only for macos
 if has('mac')
-    nnoremap <leader>d :Dash<CR>
+    nnoremap <Leader>d :Dash<CR>
 endif
 " }}} Mapping setting
 " }}} Dash setting
@@ -388,48 +502,20 @@ let g:NERDTrimTrailingWhitespace = 1
 " Disable default mapping
 let g:NERDCreateDefaultMappings = 0
 " }}} Features setting
-
-" Mapping setting {{{
-" Comment out the current line or text selected in visual mode.
-map <localleader>c <plug>NERDCommenterComment
-" Same as cc but forces nesting.
-map <localleader>cn <plug>NERDCommenterNested
-" Toggles the comment state of the selected line(s).
-map <localleader>c<space> <plug>NERDCommenterToggle
-" Comments the given lines using only one set of multipart delimiters.
-map <localleader>cm <plug>NERDCommenterMinimal
-" Toggles the comment state of the selected line(s) individually.
-map <localleader>ci <plug>NERDCommenterInvert
-" Comments out the selected lines with a pretty block formatted layout.
-map <localleader>cs <plug>NERDCommenterSexy
-" Comments the current line from the cursor to the end of line.
-map <localleader>c$ <plug>NERDCommenterToEOL
-" Adds comment delimiters to the end of line
-map <localleader>cA <plug>NERDCommenterAppend
-" Switches to the alternative set of delimiters.
-map <localleader>ca <plug>NERDCommenterAltDelims
-" Uncomments the selected line(s).
-map <localleader>cu <plug>NERDCommenterUncomment
-" }}} Mapping setting
 " }}} Nerdcommenter setting
 
 " Indent guide setting {{{
 " Features setting {{{
 let g:indent_guides_enable_on_vim_startup = 0
 " }}}
-
-" Mapping setting {{{
-map <leader>ig :IndentGuidesToggle<CR>
-" }}} Mapping setting
 " }}} Indent guide setting
 
 " Multiple cursors setting {{{
 " Features setting {{{
 " Disable default mapping
 let g:multi_cursor_use_default_mapping = 0
-" }}}
 
-" Mapping setting {{{
+" Redefine new map
 let g:multi_cursor_start_word_key      = '<C-n>'
 let g:multi_cursor_select_all_word_key = '<C-a>'
 let g:multi_cursor_start_key           = 'g<C-n>'
@@ -438,7 +524,7 @@ let g:multi_cursor_next_key            = '<C-n>'
 let g:multi_cursor_prev_key            = '<C-p>'
 let g:multi_cursor_skip_key            = '<C-x>'
 let g:multi_cursor_quit_key            = '<Esc>'
-" }}} Mapping setting
+" }}}
 " }}} Multiple cursors setting
 
 " Ctrlp setting {{{
@@ -462,4 +548,5 @@ let g:ctrlp_custom_ignore = {
 " }}}
 " }}} Ctrlp setting
 " }}} Plugin setting
-" vim: set et sts=2 ts=4 sw=4 tw=78 fdm=marker foldlevel=0:
+
+" vim:et:sts=2:ts=4:sw=4:tw=78:fdm=marker:foldlevel=0:
