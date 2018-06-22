@@ -140,7 +140,7 @@ endfunction
 " }}} s:VimgrepOperator
 " Custom Search command complete {{{
 function! s:SearchComplete(A, L, P)
-    return [@/, @*]
+    return [expand('<cword>'), @/, @*]
 endfunction
 " }}} s:SearchComplete
 " Search pattern for all the files that under cwd(use vim regexp) {{{
