@@ -239,10 +239,12 @@ Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-repeat'
 " Plugin on GitHub repo
 Plugin 'tpope/vim-fugitive'
-" NERD-Tree allow you explore your filesystem and to open or edit them
-Plugin 'scrooloose/nerdtree'
 " Vim plugin for intensely orgasmic commenting
 Plugin 'scrooloose/nerdcommenter'
+" NERD-Tree allow you explore your filesystem and to open or edit them
+Plugin 'scrooloose/nerdtree'
+" A NERD-Tree plugin for show git status
+Plugin 'Xuyuanp/nerdtree-git-plugin'
 " Provide an easy way to browse the tags of the current file
 Plugin 'majutsushi/tagbar'
 " A statusline mamanger
@@ -543,3 +545,4 @@ let g:ctrlp_custom_ignore = {
 " }}} Plugin setting
 
 " vim:et:sts=2:ts=4:sw=4:tw=78:fdm=marker:foldlevel=0:
+"
