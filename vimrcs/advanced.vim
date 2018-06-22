@@ -464,13 +464,6 @@ let g:ale_python_pylint_use_global = 1
 
 " Solarized setting {{{
 " Features setting {{{
-" 设置背景颜色
-if has('gui_running')
-    set background=light
-else
-    set background=dark
-endif
-
 " 设置颜色模式
 try
     colorscheme solarized

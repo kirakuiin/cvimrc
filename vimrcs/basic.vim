@@ -85,7 +85,7 @@ endif
 syntax enable
 
 " Set background color
-set background=light
+set background=dark
 
 " Set extra options when running in GUI mode
 if has('gui_running')
@@ -99,6 +99,8 @@ if has('gui_running')
     set foldlevel=1
     " Automatic fold
     set foldclose=all
+    " Light when use gvim"
+    set background=light
 
     " Don't show graphical user interface
     set guioptions=
