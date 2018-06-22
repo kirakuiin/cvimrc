@@ -3,6 +3,7 @@
 # Licensed under the Apache License 2.0
 # author: wang.zhuowei
 # Install vimrc file to your system
+
 set -e
 VIMRC_RTP=$(pwd) # vim plugin runtime path
 
@@ -65,6 +66,11 @@ GetSystemInfo() {
 ########################################
 InstallBasic() {
     vimrc_path=~/.vimrc
+    if [[ -f ${vimrc_path} ]]
+    then
+        mv ${vimrc_path} ~/.vimrc-coding.bak
+    fi
+
     echo '" A powerful vim configuration for programmers'> ${vimrc_path}
     echo '" Last Change: 2018 June 22'>> ${vimrc_path}
     echo '" Maintainer: Wang Zhuowei <wang.zhuowei@foxmail.com>'>> ${vimrc_path}
