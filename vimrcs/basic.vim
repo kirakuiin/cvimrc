@@ -185,15 +185,15 @@ if exists('g:loaded_cvimrc_basic_mapping')
 endif
 let g:loaded_cvimrc_basic_mapping = 1
 
-" Set leader key to comma
+" Set Leader key to comma
 let mapleader = ','
 
 " Set localleader key to back-slash
 let maplocalleader = '\'
 
 "Search in very magic mode
-nnoremap / /\v
-nnoremap ? ?\v
+noremap / /\v
+noremap ? ?\v
 
 " Replace esc with jk in insert mode
 inoremap jk <esc>
@@ -207,25 +207,25 @@ nnoremap <up> :cprevious<CR>
 nnoremap <down> :cnext<CR>
 
 " Open .vimrc file
-nnoremap <leader>ev :vsplit $MYVIMRC<CR>
+nnoremap <Leader>ev :vsplit $MYVIMRC<CR>
 
 " Source .vimrc file
-nnoremap <leader>sv :source $MYVIMRC<CR>
-
-" Search the string that save in the @* register
-nnoremap <leader>/ :execute "normal! /\\v" . expand(@*). "\r"<CR>
+nnoremap <Leader>sv :source $MYVIMRC<CR>
 
 " Stop highlighting for search result
-nnoremap <leader>nh :nohlsearch<CR>
-
-" Set shortcut for switch window
-nnoremap <leader><leader> <c-w>
+nnoremap <Leader>nh :nohlsearch<CR>
 
 " Hex editing
-nnoremap <leader>he :%!xxd<CR>
+nnoremap <Leader>he :%!xxd<CR>
 
 " Quit hex editing
-nnoremap <leader>hr :%!xxd -r<CR>
+nnoremap <Leader>hr :%!xxd -r<CR>
+
+" Search the string that save in the @* register
+nnoremap <Leader>/ :execute "normal! /\\v" . expand(@*). "\r"<CR>
+
+" Set shortcut for switch window
+nnoremap <Leader><Leader> <C-W>
 " }}} Basic key mapping
 
 " vim:et:sts=2:ts=4:sw=4:tw=78:fdm=marker:foldlevel=0:
