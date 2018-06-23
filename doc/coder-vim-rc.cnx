@@ -16,16 +16,17 @@
     3. 选项........................................ |coder-vimrc-options|
     4. 命令........................................ |coder-vimrc-commands|
     5. 按键绑定.................................... |coder-vimrc-mappings|
-    6. 扩展........................................ |coder-vimrc-extensions|
+    6. 插件........................................ |coder-vimrc-plugins|
+    7. 依赖........................................ |coder-vimrc-requirements|
 
 ==============================================================================
 介绍                                                     *coder-vimrc-intro*
 
-一个专门为编码而生的vimrc配置包。其中包含了对vim本身的配置`:set` , 如
-缩进, 格式, 编码, 背景, 涵盖了基本设置的方方面面; 还有一些便于编码使用的特
-殊键位映射以及命令, 如全局搜索(全面支持Vim的正则表达式|regexp|), 格式化代
-码; 最为重要的是本身集成了大量功能强大的插件, 只需要对插件有一定的了解便可
-以极大的增强编码效率。
+一个专门为编码而生的vimrc配置包(后简称|cvimrc|)。其中包含了对vim本身的配置
+|options| , 如缩进, 格式, 编码, 背景, 涵盖了基本设置的方方面面; 还有一些便
+于编码使用的特殊键位映射以及命令, 如全局搜索(全面支持Vim的正则表达式
+|regexp|), 格式化代码; 最为重要的是本身集成了大量功能强大的插件, 只需要对
+插件有一定的了解便可以极大的增强编码效率。
 
 支持终端和图形界面模式, 对于功能不齐备的Vi及Vim, 请安装基础配置。(详情参考
 |coder-vimrc-config|)
@@ -36,7 +37,7 @@
 ------------------------------------------------------------------------------
 安装:~
 
-第一步, 首先将vimrc配置包从github上拉取到任意一个目录, 假设为~/vimrcs:
+第一步, 首先将|cvimrc|从github上拉取到任意一个目录, 假设为~/vimrcs:
     git clone --recursive https://github.com/Chinazwking/vimrc ~/vimrcs
 
 第二步, 进入~/vimrcs目录, 执行脚本(以下两种命令根据情况选择一个):
@@ -52,25 +53,75 @@
 命令执行结束后, 所有插件均已安装完毕。后续的对插件的维护操作, 请参考说明
 |vundle|。
 
-注意:
-    Windows下安装可以使用git的bash模式, 此模式可以执行bash脚本, 所以不在针
-    对Windows系统编写安装脚本。
+注意: Windows下安装可以使用git的bash模式, 此模式可以执行bash脚本, 所以不在
+针对Windows系统编写安装脚本。
 
 ------------------------------------------------------------------------------
 更新:~
 
-更新vimrc配置包只需要在配置包的克隆目录输入命令即可:
+更新|cvimrc|只需要在|cvimrc|的克隆目录输入命令即可:
     git pull
 
 ------------------------------------------------------------------------------
 卸载:~
 
-卸载和更新同理, 在vimrc配置包目录输入命令:
+卸载和更新同理, 在|cvimrc|目录输入命令:
     ./uninstall.sh
 
 ==============================================================================
 选项                                                    *coder-vimrc-options*
 
+选项共由两部分组成。第一部分是|cvimrc|本身的选项, 另一部分是集成的插件所支
+持的扩展选项。对于basic版来说, 插件的扩展选项是无效的。如果想要修改这些
+选项, 请在~/.vimrc文件上进行扩展。
+
+------------------------------------------------------------------------------
+cvimrc选项:~
+
+                                    *'g:disable_lambda_vimrc_basic_mapping'*
+使用该选项来屏蔽所有|cvimrc|所有默认的|options|: >
+    let g:disable_lambda_vimrc_basic_mapping = 1
+<
+------------------------------------------------------------------------------
+插件选项:~
+
+由于插件选项较多, 因此只选择几个比较重要的选项进行说明, 如果想要进行更加
+深入全面的配置, 请参考|coder-vimrc-plugins|。
+
+                                                        |g:tagbar_ctags_bin|
+此选项用来定位ctags可执行文件的位置, 默认搜索$PATH路径, 如果您的ctags不
+位于其中, 请手动指明ctags可执行文件位置: >
+    let g:tagbar_ctags_bin = 'C:\Ctags5.8\ctags.exe'
+<
+                                                             |g:ale_linters|
+此选项用来指明默认开启的进行lint检测的语言选项, 默认开启对cpp和py的检测,
+如果想要扩展请重定义或者追加此列表, 每增加一门新的检测语言, 请自行配置需
+要的linter路径。对于支持的语言以及linter, 请参考|ale-support|: >
+    let g:ale_linters = {
+        \'cpp': ['cpplint'],
+        \'python': ['pylint'],
+        \}
+<
+                                              |g:ale_cpp_cpplint_executable|
+此选项用于定位cpplint.py的位置, 默认搜索$PATH路径, 如果不存在其中, 请手动
+指明cpplint的位置: >
+    let g:ale_cpp_cpplint_executable = '~/myconfig/cpplint.py'
+<
+                                                 |g:ale_cpp_cpplint_options|
+此选项用于设置cpplint检测代码时的选项, 请根据个人情况对其参数进行设置, 默
+认为: >
+    let g:ale_cpp_cpplint_options = '--verbose=5'
+<
+                                            |g:ale_python_pylint_executable|
+此选项用于定位pylint的位置, 默认搜索$PATH路径, 如果不存在其中, 请手动指明
+pylint的位置: >
+    let g:ale_python_pylint_executable = '~/myconfig/pylint'
+<
+                                               |g:ale_python_pylint_options|
+此选项用于设置pylint检测代码时的选项, 请根据个人情况对其参数进行设置, 默认
+为: >
+    let g:ale_python_pylint_options = '--rcfile  ~/.pylintrc'
+<
 ==============================================================================
 命令                                                   *coder-vimrc-commands*
 
@@ -78,6 +129,9 @@
 映射                                                   *coder-vimrc-mappings*
 
 ==============================================================================
-扩展                                                 *coder-vimrc-extensions*
+插件                                                    *coder-vimrc-plugins*
+
+==============================================================================
+依赖                                               *coder-vimrc-requirements*
 
 vim:tw=78:ts=4:ft=help:norl:

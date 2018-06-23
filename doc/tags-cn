@@ -1,9 +1,11 @@
+'g:disable_lambda_vimrc_basic_mapping'	coder-vim-rc.cnx	/*'g:disable_lambda_vimrc_basic_mapping'*
 coder-vimrc-commands	coder-vim-rc.cnx	/*coder-vimrc-commands*
 coder-vimrc-config	coder-vim-rc.cnx	/*coder-vimrc-config*
 coder-vimrc-content	coder-vim-rc.cnx	/*coder-vimrc-content*
-coder-vimrc-extensions	coder-vim-rc.cnx	/*coder-vimrc-extensions*
 coder-vimrc-intro	coder-vim-rc.cnx	/*coder-vimrc-intro*
 coder-vimrc-mappings	coder-vim-rc.cnx	/*coder-vimrc-mappings*
 coder-vimrc-options	coder-vim-rc.cnx	/*coder-vimrc-options*
+coder-vimrc-plugins	coder-vim-rc.cnx	/*coder-vimrc-plugins*
+coder-vimrc-requirements	coder-vim-rc.cnx	/*coder-vimrc-requirements*
 coder-vimrc.cnx	coder-vim-rc.cnx	/*coder-vimrc.cnx*
 cvimrc	coder-vim-rc.cnx	/*cvimrc*
