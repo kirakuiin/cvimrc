@@ -180,10 +180,10 @@ augroup END
 
 " Basic key mapping {{{
 " Prevent reloading and user can disable basic mapping
-if exists('g:disable_lambda_vimrc_basic_mapping')
+if exists('g:loaded_cvimrc_basic_mapping')
     finish
 endif
-let g:disable_lambda_vimrc_basic_mapping = 1
+let g:loaded_cvimrc_basic_mapping = 1
 
 " Set leader key to comma
 let mapleader = ','

@@ -148,7 +148,7 @@ cvimrc命令:~
     么当输入`:Cwd`时, 将会将当前工作目录设置为~/cur_buf。
 
                                                                    *:Search*
-:Search pattern
+:Search {pattern}
     在当前工作目录下的所有子目录及其子文件中搜索所有符合pattern的文本, 并
     将结果重定向到|location-list|中(可以使用<F3>快速打开, 关闭)。
 
@@ -179,6 +179,9 @@ cvimrc命令:~
 :PluginClean[!]
     删除已安装但是不在Vundle插件配置列表里的插件。
 
+                                                                 `:NERDTree`
+:NERDTree [<start-directory> | <bookmark>]
+    如无参数, 则默认打开当前工作目录的目录树, 否则打开指定目录或者书签。
 ==============================================================================
 映射                                                   *coder-vimrc-mappings*
 
