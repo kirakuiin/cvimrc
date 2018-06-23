@@ -53,7 +53,7 @@
 命令执行结束后, 所有插件均已安装完毕。后续的对插件的维护操作, 请参考说明
 |vundle|。
 
-注意: Windows下安装可以使用git的bash模式, 此模式可以执行bash脚本, 所以不在
+注意: Windows下安装可以使用git的bash模式, 此模式可以执行bash脚本, 所以不再
 针对Windows系统编写安装脚本。
 
 ------------------------------------------------------------------------------
@@ -79,10 +79,12 @@
 cvimrc选项:~
 
                                            *'g:loaded_cvimrc_basic_mapping'*
+默认值: 无
 使用该选项来屏蔽所有|cvimrc|所有基本的|mapping|: >
     let g:loaded_cvimrc_basic_mapping = 1
 <
                                                   *'g:cvimrc_custom_plugin'*
+默认值: 无
 使用该选项来加载存放用户自定义的|Plugin|集合的文件路径: >
     let g:cvimrc_custom_plugin = '~/my_plugin_list.vim'
 <
@@ -182,8 +184,50 @@ cvimrc命令:~
                                                                  `:NERDTree`
 :NERDTree [<start-directory> | <bookmark>]
     如无参数, 则默认打开当前工作目录的目录树, 否则打开指定目录或者书签。
+
+                                                                 `:AsyncRun`
+:AsyncRun[!] [options] {cmd} ...
+    一个非常强大的命令, 利用Vim8里提供的异步功能执行外部命令(取代`:!`),
+    关于这个命令的具体用法请参考|async.txt|。
+
+    通常执行`:!`命令会阻塞编辑器直到返回结果, 通过这个命令可以避免掉这个问
+    题, 下面这个命令可以在拉去更新的同时不阻塞你在编辑器上操作: >
+        :AsyncRun git pull
+<
 ==============================================================================
 映射                                                   *coder-vimrc-mappings*
+
+键位映射可以说是|cvimrc|里最重要的功能, 他承担了90%日常编写代码的操作, 因此
+对于插件里的映射, |cvimrc|对常用的都进行了转换, 设置为了更适用于作者的操作
+方式的映射。出于扩展的原因, 除了部分基础映射(如map jk <ESC>等), 对高级映射
+都暴露除了接口, 因此如果想要自行扩展请参考下面的文档。
+
+------------------------------------------------------------------------------
+基本映射:~
+
+这里列出的映射无法修改, 只能通过选项|g:loaded_cvimrc_basic_mapping|来进行彻底
+屏蔽。以下的<n-v>记号代表|Normal|, |Visual-mode|下可用, 其他类似记号同理
+
+jk                = |<esc>| " 输入模式下jk含义同退出|Insert-mode|   | <i>mode
+|/|                 = /\v   " 正向搜索设置为very magic模式|\v|      | <n-v>mode
+|?|                 = ?\v   " 逆向搜索设置为very magic模式|\v|      | <n-v>mode
+<left>  = `:bprevious`      " 前往前一个|buffers|                   | <n>mode
+<right> = `:bprevious`      " 前往下一个|buffers|                   | <n>mode
+<up>    = `:cprevious`      " 前往|location-list|上一条的位置       | <n>mode
+<up>    = `:cprevious`      " 前往|location-list|下一条的位置       | <n>mode
+
+|mapleader|         = ','   " <Leader>的替换值
+|maplocalleader|    = '\'   " <LocalLeader>的替换值
+<Leader>ev                " 快速打开~/.vimrc文件进行编辑        | <n>mode
+<Leader>sv                " 快速加载~/.vimrc文件使配置生效      | <n>mode
+<leader>nh                " 消除当前所有的搜索高亮'hlsearch'    | <n>mode
+<Leader>he                " 以|hex-editing|打开文本进行编辑       | <n>mode
+<Leader>hr                " 从|hex-editing|退出为正常模式         | <n>mode
+<Leader>/                 " 快速搜素在寄存器@*中的内容          | <n>mode
+<Leader><Leader>          " 窗口命令的缩写|CTRL-W|                | <n>mode
+
+------------------------------------------------------------------------------
+高级映射:~
 
 ==============================================================================
 插件                                                    *coder-vimrc-plugins*

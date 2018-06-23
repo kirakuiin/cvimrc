@@ -551,4 +551,3 @@ let g:ctrlp_custom_ignore = {
 " }}} Plugin setting
 
 " vim:et:sts=2:ts=4:sw=4:tw=78:fdm=marker:foldlevel=0:
-"
