@@ -269,6 +269,12 @@ if has('osx')
     " Dash plugin for mac
     Plugin 'rizzatti/dash.vim'
 endif
+" Users custom plugins
+if exists('g:cvimrc_custom_plugin')
+    if filereadable(expand(g:cvimrc_custom_plugin))
+        execute 'source '. g:cvimrc_custom_plugin
+    endif
+endif
 
 call vundle#end()            " required
 filetype plugin indent on    " required

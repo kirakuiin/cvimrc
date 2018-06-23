@@ -1,4 +1,7 @@
-'g:disable_lambda_vimrc_basic_mapping'	coder-vim-rc.cnx	/*'g:disable_lambda_vimrc_basic_mapping'*
+'g:cvimrc_custom_plugin'	coder-vim-rc.cnx	/*'g:cvimrc_custom_plugin'*
+'g:loaded_cvimrc_basic_mapping'	coder-vim-rc.cnx	/*'g:loaded_cvimrc_basic_mapping'*
+:Cwd	coder-vim-rc.cnx	/*:Cwd*
+:Search	coder-vim-rc.cnx	/*:Search*
 coder-vimrc-commands	coder-vim-rc.cnx	/*coder-vimrc-commands*
 coder-vimrc-config	coder-vim-rc.cnx	/*coder-vimrc-config*
 coder-vimrc-content	coder-vim-rc.cnx	/*coder-vimrc-content*
