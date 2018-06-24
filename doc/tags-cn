@@ -1,6 +1,8 @@
 'g:cvimrc_custom_plugin'	coder-vim-rc.cnx	/*'g:cvimrc_custom_plugin'*
+'g:loaded_cvimrc_advanced_mapping'	coder-vim-rc.cnx	/*'g:loaded_cvimrc_advanced_mapping'*
 'g:loaded_cvimrc_basic_mapping'	coder-vim-rc.cnx	/*'g:loaded_cvimrc_basic_mapping'*
 :Cwd	coder-vim-rc.cnx	/*:Cwd*
+:GeneTag	coder-vim-rc.cnx	/*:GeneTag*
 :Search	coder-vim-rc.cnx	/*:Search*
 coder-vimrc-commands	coder-vim-rc.cnx	/*coder-vimrc-commands*
 coder-vimrc-config	coder-vim-rc.cnx	/*coder-vimrc-config*
