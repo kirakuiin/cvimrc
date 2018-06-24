@@ -1,5 +1,5 @@
 " A set of plugins which are useful for programmers
-" Last Change: 2018 June 22
+" Last Change: 2018 June 24
 " Maintainer: Wang Zhuowei <wang.zhuowei@foxmail.com>
 " License:This file is placed in the public domain.
 
@@ -9,101 +9,6 @@ let s:tags_path = simplify(s:runtime_path. 'tagsdir/')
 let s:bundle_path = simplify(g:vimrc_rtp. 'bundle/')
 let s:vundle_path = simplify(s:bundle_path. 'Vundle.vim/')
 " }}} Common Constant
-
-" Advanced initialization {{{
-if exepath('ctags') !=# ''
-    " Auto load ctags file in rumtime path
-    execute 'set tags+='. s:tags_path. '**/tags'
-endif
-" }}} Advanced initialization
-
-" Advanced custom command {{{
-" :Search [\v|\C]pattern {Search pattern in current work dir} {{{
-if !exists(':Search')
-    command -nargs=1 -complete=customlist,<SID>SearchComplete Search
-                \ call <SID>SearchInFiles('<args>')
-endif
-" }}} :Search
-
-" :Cwd {Change pwd to current work dir} {{{
-if !exists(':Cwd')
-    command -nargs=0 Cwd :execute ':cd '. expand('%:p:h')
-endif
-" }}} :Cwd
-" }}} Advanced custom command
-
-" Advanced key mapping {{{
-" Map Impl {{{
-nnoremap <silent> <Plug>ReloadNerd :call <SID>ReloadNerd()<CR>
-nnoremap <silent> <Plug>GeneTagsAndSaveit :call <SID>GeneTagsAndSaveit()<CR>
-nnoremap <silent> <Plug>DeleteAllCache :call <SID>DeleteAllCache()<CR>
-nnoremap <silent> <Plug>FormatTotalFile :call <SID>FormatTotalFile()<CR>
-nnoremap <silent> <Plug>CleanUnusedBuffer :call <SID>CleanUnusedBuffer()<CR>
-nnoremap <silent> <Plug>IndentGuides :IndentGuidesToggle<CR>
-nnoremap <silent> <Plug>VimgrepOperator :set operatorfunc=<SID>VimgrepOperator<CR>g@
-vnoremap <silent> <Plug>VimgrepOperator :<c-u>call <SID>VimgrepOperator(visualmode())<CR>
-nnoremap <silent> <Plug>ShowNerdTree :NERDTreeToggle<CR>
-nnoremap <silent> <Plug>ShowTagBar :Tagbar<CR>
-nnoremap <silent> <Plug>ShowQuickFix :call asyncrun#quickfix_toggle(8)<CR>
-" }}} Map Impl
-
-" Map Interface {{{
-if !hasmapto('<Plug>ReloadNerd')
-    map <unique> <Leader>nr <Plug>ReloadNerd
-endif
-if !hasmapto('<Plug>GeneTagsAndSaveit')
-    map <unique> <Leader>ts <Plug>GeneTagsAndSaveit
-endif
-if !hasmapto('<Plug>DeleteAllCache')
-    map <unique> <Leader>dc <Plug>DeleteAllCache
-endif
-if !hasmapto('<Plug>FormatTotalFile')
-    map <unique> <Leader>ft <Plug>FormatTotalFile
-endif
-if !hasmapto('<Plug>CleanUnusedBuffer')
-    map <unique> <Leader>bc <Plug>CleanUnusedBuffer
-endif
-if !hasmapto('<Plug>IndentGuides')
-    map <unique> <Leader>ig <Plug>IndentGuides
-endif
-if !hasmapto('<Plug>VimgrepOperator')
-    map <Leader>g <Plug>VimgrepOperator
-    vmap <Leader>g <Plug>VimgrepOperator
-endif
-if !hasmapto('<Plug>ShowNerdTree')
-    map <unique> <F2> <Plug>ShowNerdTree
-endif
-if !hasmapto('<Plug>ShowQuickFix')
-    map <unique> <F3> <Plug>ShowQuickFix
-endif
-if !hasmapto('<Plug>ShowTagBar')
-    map <unique> <F4> <Plug>ShowTagBar
-endif
-if !hasmapto('<Plug>AirlineSelectTab1')
-    map <unique> <Leader>1 <Plug>AirlineSelectTab1
-    map <unique> <Leader>2 <Plug>AirlineSelectTab2
-    map <unique> <Leader>3 <Plug>AirlineSelectTab3
-    map <unique> <Leader>4 <Plug>AirlineSelectTab4
-    map <unique> <Leader>5 <Plug>AirlineSelectTab5
-    map <unique> <Leader>6 <Plug>AirlineSelectTab6
-    map <unique> <Leader>7 <Plug>AirlineSelectTab7
-    map <unique> <Leader>8 <Plug>AirlineSelectTab8
-    map <unique> <Leader>9 <Plug>AirlineSelectTab9
-endif
-if !hasmapto('<Plug>NERDCommenterComment')
-    map <unique> <Leader>c <Plug>NERDCommenterComment
-    map <unique> <Leader>cn <Plug>NERDCommenterNested
-    map <unique> <Leader>c<space> <Plug>NERDCommenterToggle
-    map <unique> <Leader>cm <Plug>NERDCommenterMinimal
-    map <unique> <Leader>ci <Plug>NERDCommenterInvert
-    map <unique> <Leader>cs <Plug>NERDCommenterSexy
-    map <unique> <Leader>c$ <Plug>NERDCommenterToEOL
-    map <unique> <Leader>cA <Plug>NERDCommenterAppend
-    map <unique> <Leader>ca <Plug>NERDCommenterAltDelims
-    map <unique> <Leader>cu <Plug>NERDCommenterUncomment
-endif
-" }}} Map Interface
-" }}} Advanced key mapping
 
 " Utility functions {{{
 " Format current file {{{
@@ -117,7 +22,7 @@ function! s:FormatTotalFile()
     " Replace tab with space
     retab
 endfunction
-" }}} s:FormatTotalFile
+" }}} s:FormatTotalFile()
 
 " Custom grep {{{
 function! s:VimgrepOperator(type)
@@ -142,14 +47,14 @@ endfunction
 function! s:SearchComplete(A, L, P)
     return [expand('<cword>'), @/, @*]
 endfunction
-" }}} s:SearchComplete
+" }}} s:SearchComplete(A, L, P) -> list
 " Search pattern for all the files that under cwd(use vim regexp) {{{
 function! s:SearchInFiles(pattern)
     let findpath = getcwd(). '/**' " Search files recursively
     silent! execute 'vimgrep! /'. a:pattern. '/j '. findpath
     copen " show result in quickfix
 endfunction
-" }}} s:SearchInFiles
+" }}} s:SearchInFiles(pattern: str)
 
 " A very simple string hash algorithm {{{
 function! s:SimpleHash(str)
@@ -161,24 +66,41 @@ function! s:SimpleHash(str)
     endwhile
     return string(result)
 endfunction
-" }}} s:SimpleHash
+" }}} s:SimpleHash(str: string) -> string
 " Generate tags and save it {{{
-function! s:GeneTagsAndSaveit()
+function! s:GeneTagsAndSaveit(dir, force)
+    if a:dir ==# ''
+        let cwdname = finddir('.git', '.;/')
+        " if not find .git dir, then do nothing
+        if cwdname !~# '.*\.git$'
+            return
+            " if .git in pwd, set it to pwd
+        elseif cwdname ==# '.git'
+            let cwdname = getcwd()
+        else
+            let cwdname = simplify(cwdname. '/..')
+        endif
+    else
+        let cwdname = a:dir
+    endif
+
     if exepath('ctags') !=# ''
-        let cwdname = getcwd()
         let tags_dir = simplify(s:tags_path. s:SimpleHash(cwdname). '/')
         let tags_name = simplify(tags_dir. 'tags')
+        if !a:force && isdirectory(tags_dir)
+            return
+        endif
         silent! execute 'call mkdir("'. tags_dir. '", "p")'
         silent! execute 'AsyncRun ctags --tag-relative=yes -R -o '. tags_name.
                     \' '. cwdname
     endif
 endfunction
-" }}} s:GeneTagsAndSaveit
+" }}} s:GeneTagsAndSaveit(dir: string, force: bool = v:false)
 " Clear all cache content {{{
 function! s:DeleteAllCache()
     silent execute 'call delete("'. s:runtime_path. '", "rf")'
 endfunction
-" }}} s:DeleteAllCache
+" }}} s:DeleteAllCache()
 
 " Reset cwd and reload Nerdtree {{{
 function! s:ReloadNerd()
@@ -222,6 +144,112 @@ function! s:CleanUnusedBuffer()
 endfunction
 " }}} s:CleanUnusedBuffer
 " }}} Utility functions
+
+" Advanced initialization {{{
+if exepath('ctags') !=# ''
+    " Auto load ctags file in rumtime path
+    execute 'set tags+='. s:tags_path. '**/tags'
+endif
+
+augroup advanced_group
+    autocmd!
+    " Auto gene tags file if not exists
+    autocmd VimEnter * call <SID>GeneTagsAndSaveit('', v:false)
+augroup END
+" }}} Advanced initialization
+
+" Advanced custom command {{{
+" :Search [\v|\C]pattern {Search pattern in current work dir} {{{
+if !exists(':Search')
+    command -nargs=1 -complete=customlist,<SID>SearchComplete Search
+                \ call <SID>SearchInFiles('<args>')
+endif
+" }}} :Search
+
+" :Cwd {Change pwd to current work dir} {{{
+if !exists(':Cwd')
+    command -nargs=0 Cwd :execute ':cd '. expand('%:p:h')
+endif
+" }}} :Cwd
+
+" :GeneTag [dir] {Gene tags in dir, if not find git dir by default} {{{
+if !exists(':GeneTag')
+    command -nargs=? -complete=dir GeneTag
+                \ call <SID>GeneTagsAndSaveit('<args>', v:true)
+endif
+" }}} :GeneTag
+" }}} Advanced custom command
+
+" Advanced key mapping {{{
+" Map Impl {{{
+nnoremap <silent> <Plug>ReloadNerd :call <SID>ReloadNerd()<CR>
+nnoremap <silent> <Plug>DeleteAllCache :call <SID>DeleteAllCache()<CR>
+nnoremap <silent> <Plug>FormatTotalFile :call <SID>FormatTotalFile()<CR>
+nnoremap <silent> <Plug>CleanUnusedBuffer :call <SID>CleanUnusedBuffer()<CR>
+nnoremap <silent> <Plug>IndentGuides :IndentGuidesToggle<CR>
+nnoremap <silent> <Plug>VimgrepOperator :set operatorfunc=<SID>VimgrepOperator<CR>g@
+vnoremap <silent> <Plug>VimgrepOperator :<c-u>call <SID>VimgrepOperator(visualmode())<CR>
+nnoremap <silent> <Plug>ShowNerdTree :NERDTreeToggle<CR>
+nnoremap <silent> <Plug>ShowTagBar :Tagbar<CR>
+nnoremap <silent> <Plug>ShowQuickFix :call asyncrun#quickfix_toggle(8)<CR>
+" }}} Map Impl
+
+" Map Interface {{{
+if !exists('g:loaded_cvimrc_advanced_mapping')
+    if !hasmapto('<Plug>ReloadNerd')
+        map <unique> <Leader>nr <Plug>ReloadNerd
+    endif
+    if !hasmapto('<Plug>DeleteAllCache')
+        map <unique> <Leader>dc <Plug>DeleteAllCache
+    endif
+    if !hasmapto('<Plug>FormatTotalFile')
+        map <unique> <Leader>ft <Plug>FormatTotalFile
+    endif
+    if !hasmapto('<Plug>CleanUnusedBuffer')
+        map <unique> <Leader>bc <Plug>CleanUnusedBuffer
+    endif
+    if !hasmapto('<Plug>IndentGuides')
+        map <unique> <Leader>ig <Plug>IndentGuides
+    endif
+    if !hasmapto('<Plug>VimgrepOperator')
+        map <Leader>g <Plug>VimgrepOperator
+        vmap <Leader>g <Plug>VimgrepOperator
+    endif
+    if !hasmapto('<Plug>ShowNerdTree')
+        map <unique> <F2> <Plug>ShowNerdTree
+    endif
+    if !hasmapto('<Plug>ShowQuickFix')
+        map <unique> <F3> <Plug>ShowQuickFix
+    endif
+    if !hasmapto('<Plug>ShowTagBar')
+        map <unique> <F4> <Plug>ShowTagBar
+    endif
+    if !hasmapto('<Plug>AirlineSelectTab1')
+        map <unique> <Leader>1 <Plug>AirlineSelectTab1
+        map <unique> <Leader>2 <Plug>AirlineSelectTab2
+        map <unique> <Leader>3 <Plug>AirlineSelectTab3
+        map <unique> <Leader>4 <Plug>AirlineSelectTab4
+        map <unique> <Leader>5 <Plug>AirlineSelectTab5
+        map <unique> <Leader>6 <Plug>AirlineSelectTab6
+        map <unique> <Leader>7 <Plug>AirlineSelectTab7
+        map <unique> <Leader>8 <Plug>AirlineSelectTab8
+        map <unique> <Leader>9 <Plug>AirlineSelectTab9
+    endif
+    if !hasmapto('<Plug>NERDCommenterComment')
+        map <unique> <Leader>c <Plug>NERDCommenterComment
+        map <unique> <Leader>cn <Plug>NERDCommenterNested
+        map <unique> <Leader>c<space> <Plug>NERDCommenterToggle
+        map <unique> <Leader>cm <Plug>NERDCommenterMinimal
+        map <unique> <Leader>ci <Plug>NERDCommenterInvert
+        map <unique> <Leader>cs <Plug>NERDCommenterSexy
+        map <unique> <Leader>c$ <Plug>NERDCommenterToEOL
+        map <unique> <Leader>cA <Plug>NERDCommenterAppend
+        map <unique> <Leader>ca <Plug>NERDCommenterAltDelims
+        map <unique> <Leader>cu <Plug>NERDCommenterUncomment
+    endif
+endif
+" }}} Map Interface
+" }}} Advanced key mapping
 
 " Plugin setting {{{
 " Vundle setting {{{

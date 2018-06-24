@@ -68,6 +68,36 @@
 卸载和安装同理, 在|cvimrc|目录输入命令:
     ./uninstall.sh
 
+------------------------------------------------------------------------------
+.vimrc结构:~
+
+    " 作者注释信息
+
+    " |coder-vimrc-options|里的cvimrc选项:
+    let g:cvimrc_custom_plugin = "~/.myplugin.vim"
+    ...
+    " |coder-vimrc-mappings|里的高级映射一栏的部分重定义:
+    map nr <Plug>ReloadNerd
+    ...
+
+    " <===基础配置===:
+    ...
+    source xx/xx/basic.vim
+    " :===基础配置===>
+
+    " <===高级配置===:
+    ...
+    source xx/xx/advanced.vim
+    " :===高级配置===>
+
+    " |coder-vimrc-options|里的插件选项:
+    let g:tagbar_ctags_bin = '~/ctags'
+    ...
+    " 用户自定义配置, 命令, 函数, ...:
+    set nonu
+    map a b
+    ...
+
 ==============================================================================
 选项                                                    *coder-vimrc-options*
 
@@ -78,10 +108,18 @@
 ------------------------------------------------------------------------------
 cvimrc选项:~
 
+注意: 以下的这几个cvimrc选项请放置在您的.vimrc文件的开始位置(在基础配置
+之前即可)。详情参考|coder-vimrc-config|结构。
+
                                            *'g:loaded_cvimrc_basic_mapping'*
 默认值: 无
-使用该选项来屏蔽所有|cvimrc|所有基本的|mapping|: >
+使用该选项来屏蔽所有|cvimrc|的基本|mapping|: >
     let g:loaded_cvimrc_basic_mapping = 1
+<
+                                        *'g:loaded_cvimrc_advanced_mapping'*
+默认值: 无
+使用该选项来屏蔽所有|cvimrc|的高级|mapping|: >
+    let g:loaded_cvimrc_advanced_mapping = 1
 <
                                                   *'g:cvimrc_custom_plugin'*
 默认值: 无
@@ -97,6 +135,9 @@ cvimrc选项:~
 
 由于插件选项较多, 因此只选择几个比较重要的选项进行说明, 如果想要进行更加
 深入全面的配置, 请参考|coder-vimrc-plugins|。
+
+注意: 以下的插件选项请放到您的.vimrc文件的末尾(落后于高级配置即可)。详情
+参考|coder-vimrc-config|结构。
 
                                                         |g:tagbar_ctags_bin|
 此选项用来定位ctags可执行文件的位置, 默认搜索$PATH路径, 如果您的ctags不
@@ -162,6 +203,15 @@ cvimrc命令:~
     以下命令返回当前工作目录下所有后缀为cpp的文件: >
         :Search \v.*\.cpp
 <
+                                                                  *:GeneTag*
+:GeneTag [dir]
+    在目录[dir]里调用ctags(|Exuberant_ctags|)命令, 并将生成的tags文件缓存
+    到|cvimrc|的缓存目录。如果没有指明目录, 则默认生成最近上层git目录里的
+    tags文件。如果想要开启代码跳转功能, 请在之前调用此命令生成tags。
+
+    如果您的工作项目在~/project/src, 请输入如下命令来启用代码跳转: >
+        :GeneTag ~/project/src
+<
 ------------------------------------------------------------------------------
 插件命令:~
 
@@ -191,16 +241,16 @@ cvimrc命令:~
     关于这个命令的具体用法请参考|async.txt|。
 
     通常执行`:!`命令会阻塞编辑器直到返回结果, 通过这个命令可以避免掉这个问
-    题, 下面这个命令可以在拉去更新的同时不阻塞你在编辑器上操作: >
+    题, 下面这个命令可以在拉取更新的同时不阻塞你在编辑器上操作: >
         :AsyncRun git pull
 <
 ==============================================================================
 映射                                                   *coder-vimrc-mappings*
 
 键位映射可以说是|cvimrc|里最重要的功能, 他承担了90%日常编写代码的操作, 因此
-对于插件里的映射, |cvimrc|对常用的都进行了转换, 设置为了更适用于作者的操作
+对于插件里的映射, |cvimrc|对常用的都进行了转换, 设置为了更适用于coder的操作
 方式的映射。出于扩展的原因, 除了部分基础映射(如map jk <ESC>等), 对高级映射
-都暴露除了接口, 因此如果想要自行扩展请参考下面的文档。
+都暴露了接口, 因此如果想要自行扩展请参考下面的文档。
 
 ------------------------------------------------------------------------------
 基本映射:~
@@ -211,23 +261,75 @@ cvimrc命令:~
 jk                = |<esc>| " 输入模式下jk含义同退出|Insert-mode|   | <i>mode
 |/|                 = /\v   " 正向搜索设置为very magic模式|\v|      | <n-v>mode
 |?|                 = ?\v   " 逆向搜索设置为very magic模式|\v|      | <n-v>mode
-<left>  = `:bprevious`      " 前往前一个|buffers|                   | <n>mode
-<right> = `:bprevious`      " 前往下一个|buffers|                   | <n>mode
-<up>    = `:cprevious`      " 前往|location-list|上一条的位置       | <n>mode
-<up>    = `:cprevious`      " 前往|location-list|下一条的位置       | <n>mode
+|<Left>|  = `:bprevious`      " 前往前一个|buffers|                   | <n>mode
+|<Right>| = `:bnext`          " 前往下一个|buffers|                   | <n>mode
+|<Up>|    = `:cprevious`      " 前往|location-list|上一条的位置       | <n>mode
+|<Down>|  = `:cnext`          " 前往|location-list|下一条的位置       | <n>mode
 
-|mapleader|         = ','   " <Leader>的替换值
-|maplocalleader|    = '\'   " <LocalLeader>的替换值
-<Leader>ev                " 快速打开~/.vimrc文件进行编辑        | <n>mode
-<Leader>sv                " 快速加载~/.vimrc文件使配置生效      | <n>mode
-<leader>nh                " 消除当前所有的搜索高亮'hlsearch'    | <n>mode
-<Leader>he                " 以|hex-editing|打开文本进行编辑       | <n>mode
-<Leader>hr                " 从|hex-editing|退出为正常模式         | <n>mode
-<Leader>/                 " 快速搜素在寄存器@*中的内容          | <n>mode
-<Leader><Leader>          " 窗口命令的缩写|CTRL-W|                | <n>mode
+|mapleader|         = ','   " |<Leader>|的替换值
+|maplocalleader|    = '\'   " |<LocalLeader>|的替换值
+|<Leader>|ev                " 快速打开~/.vimrc文件进行编辑        | <n>mode
+|<Leader>|sv                " 快速加载~/.vimrc文件使配置生效      | <n>mode
+|<leader>|nh                " 消除当前所有的搜索高亮'hlsearch'    | <n>mode
+|<Leader>|he                " 以|hex-editing|打开文本进行编辑       | <n>mode
+|<Leader>|hr                " 从|hex-editing|退出为正常模式         | <n>mode
+|<Leader>|/                 " 快速搜素在寄存器@*中的内容          | <n>mode
+|<Leader>||<Leader>|          " 窗口命令的缩写|CTRL-W|                | <n>mode
 
 ------------------------------------------------------------------------------
 高级映射:~
+
+高级映射指一些较为强大或者依赖于插件的功能。对于这部分提供了两种重定义的方式:
+    1. 使用|'g:loaded_cvimrc_advanced_mapping'|屏蔽全部默认映射
+    2. 重新定义部分高级映射对应的快捷键
+
+注意: 无论那种形式, 必须在高级映射加载之前设置好值, 当您编辑.vimrc文件时,
+请务必确认在正确的位置设置了对应的值, 具体请参考|coder-vimrc-config|结构。
+
+                                                           <Plug>ReloadNerd
+重新加载|NerdTree|目录到当前buffer所在目录
+    默认映射: |<Leader>|nr
+    模式: |Normal|
+
+                                                       <Plug>DeleteAllCache
+删除所有|cvimrc|运行时产生的缓存
+    默认映射: |<Leader>|dc
+    模式: |Normal|
+
+                                                      <Plug>FormatTotalFile
+格式化当前文件, 比如删除结尾空格, 去除^M记号等等
+    默认映射: |<Leader>|ft
+    模式: |Normal|
+
+                                                    <Plug>CleanUnusedBuffer
+清空除了当前buffer和|NERDTree|buffer以外的所有buffer
+    默认映射: |<Leader>|bc
+    模式: |Normal|
+
+                                                         <Plug>IndentGuides
+打开|关闭代码缩进开关
+    默认映射: |<Leader>|ig
+    模式: |Normal|
+
+                                                      <Plug>VimgrepOperator
+在当前工作目录下搜索光标下的字符或虚拟模式选中字符
+    默认映射: |<Leader>|g
+    模式: |Normal|, |Visual-mode|
+
+                                                         <Plug>ShowNerdTree
+打开|关闭|NerdTree|目录树
+    默认映射: |<F2>|
+    模式: |Normal|
+
+                                                           <Plug>ShowTagBar
+打开|关闭|tagbar|代码结构
+    默认映射: |<F3>|
+    模式: |Normal|
+
+                                                         <Plug>ShowQuickFix
+打开|关闭|location-list|
+    默认映射: |<F4>|
+    模式: |Normal|
 
 ==============================================================================
 插件                                                    *coder-vimrc-plugins*
