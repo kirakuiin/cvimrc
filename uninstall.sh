@@ -32,7 +32,7 @@ RestoreOldVimrc() {
     fi
 }
 
-RemoveVimrcAndGit
 RestoreOldVimrc
+RemoveVimrcAndGit
 
 echo 'Uninstalled the vimrc configuration is successfully! (QWQ)'
