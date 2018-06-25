@@ -3,7 +3,7 @@
 ## Table of Contents
 
 - [About](#about)
-- [Quick Start](#quick-start)
+- [Install](#install)
 - [Docs](#docs)
 
 ## About
@@ -24,7 +24,7 @@
     .vimrc-coder.bak。
 
 第三步, 如果安装的是basic版, 那么安装已经结束; 如果安装的是advanced版, 那么
-还要进行额外的插件配置, 进入vi后输入如下命令: 
+还要进行额外的插件配置, 进入vi后输入如下命令:
     :PluginInstall
 
 命令执行结束后, 所有插件均已安装完毕。后续的对插件的维护操作, 请参考说明
