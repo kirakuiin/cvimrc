@@ -4,10 +4,10 @@
 " License:This file is placed in the public domain.
 
 " Common Constant {{{
-let s:runtime_path = simplify(g:vimrc_rtp. 'runtime/')
-let s:tags_path = simplify(s:runtime_path. 'tagsdir/')
-let s:bundle_path = simplify(g:vimrc_rtp. 'bundle/')
-let s:vundle_path = simplify(s:bundle_path. 'Vundle.vim/')
+let s:runtime_path = resolve(g:vimrc_rtp. 'runtime/')
+let s:tags_path = resolve(s:runtime_path. 'tagsdir/')
+let s:bundle_path = resolve(g:vimrc_rtp. 'bundle/')
+let s:vundle_path = resolve(s:bundle_path. 'Vundle.vim/')
 " }}} Common Constant
 
 " Utility functions {{{
@@ -68,34 +68,26 @@ function! s:SimpleHash(str)
 endfunction
 " }}} s:SimpleHash(str: string) -> string
 " Generate tags and save it {{{
-function! s:GeneTagsAndSaveit(dir, force)
+function! s:GeneTagsAndSaveit(dir)
     if a:dir ==# ''
-        let cwdname = finddir('.git', '.;/')
-        " if not find .git dir, then do nothing
-        if cwdname !~# '.*\.git$'
-            return
-            " if .git in pwd, set it to pwd
-        elseif cwdname ==# '.git'
-            let cwdname = getcwd()
-        else
-            let cwdname = simplify(cwdname. '/..')
-        endif
+        let cwdname = getcwd()
     else
-        let cwdname = a:dir
+        let save_cwd = getcwd()
+        silent! execute 'cd '. a:dir
+        let cwdname = getcwd()
+        silent! execute 'cd '. save_cwd
     endif
+    echom 'cwdname='.cwdname
 
     if exepath('ctags') !=# ''
-        let tags_dir = simplify(s:tags_path. s:SimpleHash(cwdname). '/')
-        let tags_name = simplify(tags_dir. 'tags')
-        if !a:force && isdirectory(tags_dir)
-            return
-        endif
+        let tags_dir = resolve(s:tags_path. s:SimpleHash(cwdname). '/')
+        let tags_name = resolve(tags_dir. 'tags')
         silent! execute 'call mkdir("'. tags_dir. '", "p")'
         silent! execute 'AsyncRun ctags --tag-relative=yes -R -o '. tags_name.
                     \' '. cwdname
     endif
 endfunction
-" }}} s:GeneTagsAndSaveit(dir: string, force: bool = v:false)
+" }}} s:GeneTagsAndSaveit(dir: string = getcwd())
 " Clear all cache content {{{
 function! s:DeleteAllCache()
     silent execute 'call delete("'. s:runtime_path. '", "rf")'
@@ -153,8 +145,6 @@ endif
 
 augroup advanced_group
     autocmd!
-    " Auto gene tags file if not exists
-    autocmd VimEnter * call <SID>GeneTagsAndSaveit('', v:false)
 augroup END
 " }}} Advanced initialization
 
@@ -172,10 +162,10 @@ if !exists(':Cwd')
 endif
 " }}} :Cwd
 
-" :GeneTag [dir] {Gene tags in dir, if not find git dir by default} {{{
+" :GeneTag [dir] {Gene tags in dir, if not gene current dir by default} {{{
 if !exists(':GeneTag')
     command -nargs=? -complete=dir GeneTag
-                \ call <SID>GeneTagsAndSaveit('<args>', v:true)
+                \ call <SID>GeneTagsAndSaveit('<args>')
 endif
 " }}} :GeneTag
 " }}} Advanced custom command
@@ -565,7 +555,7 @@ let g:ctrlp_working_path_mode = 'r'
 " Not clear cache
 let g:ctrlp_clear_cache_on_exit = 0
 " Set cache dir
-let g:ctrlp_cache_dir = simplify(s:runtime_path. '.cache')
+let g:ctrlp_cache_dir = resolve(s:runtime_path. '.cache')
 " Set ctrlp's extension
 let g:ctrlp_extensions = ['dir', 'undo']
 " Unlimit max files loaded
