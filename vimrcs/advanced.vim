@@ -337,7 +337,7 @@ set autoread
 
 " Autocmd setting {{{
 augroup nerdtree_group
-    au!
+    autocmd!
     "只剩 NERDTree时自动关闭
     autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree")) | q | endif
     "打开新的buffer时自动清除所有旧的nerdbuffer，保留一个最新的
@@ -361,13 +361,6 @@ let g:tagbar_autofocus=1
 " 自动关闭
 let g:tagbar_autoclose=1
 " }}} Features setting
-
-" Autocmd setting {{{
-augroup tagbar_group
-    au!
-    autocmd BufNewFile,BufReadPost lvimrc.txt let b:tagbar_ignore = 1
-augroup END
-" }}} Autocmd setting
 " }}} Tagbar setting
 
 " Airline setting {{{
@@ -436,14 +429,12 @@ let g:rbpt_loadcmd_toggle = 0
 
 " Autocmd setting {{{
 augroup rainbow_parentheses_group
-    au!
-    if exists(':RainbowParenthesesToggle')
-        " Vim初始化完成后启用插件
-        autocmd VimEnter * RainbowParenthesesToggle
-        autocmd Syntax * RainbowParenthesesLoadRound
-        autocmd Syntax * RainbowParenthesesLoadSquare
-        autocmd Syntax * RainbowParenthesesLoadBraces
-    endif
+    autocmd!
+    " Vim初始化完成后启用插件
+    autocmd VimEnter * silent! :RainbowParenthesesActivate
+    autocmd Syntax * silent! :RainbowParenthesesLoadRound
+    autocmd Syntax * silent! :RainbowParenthesesLoadSquare
+    autocmd Syntax * silent! :RainbowParenthesesLoadBraces
 augroup END
 " }}} Autocmd setting
 " }}} Raindow parentheses setting
