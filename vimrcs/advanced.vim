@@ -202,7 +202,7 @@ if !exists('g:loaded_cvimrc_advanced_mapping')
     endif
     if !hasmapto('<Plug>VimgrepOperator')
         map <Leader>g <Plug>VimgrepOperator
-        vmap <Leader>g <Plug>VimgrepOperator
+        " vmap <Leader>g <Plug>VimgrepOperator
     endif
     if !hasmapto('<Plug>ShowNerdTree')
         map <unique> <F2> <Plug>ShowNerdTree
@@ -235,6 +235,10 @@ if !exists('g:loaded_cvimrc_advanced_mapping')
         map <unique> <Leader>cA <Plug>NERDCommenterAppend
         map <unique> <Leader>ca <Plug>NERDCommenterAltDelims
         map <unique> <Leader>cu <Plug>NERDCommenterUncomment
+    endif
+    if !hasmapto('<Plug>DashSearch') && has('mac')
+        map <unique> <Leader>df <Plug>DashSearch
+        map <unique> <Leader>dg <Plug>DashGlobalSearch
     endif
 endif
 " }}} Map Interface
@@ -393,15 +397,6 @@ else
 endif
 " }}} Features setting
 " }}} AsyncRun setting
-
-" Dash setting {{{
-" Mapping setting {{{
-" 映射dash only for macos
-if has('mac')
-    nnoremap <Leader>d :Dash<CR>
-endif
-" }}} Mapping setting
-" }}} Dash setting
 
 " Raindow parentheses setting {{{
 " Features setting {{{
