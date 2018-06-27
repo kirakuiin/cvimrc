@@ -74,8 +74,11 @@ set timeoutlen=500
 " Bind unamed register to clipboard
 set clipboard=unnamed
 
+" Auto read file when file was changed by external
+set autoread
+
 " Macos open virtual machine file system gene trash file
-if has('osx')
+if has('mac')
     silent execute '!rm -f ._'. expand('%:t')
 endif
 " }}} VIM normal config
@@ -106,7 +109,7 @@ if has('gui_running')
     set guioptions=
 
     " Set fond style and size
-    if has('osx')
+    if has('mac')
         set guifont=Monaco:h18
     elseif has('win32')
         set guifont=consolas:h14

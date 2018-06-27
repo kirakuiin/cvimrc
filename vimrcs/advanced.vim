@@ -286,7 +286,7 @@ Plugin 'michaeljsmith/vim-indent-object'
 Plugin 'terryma/vim-multiple-cursors'
 " A fuzzy file search engine
 Plugin 'ctrlpvim/ctrlp.vim'
-if has('osx')
+if has('mac')
     " Dash plugin for mac
     Plugin 'rizzatti/dash.vim'
 endif
@@ -335,8 +335,6 @@ let NERDTreeShowBookmarks=1
 if has('mac')
     let NERDTreeIgnore=['\.DS_Store$[[file]]']
 endif
-" 设置当文件被改动时自动载入
-set autoread
 " }}} Features setting
 
 " Autocmd setting {{{
