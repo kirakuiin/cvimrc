@@ -270,6 +270,8 @@ Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'majutsushi/tagbar'
 " A statusline mamanger
 Plugin 'bling/vim-airline'
+" Airline themes
+Plugin 'vim-airline/vim-airline-themes'
 " Async run shell command
 Plugin 'skywind3000/asyncrun.vim'
 " Rainbow parenthesss
@@ -286,6 +288,10 @@ Plugin 'michaeljsmith/vim-indent-object'
 Plugin 'terryma/vim-multiple-cursors'
 " A fuzzy file search engine
 Plugin 'ctrlpvim/ctrlp.vim'
+" A collection of language packs for Vim
+Plugin 'sheerun/vim-polyglot'
+" Automatic closing of quotes, parenthesis, brackets, etc
+Plugin 'raimondi/delimitmate'
 if has('mac')
     " Dash plugin for mac
     Plugin 'rizzatti/dash.vim'
@@ -381,6 +387,8 @@ let g:airline#extensions#tabline#buffer_idx_mode = 1
 "let g:airline#extensions#tabline#buffer_nr_show = 1
 " 开启virtualenv扩展
 let g:airline#extensions#virtualenv#enabled = 1
+" 设置主题
+let g:airline_theme='cool'
 " }}} Features setting
 " }}} Airline setting
 

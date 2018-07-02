@@ -474,10 +474,25 @@ jk                = |<esc>| " 输入模式下jk含义同退出|Insert-mode|   | 
     -sele all:  <Ctrl-a>    # 选中当前|buffers|的全部关键字, 进入多行模式
     -quit       <Esc>       # 退出虚拟多行模式
 
-                                                        nerdtree-git-plugin
+                                                       nerdtree-git-plugin
 注意: 此插件依赖于|NERDTreeAPI|和Git
 一个依托于|NERDTree|目录浏览器的插件, 可以在目录浏览器上显示各个文件的Git状
 态, 比如增加, 修改, 删除等等。
+
+                                                      |airline-themes-intro|
+注意: 此插件依赖于|airline|
+一个使用|airline-themes|接口来进行扩展的主题包, 包含了多种多样色调的主题,通
+过`:AirlineTheme` theme来临时设定主题。或者通过配置永久设置主题: >
+    let g:airline_theme='cool'
+<
+                                                              vim-polyglot
+包含大部分常见语言的语法高亮, 缩进配置, 文件类型设置的语言集合包, 是一个
+拆箱即用的插件, 可以通过如下配置来取消某个语言的设置: >
+    let g:polyglot_disabled = ['css']
+<
+                                                               |delimitmate|
+一个帮你自动闭合小括号, 中括号, 大括号等等闭合对象的插件。拥有非常多的配
+置。目前仅采用了默认设置。
 
 ==============================================================================
 依赖                                               *coder-vimrc-requirements*
