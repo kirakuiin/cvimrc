@@ -557,6 +557,25 @@ let g:ctrlp_custom_ignore = {
             \ }
 " }}}
 " }}} Ctrlp setting
+
+" Delimitmate setting {{{
+" Features setting {{{
+let delimitMate_quotes="\" '"
+let delimitMate_expand_space=1
+let delimitMate_jump_expansion=1
+let delimitMate_balance_matchpairs=1
+let delimitMate_expand_inside_quotes=1
+let delimitMate_nesting_quotes=[]
+" }}}
+
+" Autocmd setting {{{
+augroup delimitmate_group
+    autocmd!
+    autocmd filetype py let b:delimitMate_nesting_quotes=['"', "'"]
+    autocmd filetype cpp let b:delimitMate_expand_cr=1
+augroup END
+" }}} Autocmd setting
+" }}} Delimitmate setting
 " }}} Plugin setting
 
 " vim:et:sts=2:ts=4:sw=4:tw=78:fdm=marker:foldlevel=0:
