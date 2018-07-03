@@ -566,12 +566,13 @@ let delimitMate_jump_expansion=1
 let delimitMate_balance_matchpairs=1
 let delimitMate_expand_inside_quotes=1
 let delimitMate_nesting_quotes=[]
+let delimitMate_expand_cr=0
 " }}}
 
 " Autocmd setting {{{
 augroup delimitmate_group
     autocmd!
-    autocmd filetype py let b:delimitMate_nesting_quotes=['"', "'"]
+    autocmd filetype python let b:delimitMate_nesting_quotes=['"', "'"]
     autocmd filetype cpp let b:delimitMate_expand_cr=1
 augroup END
 " }}} Autocmd setting
