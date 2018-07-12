@@ -292,8 +292,10 @@ Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'sheerun/vim-polyglot'
 " Automatic closing of quotes, parenthesis, brackets, etc
 Plugin 'raimondi/delimitmate'
-" A code-completion engine for vim
-Plugin 'valloric/youcompleteme'
+if has('gui_running')
+    " A code-completion engine for vim
+    Plugin 'valloric/youcompleteme'
+endif
 if has('mac')
     " Dash plugin for mac
     Plugin 'rizzatti/dash.vim'
