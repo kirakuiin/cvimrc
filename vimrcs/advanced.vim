@@ -292,6 +292,8 @@ Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'sheerun/vim-polyglot'
 " Automatic closing of quotes, parenthesis, brackets, etc
 Plugin 'raimondi/delimitmate'
+" A code-completion engine for vim
+Plugin 'valloric/youcompleteme'
 if has('mac')
     " Dash plugin for mac
     Plugin 'rizzatti/dash.vim'
@@ -577,6 +579,15 @@ augroup delimitmate_group
 augroup END
 " }}} Autocmd setting
 " }}} Delimitmate setting
+
+" YouCompleteMe setting {{{
+" Features setting {{{
+let g:ycm_python_binary_path = 'python'
+let g:ycm_add_preview_to_completeopt = 1
+let g:ycm_autoclose_preview_window_after_completion = 1
+let g:ycm_autoclose_preview_window_after_insertion = 1
+" }}}
+" }}} YouCompleteMe setting
 " }}} Plugin setting
 
 " vim:et:sts=2:ts=4:sw=4:tw=78:fdm=marker:foldlevel=0:
