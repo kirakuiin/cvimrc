@@ -534,7 +534,6 @@ jk                = |<esc>| " 输入模式下jk含义同退出|Insert-mode|   | 
 禁用选项: >
     let g:loaded_youcompleteme = 1
 <
-
 ==============================================================================
 依赖                                               *coder-vimrc-requirements*
 
