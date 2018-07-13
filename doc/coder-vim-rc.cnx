@@ -358,6 +358,9 @@ jk                = |<esc>| " 输入模式下jk含义同退出|Insert-mode|   | 
     *123456                     ysw}        {123456}        motion sur..
     1*23456                     viwS>       <123456>        insert sur..
 
+禁用选项: >
+    let g:loaded_surround = 1
+<
                                                                     repeat
 简单描述就是使得|.|可以对用户自定义的映射生效, 用法即在你定义的映射函数里加
 如下语句: >
@@ -372,11 +375,17 @@ jk                = |<esc>| " 输入模式下jk含义同退出|Insert-mode|   | 
     :Gpull
     :Gpush
 <
+禁用选项: >
+    let g:loaded_fugitive = 1
+<
                                                                   |NERDTree|
 一个目录树浏览器, 支持对目录树中的各种元素做备份, 移动, 拷贝等操作, 额外
 支持书签管理功能。常用用法就是用<F2>来打开|关闭目录树。在目录树中的操作请
 在目录树界面输入?来查看。
 
+禁用选项: >
+    let loaded_nerd_tree = 1
+<
                                                              |NERDCommenter|
 一个帮助你在不同的文件格式里进行各种形式的灵活注释的插件。比如将本行注释,
 行尾注释, 取消注释, 切换注释模式(比如对于c++而言, // 或者 /**/)。一般用法
@@ -386,6 +395,9 @@ jk                = |<esc>| " 输入模式下jk含义同退出|Insert-mode|   | 
     foo = 1*                    ,cA         foo = 1 #       行尾注释
     def foo()*: #               ,cu         def foo():      取消注释
 
+禁用选项: >
+    let loaded_nerd_comments = 1
+<
                                                                   |asyncrun|
 注意: 只在Vim8.0以上版本生效
 一个用来发挥Vim8.0异步能力的外部命令调用插件, 使得很多耗时从而阻塞Vim编辑
@@ -404,12 +416,18 @@ jk                = |<esc>| " 输入模式下jk含义同退出|Insert-mode|   | 
 的好多状态, 比如行, 列, 编码格式, 编辑模式, 字数统计等等。并且额外支持很
 多其他插件, 用以显示各个插件特有的状态。
 
+禁用选项: >
+    let g:loaded_airline = 1
+<
                                                                     |tagbar|
 注意: 依赖ctags
 一个源代码结构浏览器, 使用ctags生成的tags进行结构展示, ctags支持的语言都
 可以浏览其代码结构, 并可以跳转到指定定义所在位置。具体用法即键入<F4>打开
 源代码结构浏览器, 然后键入?查看具体操作。
 
+禁用选项: >
+    let g:loaded_tagbar = 1
+<
                                                        rainbow-parentheses
 一个让各种括号变得五彩缤纷的插件, 可以更加方便的确认括号之间的配对关系,
 默认括号包括(), [], {}。
@@ -422,10 +440,16 @@ jk                = |<esc>| " 输入模式下jk含义同退出|Insert-mode|   | 
 必须自己进行额外的配置。这里简单说一下开启关闭检测的方式: >
     :ALEToggle
 <
+禁用选项: >
+    let g:loaded_ale_dont_use_this_in_other_plugins_please = 1
+<
                                                              |indent-guides|
 一个用于显示缩进的插件, 可以将<space>和<tab>高亮显示从而方便对齐, 开启或
 关闭此插件使用按键序列(默认关闭): >
     <Leader>ig  # indent-guide
+<
+禁用选项: >
+    let g:loaded_indent_guides = 1
 <
                                                       |indtobj-introduction|
 为Vim新增了一种新的|text-object|, 缩进对象。对于python这种依靠缩进来区分词
@@ -454,6 +478,9 @@ jk                = |<esc>| " 输入模式下jk含义同退出|Insert-mode|   | 
     <Ctrl-k>    # 在搜索结果里向上移动
     <Esc>       # 退出ctrlp
 <
+禁用选项: >
+    let g:loaded_ctrlp = 1
+<
                                                                       |dash|
 注意: 此插件只在|mac|下生效
 一个用于在Vim编辑器里快速根据文本内关键词打开Dash应用进行文档查询的工具,
@@ -462,6 +489,9 @@ jk                = |<esc>| " 输入模式下jk含义同退出|Insert-mode|   | 
     <Leader>dg  # 在所有类型的文档中(all docset)搜索当前光标关键字
     :Dash printf [cpp]  # 在cpp docset中搜索printf
     :Dash! printf       # 在所有docset中搜索printf
+<
+禁用选项: >
+    let loaded_dash = 1
 <
                                                       |vim-multiple-cursors|
 一个模拟sublime多重光标的插件, 可以方便的选取多行的多个关键字同时编辑, 这
@@ -474,16 +504,14 @@ jk                = |<esc>| " 输入模式下jk含义同退出|Insert-mode|   | 
     -sele all:  <Ctrl-a>    # 选中当前|buffers|的全部关键字, 进入多行模式
     -quit       <Esc>       # 退出虚拟多行模式
 
-                                                       nerdtree-git-plugin
-注意: 此插件依赖于|NERDTreeAPI|和Git
-一个依托于|NERDTree|目录浏览器的插件, 可以在目录浏览器上显示各个文件的Git状
-态, 比如增加, 修改, 删除等等。
-
                                                       |airline-themes-intro|
 注意: 此插件依赖于|airline|
 一个使用|airline-themes|接口来进行扩展的主题包, 包含了多种多样色调的主题,通
 过`:AirlineTheme` theme来临时设定主题。或者通过配置永久设置主题: >
     let g:airline_theme='cool'
+<
+禁用选项: >
+    let g:loaded_airline_themes = 1
 <
                                                               vim-polyglot
 包含大部分常见语言的语法高亮, 缩进配置, 文件类型设置的语言集合包, 是一个
@@ -494,11 +522,18 @@ jk                = |<esc>| " 输入模式下jk含义同退出|Insert-mode|   | 
 一个帮你自动闭合小括号, 中括号, 大括号等等闭合对象的插件。拥有非常多的配
 置。目前仅采用了默认设置。
 
+禁用选项: >
+    let g:loaded_delimitMate = 1
+<
                                                              |youcompleteme|
 注意: 此插件根据安装情况的不同依赖也有所不同
 大名鼎鼎的C-S架构补全插件, 可以补全基于多种模式进行补全(上下文, 语法...)
 , 支持多种语言(C family, py, js...), 启用C family系列语言需要一些额外的
 配置工作(如CMakeLists生成的compile_commands.json), 安装请参考ycm文档。
+
+禁用选项: >
+    let g:loaded_youcompleteme = 1
+<
 
 ==============================================================================
 依赖                                               *coder-vimrc-requirements*
@@ -516,7 +551,6 @@ git~
 依赖关系:~
     1. |vundle|
     2. |fugitive|
-    3. nerdtree-git-plugin
 
 安装方式:~
     进入网站https://git-scm.com, 根据您的系统选择合适的git进行安装。
