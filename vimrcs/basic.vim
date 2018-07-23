@@ -156,7 +156,7 @@ set autoindent
 " Smart indent
 set smartindent
 " Wrap lines
-set nowrap
+set wrap
 
 " Highlight the column that is at column 100
 execute 'set colorcolumn=80'
