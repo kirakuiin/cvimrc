@@ -264,8 +264,6 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'scrooloose/nerdcommenter'
 " NERD-Tree allow you explore your filesystem and to open or edit them
 Plugin 'scrooloose/nerdtree'
-" A NERD-Tree plugin for show git status
-Plugin 'Xuyuanp/nerdtree-git-plugin'
 " Provide an easy way to browse the tags of the current file
 Plugin 'majutsushi/tagbar'
 " A statusline mamanger

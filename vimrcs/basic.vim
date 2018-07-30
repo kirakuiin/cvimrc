@@ -129,11 +129,11 @@ set fileformats=unix,dos,mac
 
 " Backup and undo {{{
 " Turn backup off, since most stuff in CVS
-set nobackup
-set nowritebackup
-set noswapfile
-set noundofile
-set backupcopy=yes
+execute 'set nobackup'
+execute 'set nowritebackup'
+execute 'set noswapfile'
+execute 'set noundofile'
+execute 'set backupcopy=yes'
 " }}} Backup and undo
 
 " Text, tab and indent relate {{{
@@ -156,10 +156,10 @@ set autoindent
 " Smart indent
 set smartindent
 " Wrap lines
-set nowrap
+set wrap
 
 " Highlight the column that is at column 100
-set colorcolumn=80
+execute 'set colorcolumn=80'
 " }}} Text, tab and indent relate
 
 " Tabs, windows, statusline {{{
