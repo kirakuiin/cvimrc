@@ -290,7 +290,7 @@ Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'sheerun/vim-polyglot'
 " Automatic closing of quotes, parenthesis, brackets, etc
 Plugin 'raimondi/delimitmate'
-if has('gui_running') && has('python')
+if has('gui_running') && (has('python') || has('python3'))
     " A code-completion engine for vim
     Plugin 'valloric/youcompleteme'
 endif
