@@ -79,6 +79,9 @@
     " |coder-vimrc-mappings|里的高级映射一栏的部分重定义:
     map nr <Plug>ReloadNerd
     ...
+    " |coder-vimrc-plugins|里各种插件的屏蔽选项:
+    let g:loaded_airline = 1 " 屏蔽插件|airline|
+    ...
 
     " <===基础配置===:
     ...
@@ -575,6 +578,17 @@ cpplint.py pylint~
     比较推荐的安装安装方式是通过pip进行安装, 只需要输入如下命令:
         pip install cpplint [--user]
         pip install pylint [--user]
+
+------------------------------------------------------------------------------
+python~
+
+依赖关系:~
+    1. |youcompleteme|
+    2. 部分lint组件, 如cpplint, pylint
+
+安装方式:~
+    进入网站https://www.python.org/getit, 选择合适版本的python进行安装。
+    推荐使用python3
 
 ==============================================================================
 vim:tw=78:ts=4:ft=help:norl:
