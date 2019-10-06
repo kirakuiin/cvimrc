@@ -34,4 +34,4 @@
 
 ## Docs
 
-具体文档，请在进入**Vim**后, 输入*:help cvimrc*来了解关于此插件的一切。如果您的vi不支持*help*命令, 那么请在repository的doc目录下查看coder-vim-rc.cnx文档。
+具体文档，请在进入**Vim**后, 输入:*help* *cvimrc*来了解关于此插件的一切。如果您的vi不支持*help*命令, 那么请在repository的doc目录下查看coder-vim-rc.cnx文档。
