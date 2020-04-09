@@ -325,13 +325,13 @@ jk                = |<esc>| " 输入模式下jk含义同退出|Insert-mode|   | 
     默认映射: |<F2>|
     模式: |Normal|
 
-                                                           <Plug>ShowTagBar
-打开|关闭|tagbar|代码结构
+                                                         <Plug>ShowQuickFix
+打开|关闭|location-list|
     默认映射: |<F3>|
     模式: |Normal|
 
-                                                         <Plug>ShowQuickFix
-打开|关闭|location-list|
+                                                           <Plug>ShowTagBar
+打开|关闭|tagbar|代码结构
     默认映射: |<F4>|
     模式: |Normal|
 
