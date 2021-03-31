@@ -516,7 +516,7 @@ jk                = |<esc>| " 输入模式下jk含义同退出|Insert-mode|   | 
 禁用选项: >
     let g:loaded_airline_themes = 1
 <
-                                                              vim-polyglot
+                                                              |vim-polyglot|
 包含大部分常见语言的语法高亮, 缩进配置, 文件类型设置的语言集合包, 是一个
 拆箱即用的插件, 可以通过如下配置来取消某个语言的设置: >
     let g:polyglot_disabled = ['css']
@@ -536,6 +536,13 @@ jk                = |<esc>| " 输入模式下jk含义同退出|Insert-mode|   | 
 
 禁用选项: >
     let g:loaded_youcompleteme = 1
+<
+                                                                   |vftplug|
+为多种类型语言编程提供模板生成功能, 比如生成函数注释, 预编译标记等等. 如
+果想要客制化模板, 请参考其说明文档.
+
+禁用选项: >
+    let g:loaded_vftplug = 1
 <
 ==============================================================================
 依赖                                               *coder-vimrc-requirements*
