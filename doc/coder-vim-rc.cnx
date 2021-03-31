@@ -516,10 +516,12 @@ jk                = |<esc>| " 输入模式下jk含义同退出|Insert-mode|   | 
 禁用选项: >
     let g:loaded_airline_themes = 1
 <
-                                                              |vim-polyglot|
+                                                       |polyglot-vim-plugin|
 包含大部分常见语言的语法高亮, 缩进配置, 文件类型设置的语言集合包, 是一个
 拆箱即用的插件, 可以通过如下配置来取消某个语言的设置: >
     let g:polyglot_disabled = ['css']
+<
+禁用选项: >
 <
                                                                |delimitmate|
 一个帮你自动闭合小括号, 中括号, 大括号等等闭合对象的插件。拥有非常多的配
