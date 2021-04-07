@@ -4,3 +4,6 @@ bundle/*
 
 # 屏蔽运行时目录
 runtime/*
+
+# 屏蔽macos系统文件
+.DS_Store
