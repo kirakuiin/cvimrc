@@ -14,8 +14,8 @@
 
 ## Install
 
-第一步, 首先将**cvimrc**从github上拉取到任意一个目录, 假设为~/cvimrcs:
-    git clone --recursive https://github.com/Chinazwking/cvimrc ~/vimrcs
+第一步, 首先将**cvimrc**从github上拉取到任意一个目录, 假设为~/cvimrc:
+    git clone --recursive https://github.com/Chinazwking/cvimrc ~/cvimrc
 
 第二步, 进入~/vimrcs目录, 执行脚本(以下两种命令根据情况选择一个):
 

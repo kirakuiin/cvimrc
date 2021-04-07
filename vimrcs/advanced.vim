@@ -290,6 +290,8 @@ Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'sheerun/vim-polyglot'
 " Automatic closing of quotes, parenthesis, brackets, etc
 Plugin 'raimondi/delimitmate'
+" Chinese vimdoc
+Plugin 'vimcn/vimcdoc'
 " Filetype plugin collections
 Plugin 'kirakuiin/vftplug'
 if has('gui_running') && (has('python') || has('python3'))
@@ -595,6 +597,11 @@ let g:ycm_autoclose_preview_window_after_insertion = 1
 " Features setting {{{
 " }}} Features setting
 " }}} Vftplug setting
+
+" Vimcdoc setting {{{
+" Features setting {{{
+" }}} Features setting
+" }}} Vimcdoc setting
 " }}} Plugin setting
 
 " vim:et:sts=2:ts=4:sw=4:tw=78:fdm=marker:foldlevel=0:

@@ -37,8 +37,8 @@
 ------------------------------------------------------------------------------
 安装:~
 
-第一步, 首先将|cvimrc|从github上拉取到任意一个目录, 假设为~/vimrcs:
-    git clone --recursive https://github.com/Chinazwking/vimrc ~/vimrcs
+第一步, 首先将|cvimrc|从github上拉取到任意一个目录, 假设为~/cvimrc:
+    git clone --recursive https://github.com/Chinazwking/cvimrc ~/cvimrc
 
 第二步, 进入~/vimrcs目录, 执行脚本(以下两种命令根据情况选择一个):
     ./install.sh -b  # 安装basic版, 适用于终端的vi和不支持复杂功能的vim
@@ -545,6 +545,11 @@ jk                = |<esc>| " 输入模式下jk含义同退出|Insert-mode|   | 
 
 禁用选项: >
     let g:loaded_vftplug = 1
+<
+                                                                   |vimcdoc|
+vim中文文档, 使用help命令时会出现@cn为结尾的中文帮助信息.
+
+禁用选项: >
 <
 ==============================================================================
 依赖                                               *coder-vimrc-requirements*
