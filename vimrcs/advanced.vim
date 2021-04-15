@@ -13,7 +13,7 @@ let s:vundle_path = simplify(s:bundle_path. 'Vundle.vim/')
 " Utility functions {{{
 " Format current file {{{
 function! s:FormatTotalFile()
-    " Remove ^M charactor
+    " Remove charactor
     silent! execute '%s/\r//g'
 
     " Remove tailing space
@@ -24,6 +24,17 @@ function! s:FormatTotalFile()
 endfunction
 " }}} s:FormatTotalFile()
 
+" Find ctags effective path {{{
+function! s:GetCtagsPath()
+    let ctags_exe_path = exepath('ctags')
+    if ctags_exe_path ==# ''
+        if exists('g:tagbar_ctags_bin')
+            let ctags_exe_path = exepath(expand(g:tagbar_ctags_bin))
+        endif
+    endif
+    return ctags_exe_path
+endfunction
+" }}} s:GetCtagsPath
 " Custom grep {{{
 function! s:VimgrepOperator(type)
     let saved_unnamed_register = @"
@@ -78,11 +89,12 @@ function! s:GeneTagsAndSaveit(dir)
         silent! execute 'cd '. save_cwd
     endif
 
-    if exepath('ctags') !=# ''
+    let ctags_bin = s:GetCtagsPath()
+    if ctags_bin !=# ''
         let tags_dir = simplify(s:tags_path. s:SimpleHash(cwdname). '/')
         let tags_name = simplify(tags_dir. 'tags')
         silent! execute 'call mkdir("'. tags_dir. '", "p")'
-        silent! execute 'AsyncRun ctags --tag-relative=yes -R -o '. tags_name.
+        silent! execute 'AsyncRun '. ctags_bin. ' --tag-relative=yes -R -o '. tags_name.
                     \' '. cwdname
     endif
 endfunction
@@ -137,10 +149,8 @@ endfunction
 " }}} Utility functions
 
 " Advanced initialization {{{
-if exepath('ctags') !=# ''
-    " Auto load ctags file in rumtime path
-    execute 'set tags+='. s:tags_path. '**/tags'
-endif
+" Auto load ctags file in rumtime path
+execute 'set tags+='. s:tags_path. '**/tags'
 
 augroup advanced_group
     autocmd!
