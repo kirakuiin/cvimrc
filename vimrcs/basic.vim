@@ -194,9 +194,9 @@ let mapleader = ','
 " Set localleader key to back-slash
 let maplocalleader = '\'
 
-"Search in very magic mode
-noremap / /\v
-noremap ? ?\v
+"Search in normal mode
+noremap / /
+noremap ? ?
 
 " Replace esc with jk in insert mode
 inoremap jk <esc>
